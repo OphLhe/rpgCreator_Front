@@ -1,0 +1,64 @@
+.navbar{
+    width: 100% ;
+    background-color: #D9D9D9;
+    border-bottom: 1px solid black;
+    padding: 0 1%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.logo{
+    width:50px;
+    height: 50px
+}
+
+.titre{
+    display: flex;
+    flex-direction: column;
+}
+
+.navbarBrand {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+}
+
+.navText {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+}
+
+.navbar-collapse{
+    text-align: center;
+}
+
+.navButton{
+    padding: 0.5rem 0 ;
+}
+
+.navLink:hover{
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    transition: all 0.2s ease-in-out;
+}
+
+
+p{
+    margin: 0;
+    padding: 0 0 0 10px;
+}
+
+.navLink{
+    font-size: small;
+}
+
+@media only screen and (max-width: 1200px) {
+    .navbar-toggler{
+        background-color: #D9D9D9 !important;
+    }
+}
