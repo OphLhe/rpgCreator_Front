@@ -52,6 +52,20 @@ span{
   animation-iteration-count:infinite; 
 }
 
+.genreBanner{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.genreCard{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 1px solid black;
+}
+
+
 @keyframes bounce { 
     50% { transform: translateY(10px); } 
     100% { transform: translateY(10px); } 

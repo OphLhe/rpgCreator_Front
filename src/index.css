@@ -1,3 +1,7 @@
+*{
+    font-family: 'Google Sans Code'
+}
+
 body, html {
     margin: 0;
     padding: 0;
@@ -20,9 +24,7 @@ Button:active{
   box-shadow: none;
 }
 
-*{
-    font-family: 'Google Sans Code'
-}
+
 
 input{
     background-color: #3B4449;
