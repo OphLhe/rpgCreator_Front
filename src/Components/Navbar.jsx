@@ -4,10 +4,17 @@ import logo from '../Assets/logo_Gemini.png';
 import '../Styles/navbar.css';
 import '../index.css';
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const NavBar = () => {
 
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+
+    const logOut = () => {
+      localStorage.removeItem('token');
+      alert('disconnected successfully')
+    };
 
   return (
     <>
@@ -31,7 +38,14 @@ const NavBar = () => {
                     <Nav.Link className="navLink" href="Lancé de dès">Lancé de dès</Nav.Link>
                 </Nav>
                 <div className="navButton ms-auto">
-                  <Button onClick={() => navigate('/register')}>Connexion</Button>
+                  
+                  {token? (
+                    <>
+                    <p>Bienvenue</p>
+                    <Button onClick={logOut}>Déconnexion</Button>
+                    </>
+                  ):<Button onClick={() => navigate('/register')}>Connexion</Button>}
+
                 </div>  
             </Navbar.Collapse>
       </Navbar>

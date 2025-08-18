@@ -1,7 +1,7 @@
 import API from './api';
 
-export const connexion = (data) => API.post(`/register`, `/login`, data);
-// export const login = (data) => API.post(`/login`, data)
+export const register = (data) => API.post(`/register`, data);
+export const login = (data) => API.post(`/login`, data)
 export const getUserProfile = () => API.get(`/profile`, {
     headers: {  
         Authorization: `${localStorage.getItem('token')}` 
