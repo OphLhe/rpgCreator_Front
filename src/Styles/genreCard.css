@@ -1,0 +1,87 @@
+.genreBanner{
+    width: 90%;
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+.genreCard{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.genreCardUnique{
+    width: 100%;
+    height: 500px;
+} 
+
+.genreCardContent{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.textGenreCard{
+    border-radius: 10px;
+    background-color: #3b44497a   ;
+    backdrop-filter: blur(3px);
+    height: 50%;
+    padding: 0 1% ;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;   
+    text-align: center; 
+    font-size: 1.5rem;
+    color: #D9D9D9;
+}
+
+.pictureGenreCard{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.genreCardContent img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+}
+
+.genreCardContent:hover img{
+    transform: scale(1.15);
+}
+
+#overlay{
+    position: absolute;
+    backdrop-filter: blur(2px);
+    background-color: rgba(0, 0, 0, 0.2);
+    opacity: 0;
+}
+
+.genreCardContent:hover #overlay{
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+
+    .genreCard, .genreCardUnique{
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .textGenreCard{
+        width: 80%;
+        margin-top: 10px;
+    }
+}

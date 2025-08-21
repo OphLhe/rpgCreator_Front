@@ -14,6 +14,7 @@ const NavBar = () => {
     const logOut = () => {
       localStorage.removeItem('token');
       alert('disconnected successfully')
+      navigate('/');
     };
 
   return (
@@ -24,7 +25,7 @@ const NavBar = () => {
                 src={logo} 
                 alt="Logo RPG Creator" />
               <div className="titre">
-                <p>LoreCrafters: </p>
+                <p>Lore Crafters: </p>
                 <p>a dice story</p>
               </div>
             </Navbar.Brand>

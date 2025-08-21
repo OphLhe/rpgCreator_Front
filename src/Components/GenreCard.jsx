@@ -1,15 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../Styles/genreCard.css'
-import genreInputs from '../Utils/genreInputsColors'
 
-const GenreCard = ({genreName}) => {
-
-    const color = genreInputs[genreName] || '#D9D9D9'
+const GenreCard = ({genreName, genrePicture}) => {
 
     return (
     <>
-        <div className='genreCard'
-        style={{backgroundColor:color}}>{genreName}</div>
+        <div className='genreCardUnique'>
+            <div className='genreCardContent'>
+                <img src={`http://localhost:3000/pictures/${genrePicture}`}
+                className='pictureGenreCard'
+                alt="" />
+                <span className='textGenreCard' id='overlay'>{genreName}</span>
+            </div>
+        </div>
     </>
     )
 }

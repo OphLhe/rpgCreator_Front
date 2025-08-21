@@ -37,8 +37,8 @@ const Footer = () => {
             </section>
 
             <section className='droits'>
-                <span>&copy; 2025-RPG Creator - Tous droit réservés -</span>
-                <span>Créé et conçu par <a href="https://www.linkedin.com/in/ophelie-lhermitte-846931154/">Lhermitte Ophélie</a></span>
+                <span>&copy; 2025-Lore Crafters - Tous droit réservés </span>
+                <span>Créé et conçu par :<a href="https://www.linkedin.com/in/ophelie-lhermitte-846931154/"> Lhermitte Ophélie </a> </span>
             </section>
             
         </footer>
