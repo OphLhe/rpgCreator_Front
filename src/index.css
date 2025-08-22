@@ -10,21 +10,19 @@ body, html {
     background-color: #D9D9D9 !important;
 }
 
-Button{
+Button, .Button{
     background-color:#3B4449 !important;
     border: none !important;
 }
 
-Button:hover{
+Button:hover, .Button:hover{
     box-shadow: 1px 1px 5px #546060;
 }
 
-Button:active{
+Button:active, .Button:active{
   transform: translateY(1.5px) ;
   box-shadow: none;
 }
-
-
 
 input{
     background-color: #3B4449;

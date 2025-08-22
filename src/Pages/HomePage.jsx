@@ -29,30 +29,37 @@ const HomePage = () => {
     return ( 
         <>
         
-        <header>
-            <section className='heroHeader'>
-                <div className='heroHeaderText'>
-                    <span className='textHome'>Libérez votre créativité au service de mondes imaginaires dont vous êtes le créateur</span>
-                </div>
-           </section>
-            <div className='headerText'>
-                <span className='textHome'>
-                    Lore Crafters vous permet de créer vos propres histoires, votre propre lore à destination du jeu de rôle. Création d’histoires, de personnages,de PNJ etc...
-                </span>
-            </div>
-        </header>
+            <header>
+                <section className='heroHeader'>
+                    <div className='heroHeaderText'>
+                        <span className='textHome'>Libérez votre créativité au service de mondes imaginaires dont vous êtes le maître</span>
+                    </div>
+                </section>
+            </header>
 
-        <main className='genreChoice'>
-            <h4>Choisissez votre Univers</h4>
-            <FontAwesomeIcon icon={faAnglesDown} size="2xl" className='arrowDown' /> 
-            <div className='genreBanner'>
-                <div className='genreCard'>
-                    {genres.map((g) => (
-                        <GenreCard key={g.genreName} genreName={g.genreName} genrePicture={g.genrePicture}/>
-                    ))}
-                </div>
-            </div>
-        </main>
+            <main>
+                <section className='headerText'>
+                    <span className='textHome'>
+                        Devenez "Lore Crafters": créez vos propres histoires, vos propres lore à destination du jeu de rôle. Avec Lore Crafters, vous ne faites pas que suivre les règles d'un jeu, vous vous les approppriez pour créer un univers qui vous ressemble.
+                    </span>
+                        
+                </section>
+                <section className='textSection'>
+                    <span className='textHome'>Explorez, créez, partagez et jouez dans des univers uniques. Que vous soyez un maître du jeu chevronné ou un novice enthousiaste, Lore Crafters est votre plateforme pour donner vie à vos idées les plus folles.</span>
+                </section>
+            
+                <article className='genreChoice'>
+                    <h4>Choisissez votre Univers</h4>
+                    <FontAwesomeIcon icon={faAnglesDown} size="2xl" className='arrowDown' /> 
+                    <div className='genreBanner'>
+                        <div className='genreCard'>
+                            {genres.map((g) => (
+                                <GenreCard key={g.genreName} genreName={g.genreName} genrePicture={g.genrePicture}/>
+                            ))}
+                        </div>
+                    </div>
+                </article>
+            </main>
 
         </>
 

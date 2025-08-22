@@ -7,7 +7,7 @@ const GenreCard = ({genreName, genrePicture}) => {
     <>
         <div className='genreCardUnique'>
             <div className='genreCardContent'>
-                <img src={`http://localhost:3000/pictures/${genrePicture}`}
+                <img src={`http://192.168.1.39:3000/pictures/${genrePicture}`}
                 className='pictureGenreCard'
                 alt="" />
                 <span className='textGenreCard' id='overlay'>{genreName}</span>
