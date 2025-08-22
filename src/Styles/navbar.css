@@ -1,6 +1,6 @@
 .navbar{
     width: 100% ;
-    background-color: #D9D9D9;
+    background-color: #3B4449;
     border-bottom: 1px solid black;
     padding: 0 1%;
     display: flex;
@@ -53,17 +53,20 @@
 }
 
 .navLink:hover{
-    font-weight: bold;
+    font-weight: bolder;
+    color: #D9D9D9;
     transition: all 0.2s ease-in-out;
 }
 
 
 p{
     margin: 0;
+    color: #D9D9D9;
 }
 
 .navLink{
     font-size: small;
+    color: #D9D9D9;
 }
 
 @media only screen and (max-width: 1200px) {

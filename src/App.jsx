@@ -5,6 +5,7 @@ import HomePage from './Pages/HomePage'
 import NavBar from './Components/Navbar'
 import ConnexionPage from './Pages/ConnexionPage'; 
 import Footer from './Components/Footer';
+import CreationPage from './Pages/CreationPage';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path='/' element={<HomePage/>}/>
           <Route path='/register' element={<ConnexionPage/>}/>
           <Route path='/login' element={<ConnexionPage/>}/>
+          <Route path='/genreById/:idGenre' element={<CreationPage/>}/>
         </Routes>
         <Footer/>
       </Router>

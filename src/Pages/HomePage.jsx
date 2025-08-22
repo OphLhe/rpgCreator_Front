@@ -1,14 +1,17 @@
 import '../Styles/homePage.css'
 import '../Styles/genreCard.css'
+import '../index.css'
+import { Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAnglesDown } from '@fortawesome/free-solid-svg-icons/faAnglesDown';
 import { useEffect, useState } from 'react';
 import GenreCard from '../Components/genreCard';
 import { genre } from '../Services/genreServices';
+import { useNavigate } from 'react-router-dom';
 
 
 const HomePage = () => {
-
+    const navigate = useNavigate();
     const [genres, setGenre] = useState([])
 
     const fetchGenre = async ()=>{
@@ -52,11 +55,15 @@ const HomePage = () => {
                     <h4>Choisissez votre Univers</h4>
                     <FontAwesomeIcon icon={faAnglesDown} size="2xl" className='arrowDown' /> 
                     <div className='genreBanner'>
-                        <div className='genreCard'>
+                        <Nav.Link className='genreCard'>
                             {genres.map((g) => (
-                                <GenreCard key={g.genreName} genreName={g.genreName} genrePicture={g.genrePicture}/>
+                                <GenreCard key={g.genreName}
+                                genreName={g.genreName} 
+                                genrePicture={g.genrePicture}
+                                idGenre={g.idGenre}
+                                className='genreCardHome'/>
                             ))}
-                        </div>
+                        </Nav.Link>
                     </div>
                 </article>
             </main>

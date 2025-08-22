@@ -10,6 +10,12 @@ const NavBar = () => {
 
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
+  let userName = ''
+
+  if (token) {
+    userName = jwtDecode(token).nickname;
+    console.log(userName);
+  }
 
     const logOut = () => {
       localStorage.removeItem('token');
@@ -42,7 +48,7 @@ const NavBar = () => {
                   
                   {token? (
                     <>
-                    <p>Bienvenue</p>
+                    <p>Bienvenue {userName}</p>
                     <Button onClick={logOut}>Déconnexion</Button>
                     </>
                   ):<Button onClick={() => navigate('/register')}>Connexion</Button>}
