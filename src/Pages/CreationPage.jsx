@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
 import '../index.css'
 import '../Styles/genreCard.css'
+import '../Styles/creationPage.css'
 import { genreById } from '../Services/genreServices';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import GenreCard from '../Components/genreCard';
-
+import { Alert, Button } from 'react-bootstrap';
 
 const CreationPage = () => {
 
+    const navigate = useNavigate()
     const [genres, setGenre] = useState([])
     const {idGenre} = useParams(); 
-
+    const token = localStorage.getItem('token')
     const fetchGenreById = async ()=>{
 
         try {
@@ -32,19 +34,32 @@ const CreationPage = () => {
         <>
 
             <h1>Création page </h1>
-
-            <div className='genreBannerCreation'>
-                <div className='genreCreationBanner'>
-                    {genres.map((g) => (
-                        <GenreCard key={g.genreName}
-                        genreName={g.genreName}
-                        genrePicture={g.genrePicture}
-                        className='genreCardCreation'
-                        />
-                    ))}
-                </div>
-            </div>
-            
+            {token? (
+                <>
+                    <div className='genreBannerCreation'>
+                        <div className='genreCreationBanner'>
+                            {genres.map((g) => (
+                                <GenreCard key={g.genreName}
+                                genreName={g.genreName}
+                                genrePicture={g.genrePicture}
+                                className='genreCardCreation'
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </>
+            ): <div className='noTokenCreation'>
+                    <Alert >
+                        <Alert.Heading>Bienvenue sur la page de création</Alert.Heading>
+                            <p>
+                                Veuillez vous connecter pour accéder à la page de création de contenu.
+                            </p>
+                            <hr />
+                            <Button onClick={() => {navigate('/register')}}>
+                                Aller sur la page de connexion
+                            </Button>
+                        </Alert>
+                    </div>}
         </>
      );
 }

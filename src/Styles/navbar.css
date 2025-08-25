@@ -50,11 +50,14 @@
 
 .navButton p{
     padding: 0;
+    font-size: 0.8rem;
 }
 
 .navLink:hover{
     font-weight: bolder;
     color: #D9D9D9;
+    text-decoration: underline;
+    text-underline-offset: 5px;
     transition: all 0.2s ease-in-out;
 }
 

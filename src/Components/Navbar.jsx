@@ -5,17 +5,23 @@ import '../Styles/navbar.css';
 import '../index.css';
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { useEffect, useState } from "react";
+import { verifyToken } from "../Services/tokenServices";
 
 const NavBar = () => {
 
   const navigate = useNavigate();
+  
   const token = localStorage.getItem('token');
   let userName = ''
+  const goodToken = verifyToken(token)
 
-  if (token) {
-    userName = jwtDecode(token).nickname;
-    console.log(userName);
-  }
+    if (goodToken) {
+      userName = jwtDecode(token).nickname;
+      console.log(userName);
+    }else{
+      localStorage.removeItem('token');
+    }
 
     const logOut = () => {
       localStorage.removeItem('token');
@@ -58,6 +64,6 @@ const NavBar = () => {
       </Navbar>
     </>
   );
-};
+}
 
 export default NavBar;
