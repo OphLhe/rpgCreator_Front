@@ -1,18 +1,58 @@
-
-.noTokenCreation{
+.tabsCreation{
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tabs, .tab{
+    width: 90%;
+    margin-top: 1%;
+}
+
+.nav-link{
+    color: #D9D9D9;
+}
+
+.nav-item{
+    border: 1px solid;
+}
+
+.nav-item:hover{
+    border-radius: 10px 10px 0px 0px;
+}
+
+.nav-link:hover{
+    color: #D9D9D9;
+    text-decoration: underline;
+}
+
+.tab-content{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    border: 1px solid;
+}
+
+.buttonForm{
     display: flex;
     justify-content: center;
 }
 
-.fade{
-    width: 70%;
-    background-color: #d9d9d96e;
-    border: none;
-    box-shadow: black 3px 3px 10px;
+.creationButton{
+    width: 50%;
+    margin: 5% 0%;
+    border: none ;
 }
 
-.alert-heading{
-    color: #D9D9D9;
-    text-decoration: underline;
+.creationButton:hover{
+    box-shadow: 1px 1px 5px #D9D9D9 ;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.creationButton:active{
+    transform: translateY(1.5px) ;
+    box-shadow: none;
 }

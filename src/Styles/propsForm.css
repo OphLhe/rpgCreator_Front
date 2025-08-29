@@ -1,0 +1,34 @@
+.formProps{
+    display: flex;
+    flex-direction: column;
+}
+
+.infoProps{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid;
+    padding-bottom: 2%;
+}
+
+.infoProps label{
+    margin-top: 5%;
+}
+
+.nameProps{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.nameProps input{
+    width: 50%;
+    padding: 0.3rem;
+}
+
+@media screen and (max-width: 768px) {
+
+    .nameProps input{
+        width: 100%;
+    }
+
+}

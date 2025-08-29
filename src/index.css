@@ -11,30 +11,17 @@ body, html {
     color: #D9D9D9 !important;
 }
 
-Button, .Button{
-    background-color:#D9D9D9 !important;
-    color: black !important;
-    border: none !important;
-}
-
-Button:hover, .Button:hover{
-    box-shadow: 1px 1px 5px #D9D9D9 ;
-}
-
-Button:active, .Button:active{
-  transform: translateY(1.5px) ;
-  box-shadow: none;
-}
-
-input{
-    background-color: #D9D9D9;
+input, .inputTextarea, .formConnexion input, .inputPassword{
     opacity: 80%;
     border-radius: 5px;
     border: none;
-    padding: 2%;
     color: black;
 }
 
 label{
-    margin-top: 5%;
+    margin-top: 3%;
+}
+
+h3{
+    margin: 0;
 }

@@ -1,6 +1,6 @@
 import API from './api';
 
-export const createWeapon = (data) => API.post('/addWeapon', data,{
+export const createWeapon = (idGenre, data) => API.post(`/addWeapon/${idGenre}`, data,{
      headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }

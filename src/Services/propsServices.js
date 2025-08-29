@@ -1,6 +1,6 @@
 import API from './api';
 
-export const createProps = (data) => API.post('/addProps', data,{
+export const createProps = (idGenre, data) => API.post(`/addProps/${idGenre}`, data,{
      headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }
@@ -20,4 +20,3 @@ export const deleteProps = (idUser) => API.delete(`/props/delete/${idUser}`, {
         Authorization: `${localStorage.getItem('token')}` 
     }
 })
-

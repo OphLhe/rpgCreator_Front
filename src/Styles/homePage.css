@@ -53,6 +53,12 @@ main{
     align-items: center;   
 }
 
+.textHome{
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+
 .headerText {
     margin-top: 3%;
     padding: 3%;
@@ -63,7 +69,6 @@ main{
 .genreChoice{
     margin-top: 5%;
 }
-
 
 .arrowDown{
   animation-name: bounce; 

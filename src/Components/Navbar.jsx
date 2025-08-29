@@ -5,7 +5,6 @@ import '../Styles/navbar.css';
 import '../index.css';
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { useEffect, useState } from "react";
 import { verifyToken } from "../Services/tokenServices";
 
 const NavBar = () => {
@@ -55,9 +54,9 @@ const NavBar = () => {
                   {token? (
                     <>
                     <p>Bienvenue {userName}</p>
-                    <Button onClick={logOut}>Déconnexion</Button>
+                    <Button className='Button' onClick={logOut}>Déconnexion</Button>
                     </>
-                  ):<Button onClick={() => navigate('/register')}>Connexion</Button>}
+                  ):<Button className='Button' onClick={() => navigate('/register')}>Connexion</Button>}
 
                 </div>  
             </Navbar.Collapse>

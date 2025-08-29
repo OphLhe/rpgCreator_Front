@@ -1,0 +1,61 @@
+.formArmour{
+    display: flex;
+    flex-direction: column;
+}
+
+.infoArmour{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid;
+    padding-bottom: 2%;
+}
+
+.infoArmour label{
+    margin-top: 5%;
+}
+
+.nameClassArmour{
+    display: flex;
+    flex-direction: row;
+    align-items: first baseline;
+}
+
+.nameArmour{
+    width: 100%;
+}
+
+.nameArmour input{
+    width: 50%;
+    padding: 0.3rem;
+}
+
+.classArmourInput{
+    width: 20%;
+    padding: 0.3rem;
+    text-align: center;
+}
+
+@media screen and (max-width: 1200px) {
+    .nameClassArmour{
+        display: flex;
+        align-items: end;
+    }
+}
+@media screen and (max-width: 768px) {
+    .nameClassArmour{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .nameArmour{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nameArmour input{
+        width: 100%;
+    }
+   
+}

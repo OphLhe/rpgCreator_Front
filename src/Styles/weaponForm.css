@@ -1,0 +1,60 @@
+.formWeapon{
+    display: flex;
+    flex-direction: column;
+}
+
+.infoWeapon{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid;
+    padding-bottom: 2%;
+}
+
+.infoWeapon label{
+    margin-top: 3%;
+}
+
+.nameWeapon{
+   width: 47.5%;
+   padding: 0.3rem;
+}
+
+.typeRangeWeapon{
+    display: flex;
+    flex-direction: row;
+    align-items: first baseline;
+    gap: 5%;
+}
+
+.rangeWeapon, .typeWeapon{
+    width: 66%;
+}
+
+.typeRangeWeapon input{
+    width: 100%;
+    padding: 0.3rem;
+}
+
+.classArmourInput{
+    width: 20%;
+    text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+
+    .typeRangeWeapon{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nameWeapon{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .rangeWeapon, .typeWeapon{
+        width: 100%;
+    }
+   
+}

@@ -19,6 +19,8 @@ const ConnexionPage = () => {
     const [icon, setIcon] = useState(faEyeSlash)
     const [typeAgain, setTypeAgain] = useState('password'); 
     const [iconAgain, setIconAgain] = useState(faEyeSlash)
+    const [typeLogin, setTypeLogin] = useState('password'); 
+    const [iconLogin, setIconLogin] = useState(faEyeSlash)
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -64,6 +66,16 @@ const ConnexionPage = () => {
         }
     }
 
+    const handleShowPasswordLogin = () => {
+        if(typeLogin === 'password'){
+            setIconLogin(faEye); 
+            setTypeLogin('text')
+        }else{
+            setIconLogin(faEyeSlash)
+            setTypeLogin('password')
+        }
+    }
+
     return ( 
 
     <>
@@ -81,17 +93,19 @@ const ConnexionPage = () => {
                 <label >Mot de passe</label>
                 <div className="passwordInput">
                     <input className="inputPassword"
-                        type="password" 
+                        type={typeLogin} 
+                        name="password"
                         value={userLogin.password}
                         onChange={(e) => setUserLogin({...userLogin, password:e.target.value})}
                         required
                     />
-                    <span className='eyeIcon' onClick={handleShowPasswordAgain}>
-                        <FontAwesomeIcon icon={iconAgain}/>
+                    <span className='eyeIcon' onClick={handleShowPasswordLogin}>
+                        <FontAwesomeIcon icon={iconLogin}/>
                     </span>
                 </div>
                 <Button className='formButton' type="submit"> Se connecter</Button>
             </form>
+            {/* <a href="">Mot de passe oublié?</a> */}
         </div>
 
         <div className="formConnexion">

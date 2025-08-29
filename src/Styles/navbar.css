@@ -40,6 +40,23 @@
     text-align: center;
 }
 
+.Button, .defButton{
+    background-color:#D9D9D9 !important;
+    color: black !important;
+    border: none !important;
+}
+
+.Button:hover, .defButton:hover{
+    box-shadow: 1px 1px 5px #D9D9D9 ;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.Button:active, .defButton:active{
+  transform: translateY(1.5px) ;
+  box-shadow: none;
+}
+
 .navButton{
     padding: 0.5rem 0 ;
     display: flex;

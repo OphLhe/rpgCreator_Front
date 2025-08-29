@@ -1,0 +1,49 @@
+.formSpells{
+    display: flex;
+    flex-direction: column;
+}
+
+.infoSpells{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid;
+    padding-bottom: 2%;
+}
+
+.infoSpells label{
+    margin-top: 5%;
+}
+
+.nameRangeSpells{
+    display: flex;
+    flex-direction: row;
+    align-items: first baseline;
+    gap: 5%;
+}
+
+.nameSpells, .rangeSpells{
+    width: 100%;
+}
+
+.nameSpells input, .rangeSpells input{
+    width: 100%;
+    padding: 0.3rem;
+}
+
+@media screen and (max-width: 768px) {
+    .nameRangeSpells{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nameSpells, .rangeSpells{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nameSpells input, .rangeSpells input{
+        width: 100%;
+    }
+   
+}

@@ -1,6 +1,6 @@
 import API from './api';
 
-export const createSpells = (data) => API.post('/addSpells', data,{
+export const createSpells = (idGenre, data) => API.post(`/addSpells/${idGenre}`, data,{
      headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }
