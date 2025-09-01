@@ -34,14 +34,23 @@
     padding: 0.3rem;
     text-align: center;
 }
+.inputTextarea{
+    font-size: 1.5rem;
+}
 
 @media screen and (max-width: 1200px) {
+
     .nameClassArmour{
         display: flex;
         align-items: end;
     }
+
+    .inputTextarea{
+        font-size: 1rem;
+    }
 }
 @media screen and (max-width: 768px) {
+
     .nameClassArmour{
         display: flex;
         flex-direction: column;

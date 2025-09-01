@@ -13,7 +13,7 @@ const PropsForm = () => {
   const [propsDatas, setPropsData] = useState({
     propsName: "",
     propsDesc: "",
-    propsEffects: "",
+    propsEffect: "",
   });
   const { idGenre } = useParams();
 
@@ -100,11 +100,11 @@ const PropsForm = () => {
               border: "none",
             }}
             as="textarea"
-            value={propsDatas.propsEffects}
+            value={propsDatas.propsEffect}
             onChange={(e) =>
               setPropsData({
                 ...propsDatas,
-                propsEffects: e.target.value,
+                propsEffect: e.target.value,
               })
             }
             required

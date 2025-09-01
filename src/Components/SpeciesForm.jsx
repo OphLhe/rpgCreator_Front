@@ -79,7 +79,7 @@ const SpeciesForm = () => {
                   Descritpion de l'espèces :
                 </label>
                 <Form.Control
-                  style={{ backgroundColor: inputColor, border: "none" }}
+                  style={{ backgroundColor: inputColor, border: "none", color: textColor  }}
                   className="inputTextarea"
                   as="textarea"
                   aria-label="With textarea"
@@ -100,7 +100,7 @@ const SpeciesForm = () => {
                   <div className="labelInput">
                     <label htmlFor="force">Force :</label>
                     <input
-                      style={{ backgroundColor: inputColor }}
+                      style={{ backgroundColor: inputColor, color: textColor  }}
                       type="number"
                       min={-3}
                       max={3}
@@ -117,7 +117,7 @@ const SpeciesForm = () => {
                   <div className="labelInput">
                     <label htmlFor="dextérité">Dextérité :</label>
                     <input
-                      style={{ backgroundColor: inputColor }}
+                      style={{ backgroundColor: inputColor, color: textColor  }}
                       type="number"
                       min={-3}
                       max={3}
@@ -134,7 +134,7 @@ const SpeciesForm = () => {
                   <div className="labelInput">
                     <label htmlFor="constitution">Constitution :</label>
                     <input
-                      style={{ backgroundColor: inputColor }}
+                      style={{ backgroundColor: inputColor, color: textColor  }}
                       type="number"
                       min={-3}
                       max={3}
@@ -151,7 +151,7 @@ const SpeciesForm = () => {
                   <div className="labelInput">
                     <label htmlFor="intelligence">Intelligence :</label>
                     <input
-                      style={{ backgroundColor: inputColor }}
+                      style={{ backgroundColor: inputColor, color: textColor  }}
                       type="number"
                       min={-3}
                       max={3}
@@ -168,7 +168,7 @@ const SpeciesForm = () => {
                   <div className="labelInput">
                     <label htmlFor="sagesse">Sagesse :</label>
                     <input
-                      style={{ backgroundColor: inputColor }}
+                      style={{ backgroundColor: inputColor, color: textColor  }}
                       type="number"
                       min={-3}
                       max={3}
@@ -185,7 +185,7 @@ const SpeciesForm = () => {
                   <div className="labelInput">
                     <label htmlFor="charisme">Charisme :</label>
                     <input
-                      style={{ backgroundColor: inputColor }}
+                      style={{ backgroundColor: inputColor, color: textColor  }}
                       type="number"
                       min={-3}
                       max={3}
@@ -205,7 +205,7 @@ const SpeciesForm = () => {
               <div className="speed">
                 <label htmlFor="distance">Distance :</label>
                 <input
-                  style={{ backgroundColor: inputColor }}
+                  style={{ backgroundColor: inputColor, color: textColor  }}
                   type="number"
                   value={speciesDatas.speciesSpeed}
                   onChange={(e) =>

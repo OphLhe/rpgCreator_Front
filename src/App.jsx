@@ -7,6 +7,7 @@ import ConnexionPage from './Pages/ConnexionPage';
 import Footer from './Components/Footer';
 import CreationPage from './Pages/CreationPage';
 import AuthWrapper from './Wrapper/AuthWrapper'
+import ProfilePage from './Pages/ProfilePage';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path='/register' element={<ConnexionPage/>}/>
           <Route path='/login' element={<ConnexionPage/>}/>
           <Route path='/genreById/:idGenre' element={<AuthWrapper><CreationPage/></AuthWrapper>}/>
+          <Route path='/profile' element={<AuthWrapper><ProfilePage/></AuthWrapper>}/>
         </Routes>
         <Footer/>
       </Router>

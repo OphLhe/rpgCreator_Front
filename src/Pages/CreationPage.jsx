@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import "../Styles/creationPage.css";
 import { genreById } from "../Services/genreServices";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import GenreCard from "../Components/genreCard";
-import { Tab, Tabs } from "react-bootstrap";
+import { Button, Tab, Tabs } from "react-bootstrap";
 import SpeciesForm from "../Components/SpeciesForm";
 import ArmourForm from "../Components/ArmourForm";
 import WeaponForm from "../Components/WeaponForm";
 import SpellsForm from "../Components/SpellsForm";
 import PropsForm from "../Components/PropsForm";
+import genreButtonsColors from "../Utils/genreButtonsColors";
 
 const CreationPage = () => {
-
+  const navigate = useNavigate();
   const [genres, setGenre] = useState([]);
   const { idGenre } = useParams();
 
@@ -19,7 +20,6 @@ const CreationPage = () => {
     try {
       const response = await genreById(idGenre);
       setGenre(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("error fetching genre by id", error);
     }
@@ -28,6 +28,9 @@ const CreationPage = () => {
   useEffect(() => {
     fetchGenreById();
   }, []);
+
+  const genreName = genres[0]?.genreName;
+  const buttonColor = genreButtonsColors[genreName] || "#D9D9D9";
 
   return (
     <>
@@ -45,48 +48,70 @@ const CreationPage = () => {
           ))}
         </div>
       </div>
-      <div className="tabsCreation">
-        <Tabs
-          defaultActiveKey="espèces"
-          id="fill-tab-example"
-          className="tabs"
-          fill
-        >
-          <Tab eventKey="espèces" title="Espèces" className="tab">
-            <SpeciesForm/>
-          </Tab>
+      <main className="mainCreation">
+        <div className="tabsCreation">
+          <Tabs
+            defaultActiveKey="espèces"
+            id="fill-tab-example"
+            className="tabs"
+            fill
+          >
+            <Tab eventKey="espèces" title="Espèces" className="tab">
+              <SpeciesForm />
+            </Tab>
 
-          <Tab eventKey="compétences" title="Compétences" className="tab">
-            
-          </Tab>
-          <Tab eventKey="classes" title="Classes" className="tab">
-            Tab content for Loooonger Tab
-          </Tab>
+            <Tab
+              eventKey="compétences"
+              title="Compétences"
+              className="tab"
+            ></Tab>
+            <Tab eventKey="classes" title="Classes" className="tab">
+              Tab content for Loooonger Tab
+            </Tab>
 
-          <Tab eventKey="Armes" title="Armes" className="tab">
-            <WeaponForm/>
-          </Tab>
+            <Tab eventKey="Armes" title="Armes" className="tab">
+              <WeaponForm />
+            </Tab>
 
-          <Tab eventKey="Armures" title="Armures" className="tab">
-            <ArmourForm/>
-          </Tab>
+            <Tab eventKey="Armures" title="Armures" className="tab">
+              <ArmourForm />
+            </Tab>
 
-          <Tab eventKey="Sorts" title="Sorts" className="tab">
-            <SpellsForm/>
-          </Tab>
+            <Tab eventKey="Sorts" title="Sorts" className="tab">
+              <SpellsForm />
+            </Tab>
 
-          <Tab eventKey="Accessoires" title="Accessoires" className="tab">
-            <PropsForm/>
-          </Tab>
-          
-          <Tab eventKey="PNJ" title="PNJ" className="tab">
-            Tab content for Contact
-          </Tab>
-          <Tab eventKey="Personnages" title="Personnages" className="tab">
-            Tab content for Contact
-          </Tab>
-        </Tabs>
-      </div>
+            <Tab eventKey="Accessoires" title="Accessoires" className="tab">
+              <PropsForm />
+            </Tab>
+
+            <Tab eventKey="PNJ" title="PNJ" className="tab">
+              Tab content for Contact
+            </Tab>
+            <Tab eventKey="Personnages" title="Personnages" className="tab">
+              Tab content for Contact
+            </Tab>
+          </Tabs>
+        </div>
+
+        <div className="buttonForm">
+          <Button
+            style={{ backgroundColor: buttonColor, border: "none" }}
+            className="profileButton"
+            onClick={() => {
+              navigate("/profile");
+            }}
+          >
+            Profil
+          </Button>
+          <Button
+            style={{ backgroundColor: buttonColor, border: "none" }}
+            className="questButton"
+          >
+            Création de quêtes
+          </Button>
+        </div>
+      </main>
     </>
   );
 };

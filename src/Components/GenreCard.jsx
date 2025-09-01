@@ -25,11 +25,11 @@ const GenreCard = ({genreName, genrePicture, idGenre, genreDef, className=''}) =
                 onMouseLeave = {() => setOpen(false)}
                 id={`textGenreCard ${className}`} className={`overlay ${className}` }>
                     <div className={`titleGenreCard ${className}`}> 
-                        <h3 
+                        <h2 
                             aria-controls="example-collapse-text"
                             aria-expanded={open}>
                                 {genreName}
-                        </h3>  
+                        </h2>  
                         { !disabledCollapse && (
                             <>
                             <Collapse in={open}> 

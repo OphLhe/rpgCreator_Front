@@ -34,6 +34,7 @@
     align-items: center;
     gap: 5%;
     padding: 0 0.5rem ;
+    font-size: 1.5rem;
 }
 
 .navbar-collapse{
@@ -65,11 +66,6 @@
     text-align: center;
 }
 
-.navButton p{
-    padding: 0;
-    font-size: 0.8rem;
-}
-
 .navLink:hover{
     font-weight: bolder;
     color: #D9D9D9;
@@ -78,19 +74,28 @@
     transition: all 0.2s ease-in-out;
 }
 
-
 p{
     margin: 0;
     color: #D9D9D9;
 }
 
 .navLink{
-    font-size: small;
     color: #D9D9D9;
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1400px) {
+
     .navbar-toggler{
         background-color: #D9D9D9 !important;
     }
+
+    .titre, .navText{
+        font-size: 1rem;
+    }
+
+    .Button{
+        font-size: 1rem;
+        margin: 2%;
+    }
+
 }

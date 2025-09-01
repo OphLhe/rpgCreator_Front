@@ -1,38 +1,41 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../index.css';
 import '../Styles/footer.css'
+import { useNavigate } from 'react-router';
 
 const Footer = () => {
+
+    const navigate = useNavigate()
 
     return ( 
         <>
         <footer>
             <section className='footerNav'>
                 <ul>
-                    <li> <a href="" alt=''>A propos</a></li>
-                    <li> <a href="">Contact</a></li>
-                    <li> <a href="">Mentions légales</a></li>
+                    <li onClick={()=> {navigate('/')}}>A propos</li>
+                    <li onClick={()=> {navigate('/')}}>Contact</li>
+                    <li onClick={()=> {navigate('/')}}>Mentions légales</li>
                 </ul>
                 <ul>    
-                    <li> <a href="">Accueil</a></li>
-                    <li> <a href="">Profil</a></li>
-                    <li> <a href="">Un café?</a></li>
+                    <li onClick={()=> {navigate('/')}}>Accueil</li>
+                    <li onClick={()=> {navigate('/profile')}}>Profil</li>
+                    <li onClick={()=> {navigate('/')}}>Un café?</li>
                 </ul>
                 <ul>
-                    <li> <a href="">Créations de la communauté</a></li>
-                    <li> <a href="">Comment fonctionnele jeu de rôles</a></li>
-                    <li> <a href="">Packs découvertes</a></li>
+                    <li onClick={()=> {navigate('/')}}>Créations de la communauté</li>
+                    <li onClick={()=> {navigate('/')}}>Comment fonctionnele jeu de rôles</li>
+                    <li onClick={()=> {navigate('/')}}>Packs découvertes</li>
                 </ul>
             </section>
 
             <section className='rgpd'>
                 <ul>
-                    <li><a href="">Conditions d'utilisations</a></li>
-                    <li><a href="">CGVU</a></li>
-                    <li><a href="">Politique de confidentialité</a></li>
-                    <li><a href="">Cookies</a></li>
-                    <li><a href="">Code de conduite</a></li>
-                    <li><a href="">Service client</a></li>
+                    <li onClick={()=> {navigate('/')}}>Conditions d'utilisations</li>
+                    <li onClick={()=> {navigate('/')}}>CGVU</li>
+                    <li onClick={()=> {navigate('/')}}>Politique de confidentialité</li>
+                    <li onClick={()=> {navigate('/')}}>Cookies</li>
+                    <li onClick={()=> {navigate('/')}}>Code de conduite</li>
+                    <li onClick={()=> {navigate('/')}}>Service client</li>
                 </ul>
             </section>
 

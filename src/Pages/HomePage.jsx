@@ -5,7 +5,7 @@ import { Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAnglesDown } from '@fortawesome/free-solid-svg-icons/faAnglesDown';
 import { useEffect, useState } from 'react';
-import GenreCard from '../Components/genreCard';
+import GenreCard from '../Components/GenreCard';
 import { genre } from '../Services/genreServices';
 import { useNavigate } from 'react-router-dom';
 
@@ -40,7 +40,7 @@ const HomePage = () => {
                 </section>
             </header>
 
-            <main>
+            <main className='mainHome'>
                 <section className='headerText'>
                     <span>
                         Devenez "Lore Crafters": créez vos propres histoires, vos propres lore à destination du jeu de rôle. Avec Lore Crafters, vous ne faites pas que suivre les règles d'un jeu, vous vous les approppriez pour créer un univers qui vous ressemble.

@@ -38,7 +38,7 @@ const ConnexionPage = () => {
         try{
             const response = await login(userLogin)
             localStorage.setItem('token', response.data.token)
-            navigate('/')
+            navigate('/profile')
             alert('user logged in')
         }catch(error){
             console.error(error);
@@ -82,7 +82,7 @@ const ConnexionPage = () => {
     <div className="formGroup">
 
         <div className="formConnexion">
-            <h4>Connectez-vous</h4>
+            <h2>Connectez-vous</h2>
             <form action="/login" onSubmit={handleLogin} className="formLogin">
                 <label >Email</label>
                 <input type="email" 
@@ -109,7 +109,7 @@ const ConnexionPage = () => {
         </div>
 
         <div className="formConnexion">
-            <h4>Pas encore de compte? Inscrivez-vous</h4>
+            <h2>Pas encore de compte? Inscrivez-vous</h2>
             <form action="/register" onSubmit={handleRegister} className="formRegister">
                 <label htmlFor="prénom">Prénom</label>
                 <input type="text" 

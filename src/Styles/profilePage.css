@@ -1,0 +1,71 @@
+.mainProfile {
+  font-size: 1.5rem;
+  margin-top: 5%;
+  width: 100%;
+  
+}
+
+.tabsProfile{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.userForm{
+  display: flex;
+  justify-content: center;
+}
+
+.userForm ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 70%;
+}
+
+.infoUser {
+  display: flex;
+  flex-direction: column;
+  margin: 3% 0%;
+}
+
+.infoUser span {
+  border-radius: 5px;
+  padding: 0.3rem 0.8rem;
+  border-bottom: 1px solid;
+  display: flex;
+  justify-content: center;
+}
+
+.flipCard {
+  perspective: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 5% 0;
+}
+
+.Button {
+  font-size: 1.5rem;
+  width: 100%;
+  margin: 0;
+}
+
+@media only screen and (max-width: 1200px) {
+    
+  .mainProfile, .Button {
+    font-size: 1rem;
+  }
+
+  /* .flipCard {
+    perspective: 1000px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 5% 0;
+  } */
+
+
+}

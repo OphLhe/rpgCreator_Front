@@ -17,7 +17,6 @@ const NavBar = () => {
 
     if (goodToken) {
       userName = jwtDecode(token).nickname;
-      console.log(userName);
     }else{
       localStorage.removeItem('token');
     }

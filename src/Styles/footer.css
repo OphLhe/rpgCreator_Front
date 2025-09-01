@@ -1,3 +1,9 @@
+footer{
+    width: 100%;
+    margin: auto;
+    font-size: 1.5rem;
+}
+
 ul{
     margin-bottom: 0;
 }
@@ -14,7 +20,7 @@ ul{
     border-top: 1px solid black;
 }
 
-.footerNav  a{
+.footerNav  li{
     color: #D9D9D9;
     text-decoration: none;
 }
@@ -38,13 +44,14 @@ ul{
     list-style-type: none;
 }
 
-.rgpd a{
+.rgpd li{
     color: black;
     text-decoration: none;
 }
 
-footer  a:hover{
+footer  li:hover{
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .droits{
@@ -54,7 +61,6 @@ footer  a:hover{
     display: flex;
     justify-content: center;
     padding: 1%;
-    font-size: medium;
 }
 
 .spanFooter{
@@ -83,4 +89,11 @@ footer  a:hover{
        flex-direction: column;
     }
     
+}
+
+@media screen and (max-width: 1400px){
+
+    footer{
+        font-size: 1rem;
+    }
 }
