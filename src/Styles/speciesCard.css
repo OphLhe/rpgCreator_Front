@@ -63,11 +63,6 @@
     border-radius: 5px;
     border: none;
     cursor: pointer;
-    background: #ff9800;
     color: #fff;
     transition: background 0.3s ease;
-}
-
-.detailsButton:hover {
-    background: #e68900;
 }

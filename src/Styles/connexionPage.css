@@ -5,12 +5,15 @@
     justify-content: center;
     align-items: baseline;
     gap: 15%;
+    margin-top: 15%;
     font-size: 1.5rem;
     width: 100%;
 }
+h2{
+    margin: 5% 0;
+}
 
 .formConnexion{
-    margin-top: 15%;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -47,6 +50,7 @@
 }
 
 .passwordInput{
+    margin-top: 3%;
     position: relative;
     display: flex;
     align-items: center;
@@ -67,6 +71,13 @@
     color: black
 }
 
+.forgotPassword{
+    display: flex;
+    justify-content: center;
+    margin-top: 2%;
+    font-size: 1.2rem;
+}
+
 .formConnexion input{
     padding: 0.3rem;
 }
@@ -80,7 +91,7 @@
         max-width: 300px;
     }
 
-    .formGroup, .formButton{
+    .formGroup, .formButton, .forgotPassword{
         font-size: 1rem;
     }
 

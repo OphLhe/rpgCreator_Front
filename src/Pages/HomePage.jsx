@@ -5,9 +5,9 @@ import { Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAnglesDown } from '@fortawesome/free-solid-svg-icons/faAnglesDown';
 import { useEffect, useState } from 'react';
-import GenreCard from '../Components/GenreCard';
 import { genre } from '../Services/genreServices';
 import { useNavigate } from 'react-router-dom';
+import GenreCard from '../Components/genreCard';
 
 
 const HomePage = () => {
@@ -17,9 +17,7 @@ const HomePage = () => {
     const fetchGenre = async ()=>{
         try {
             const response = await genre()
-            setGenre(response.data)
-            console.log(response.data);
-              
+            setGenre(response.data)  
         } catch (error) {
             console.error('error fetching genre name', error);
         }

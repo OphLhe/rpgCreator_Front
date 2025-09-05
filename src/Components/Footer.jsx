@@ -11,20 +11,20 @@ const Footer = () => {
         <>
         <footer>
             <section className='footerNav'>
+                <ul>    
+                    <li onClick={()=> {navigate('/')}}>Accueil</li>
+                    <li onClick={()=> {navigate('/profile')}}>Profil</li>
+                    <li onClick={()=> {navigate('/')}}>Lancé de dès</li>
+                </ul>
+                <ul>
+                    <li onClick={()=> {navigate('/')}}>Comment fonctionne le jeu de rôles</li>
+                    <li onClick={()=> {navigate('/')}}>Créations de la communauté</li>
+                    <li onClick={()=> {navigate('/')}}>Packs découvertes</li>
+                </ul>
                 <ul>
                     <li onClick={()=> {navigate('/')}}>A propos</li>
                     <li onClick={()=> {navigate('/')}}>Contact</li>
                     <li onClick={()=> {navigate('/')}}>Mentions légales</li>
-                </ul>
-                <ul>    
-                    <li onClick={()=> {navigate('/')}}>Accueil</li>
-                    <li onClick={()=> {navigate('/profile')}}>Profil</li>
-                    <li onClick={()=> {navigate('/')}}>Un café?</li>
-                </ul>
-                <ul>
-                    <li onClick={()=> {navigate('/')}}>Créations de la communauté</li>
-                    <li onClick={()=> {navigate('/')}}>Comment fonctionnele jeu de rôles</li>
-                    <li onClick={()=> {navigate('/')}}>Packs découvertes</li>
                 </ul>
             </section>
 
@@ -35,7 +35,6 @@ const Footer = () => {
                     <li onClick={()=> {navigate('/')}}>Politique de confidentialité</li>
                     <li onClick={()=> {navigate('/')}}>Cookies</li>
                     <li onClick={()=> {navigate('/')}}>Code de conduite</li>
-                    <li onClick={()=> {navigate('/')}}>Service client</li>
                 </ul>
             </section>
 
@@ -43,7 +42,6 @@ const Footer = () => {
                 <span className='spanFooter'>&copy; 2025-Lore Crafters. Tous droit réservés. </span>
                 <span className='spanFooter'>Créé et conçu par : <a className='linkedin' href="https://www.linkedin.com/in/ophelie-lhermitte-846931154/">Lhermitte Ophélie</a>. </span>
             </section>
-            
         </footer>
         </>
      )

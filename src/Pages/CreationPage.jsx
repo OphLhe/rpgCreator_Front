@@ -107,11 +107,15 @@ const CreationPage = () => {
           <Button
             style={{ backgroundColor: buttonColor, border: "none" }}
             className="questButton"
+            onClick={() => {
+              navigate(`/genreById/${idGenre}`);
+            }}
           >
             Création de quêtes
           </Button>
         </div>
       </main>
+      
     </>
   );
 };

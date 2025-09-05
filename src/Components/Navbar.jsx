@@ -42,11 +42,10 @@ const NavBar = () => {
             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="navText  me-auto">
-                    <Nav.Link className="navLink" href="/">Accueil</Nav.Link>
-                    <Nav.Link className="navLink" href="Packs découverte">Packs découverte</Nav.Link>
-                    <Nav.Link className="navLink" href="Comment fonctionne le jeu de rôle">Comment fonctionne le jeu de rôle</Nav.Link>
-                    <Nav.Link className="navLink" href="Création de la communauté">Création de la communauté</Nav.Link>
+                    <Nav.Link className="navLink" onClick={() => {navigate('/')}} alt='Accueil'>Accueil</Nav.Link>
+                    <Nav.Link className="navLink" onClick={() => {navigate('/profile')}} alt='Profile'>Profile</Nav.Link>
                     <Nav.Link className="navLink" href="Lancé de dès">Lancé de dès</Nav.Link>
+                    <Nav.Link className="navLink" href="Comment fonctionne le jeu de rôle">Comment fonctionne le jeu de rôle</Nav.Link>
                 </Nav>
                 <div className="navButton ms-auto">
                   

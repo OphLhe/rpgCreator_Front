@@ -2,7 +2,9 @@
   font-size: 1.5rem;
   margin-top: 5%;
   width: 100%;
-  
+}
+.mainProfile h2{
+  margin-left: 5%;
 }
 
 .tabsProfile{
@@ -40,6 +42,7 @@
 }
 
 .flipCard {
+  font-size: 1.5rem;
   perspective: 1000px;
   display: flex;
   flex-wrap: wrap;
@@ -53,19 +56,36 @@
   margin: 0;
 }
 
+#fill-tab-example-tabpane-Inventaire .Button{
+  margin-top: 2%;
+  width: 30%;
+}
+
 @media only screen and (max-width: 1200px) {
     
   .mainProfile, .Button {
     font-size: 1rem;
   }
 
-  /* .flipCard {
+  .flipCard {
     perspective: 1000px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    margin: 5% 0;
-  } */
+  }
+}
 
+@media only screen and (min-width: 1400px){
+
+  .mainProfile{
+    font-size: 1.2rem;
+  }
+
+}
+@media only screen and (max-width: 1400px){
+
+  .mainProfile{
+    font-size: 1rem
+  }
 
 }

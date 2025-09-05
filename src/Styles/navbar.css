@@ -53,11 +53,6 @@
     transition: all 0.3s;
 }
 
-.Button:active, .defButton:active{
-  transform: translateY(1.5px) ;
-  box-shadow: none;
-}
-
 .navButton{
     padding: 0.5rem 0 ;
     display: flex;
@@ -94,8 +89,14 @@ p{
     }
 
     .Button{
-        font-size: 1rem;
+        font-size: 1rem !important;
         margin: 2%;
     }
+}
 
+@media only screen and (min-width: 1400px){
+    .navText, .Button{
+        font-size: 1rem !important;
+    }
+    
 }

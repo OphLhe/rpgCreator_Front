@@ -16,8 +16,8 @@ const SpeciesCard = ({  speciesName,  speciesDesc,  speciesSpeed,  strModifier, 
       <div className="speciesCard">
 
         <div className="speciesRecto">
-          <h2>Espèces</h2>
-          <h3>{speciesName}</h3>
+          <h3>Espèces</h3>
+          <h4>{speciesName}</h4>
           <span>Vitesse de déplacement : {speciesSpeed}</span>
         </div>
 
