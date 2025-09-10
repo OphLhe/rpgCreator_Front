@@ -18,10 +18,10 @@ export const updateUserPassword = (data) => API.put(`profile/updatePassword`, da
     },
   });
 
-export const forgotPassword = (data) => API.post(`/forgotPassord`, data);
-export const resetPassword = (data, tokenReset) => API.post("/resetPassword", data, tokenReset, {
+export const forgotPassword = (data) => API.post(`/forgotPassword`, data);
+export const resetPassword = (data) => API.post("/resetPassword", data, {
     headers: {
-      Authorization: tokenReset,
+      Authorization:  `${localStorage.getItem("tokenReset")}`,
     },
   });
 export const deleteUserAccount = (idUser) => API.delete(`/profile/${idUser}`, {

@@ -10,6 +10,7 @@ import WeaponForm from "../Components/WeaponForm";
 import SpellsForm from "../Components/SpellsForm";
 import PropsForm from "../Components/PropsForm";
 import genreButtonsColors from "../Utils/genreButtonsColors";
+import ClassForm from "../Components/ClassForm";
 
 const CreationPage = () => {
   const navigate = useNavigate();
@@ -34,8 +35,7 @@ const CreationPage = () => {
 
   return (
     <>
-      <h1>Création page </h1>
-
+    
       <div className="genreBannerCreation">
         <div className="genreCreationBanner">
           {genres.map((g) => (
@@ -47,6 +47,7 @@ const CreationPage = () => {
             />
           ))}
         </div>
+        <h2>Page de création </h2>
       </div>
       <main className="mainCreation">
         <div className="tabsCreation">
@@ -56,18 +57,17 @@ const CreationPage = () => {
             className="tabs"
             fill
           >
+            <Tab eventKey="classes" title="Classes" className="tab">
+              <ClassForm/>
+            </Tab>
+
+            <Tab eventKey="compétences" title="Compétences" className="tab">
+            </Tab>
+
             <Tab eventKey="espèces" title="Espèces" className="tab">
               <SpeciesForm />
             </Tab>
 
-            <Tab
-              eventKey="compétences"
-              title="Compétences"
-              className="tab"
-            ></Tab>
-            <Tab eventKey="classes" title="Classes" className="tab">
-              Tab content for Loooonger Tab
-            </Tab>
 
             <Tab eventKey="Armes" title="Armes" className="tab">
               <WeaponForm />
@@ -91,6 +91,9 @@ const CreationPage = () => {
             <Tab eventKey="Personnages" title="Personnages" className="tab">
               Tab content for Contact
             </Tab>
+            <Tab eventKey="Quêtes" title="Quêtes" className="tab">
+              Tab content for Contact
+            </Tab>
           </Tabs>
         </div>
 
@@ -104,15 +107,7 @@ const CreationPage = () => {
           >
             Profil
           </Button>
-          <Button
-            style={{ backgroundColor: buttonColor, border: "none" }}
-            className="questButton"
-            onClick={() => {
-              navigate(`/genreById/${idGenre}`);
-            }}
-          >
-            Création de quêtes
-          </Button>
+
         </div>
       </main>
       

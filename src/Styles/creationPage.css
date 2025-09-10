@@ -42,8 +42,12 @@
     gap: 10%;
 }
 
-.profileButton, .creationButton, .questButton{
+.profileButton, .creationButton{
     font-size: 1.5rem;
+}
+
+.profileButton{
+    width: 40%;
 }
 
 .creationButton{

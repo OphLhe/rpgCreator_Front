@@ -56,7 +56,7 @@ const PropsForm = () => {
         <div className="infoProps">
           
             <div className="nameProps">
-                <label htmlFor="nom du sort">Nom du sort :</label>
+                <label htmlFor="nom du sort">Nom de l'artefact :</label>
                 <input 
                     style={{ backgroundColor: inputColor, color: textColor }}
                     type="text"
@@ -71,7 +71,7 @@ const PropsForm = () => {
                 />
             </div>
          
-          <label htmlFor="descritpion de l'arme">Descritpion du sort :</label>
+          <label htmlFor="descritpion de l'arme">Descritpion de l'artefact :</label>
           <Form.Control
             style={{
               backgroundColor: inputColor,
@@ -91,7 +91,7 @@ const PropsForm = () => {
             required
           />
 
-          <label htmlFor=" Effet de l'arme">Effet du sort :</label>
+          <label htmlFor=" Effet de l'arme">Effet de l'artefact :</label>
           <FormControl
             className="inputTextarea"
             style={{
@@ -117,7 +117,7 @@ const PropsForm = () => {
             type="submit"
             className="creationButton"
           >
-            Créer Sort
+            Créer Artefact
           </Button>
         </div>
       </form>

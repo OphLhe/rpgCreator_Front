@@ -1,12 +1,14 @@
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { resetPassword } from "../Services/userServices";
 import { Button } from "react-bootstrap";
 import PasswordChecklist from "react-password-checklist";
 
 const ResetPassword = () => {
+
+  const navigate = useNavigate()
   const [type, setType] = useState("password");
   const [icon, setIcon] = useState(faEyeSlash);
   const handleShowPassword = () => {
@@ -20,7 +22,8 @@ const ResetPassword = () => {
   };
 
   const [password, setPassword] = useState("");
-  const tokenReset = useParams().resetToken;
+  const tokenReset = useParams().tokenReset;
+  localStorage.setItem('tokenReset', tokenReset)
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,8 +34,13 @@ const ResetPassword = () => {
     console.log("Réinitialisation du mot de passe:", password);
     console.log("Token de réinitialisation:", tokenReset);
 
-    // Here you would typically call a service to handle the password reset
-    resetPassword({ password }, tokenReset);
+    resetPassword({ password }, tokenReset )
+    .then(response => console.log("Réponse du serveur:", response))
+    .catch(error => console.error("Erreur:", error));
+
+    
+    alert('password reset successfull')
+    navigate('/login')
   };
 
   const [passwordAgain, setPasswordAgain] = useState("");
@@ -50,7 +58,8 @@ const ResetPassword = () => {
 
   return (
     <>
-      <div className="formGroup">
+    <main className="mainReset">
+      <div className="formConnexion">
         <h2>Réinitialiser votre mot de passe</h2>
         <div className="formConnexion">
           <form onSubmit={handleSubmit} className="formLogin">
@@ -106,6 +115,7 @@ const ResetPassword = () => {
           </form>
         </div>
       </div>
+      </main>
     </>
   );
 };

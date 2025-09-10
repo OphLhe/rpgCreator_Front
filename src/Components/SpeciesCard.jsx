@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../Styles/speciesCard.css";
 import { Button } from "react-bootstrap";
 
-const SpeciesCard = ({  speciesName,  speciesDesc,  speciesSpeed,  strModifier,  dexModifier,  conModifier,  intModifier,  wisModifier,  chaModifier,}) => {
+const SpeciesCard = ({  speciesName,  speciesDesc,  speciesSpeed }) => {
   
   const [showText, setShowText] = useState(false);
 
@@ -35,12 +35,6 @@ const SpeciesCard = ({  speciesName,  speciesDesc,  speciesSpeed,  strModifier, 
             </Button>
           )}
 
-          {/* <span>Force : {strModifier}</span>
-          <span>Dextérité : {dexModifier}</span>
-          <span>Constitution : {conModifier}</span>
-          <span>Intelligence : {intModifier}</span>
-          <span>Sagesse : {wisModifier}</span>
-          <span>Charisme : {chaModifier}</span> */}
         </div>
       </div>
     </>

@@ -115,11 +115,12 @@ const ConnexionPage = () => {
                 <FontAwesomeIcon icon={iconLogin} />
               </span>
             </div>
-            <ResetPasswordModal  show={show} onHide={handleClose}/>
+            
             <Button className="formButton" type="submit">
               Se connecter
             </Button>
           </form>
+          <ResetPasswordModal  show={show} onHide={handleClose}/>
         </div>
 
         <div className="formConnexion">

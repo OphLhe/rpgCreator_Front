@@ -43,7 +43,7 @@ const NavBar = () => {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="navText  me-auto">
                     <Nav.Link className="navLink" onClick={() => {navigate('/')}} alt='Accueil'>Accueil</Nav.Link>
-                    <Nav.Link className="navLink" onClick={() => {navigate('/profile')}} alt='Profile'>Profile</Nav.Link>
+                    <Nav.Link className="navLink" onClick={() => {navigate('/profile')}} alt='Profile'>Profil</Nav.Link>
                     <Nav.Link className="navLink" href="Lancé de dès">Lancé de dès</Nav.Link>
                     <Nav.Link className="navLink" href="Comment fonctionne le jeu de rôle">Comment fonctionne le jeu de rôle</Nav.Link>
                 </Nav>

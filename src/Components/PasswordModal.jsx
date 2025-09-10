@@ -18,6 +18,7 @@ const PasswordModal = () => {
     try {
       if (formPassword.oldPassword != formPassword.newPassword) {
         const response = await updateUserPassword(formPassword);
+        alert("Password modify successfully")
         console.log(response.data);
       } else {
         alert("password identical to old password!");
@@ -114,16 +115,17 @@ const PasswordModal = () => {
                 />
 
             </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
+            <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type='submit' onClick={()=> {handleUpdatePassword}}>
             Save Changes
           </Button>
         </Modal.Footer>
+          </Form>
+        </Modal.Body>
+        
       </Modal>
     </>
   );

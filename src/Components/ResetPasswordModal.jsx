@@ -12,9 +12,9 @@ const ResetPasswordModal = () => {
         event.preventDefault()
         const formData = new FormData(event.target)
         setEmail(formData.get('email'))
-
         forgotPassword({email})
         alert("un email a été envoyé à l'adresse e-mail renseignée" )
+        location.reload()
     }
 
   return (
@@ -47,9 +47,7 @@ const ResetPasswordModal = () => {
                 autoFocus
               />
             </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
+            <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
@@ -57,6 +55,9 @@ const ResetPasswordModal = () => {
                 Réinitaliser le mot de passe
           </Button>
         </Modal.Footer>
+          </Form>
+        </Modal.Body>
+        
       </Modal>
     </>
   );

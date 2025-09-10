@@ -1,4 +1,4 @@
-import { Button, Form, Tab, Tabs } from "react-bootstrap";
+import { Button, Form, Modal, Tab, Tabs } from "react-bootstrap";
 import "../index.css";
 import "../Styles/profilePage.css";
 import { jwtDecode } from "jwt-decode";
@@ -24,15 +24,19 @@ const ProfilePage = () => {
   const token = localStorage.getItem("token");
   let userName = "";
   const goodToken = verifyToken(token);
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
+
+  const [showGenre, setShowGenre] = useState(false);
+  const handleCloseGenre = () => setShowGenre(false);
+  const handleShowGenre = () => setShowGenre(true);
 
   const [genres, setGenres] = useState([]);
   const fetchGenre = async () => {
     try {
       const response = await genre();
       setGenres(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("error fetching genre by id", error);
     }
@@ -117,11 +121,11 @@ const ProfilePage = () => {
   const handleGenreChange = (e) => {
     const selectedId = e.target.value;
     if (selectedId) {
-      navigate(`/genreById${selectedId}`);
+      console.log(selectedId);
+      navigate(`/genreById/${selectedId}`);
     }
   };
-  console.log(genres);
-  
+
   return (
     <>
       <main className="mainProfile">
@@ -169,19 +173,33 @@ const ProfilePage = () => {
             </Tab>
 
             <Tab eventKey="Inventaire" title="Inventaire" className="tab">
-              <Button className="Button">Ajouter à l'inventaire</Button>
-              <Form.Select
-                aria-label="Default select example"
-                onChange={handleGenreChange}
-              >
-                <option value="">
-                  Dans quel genre voulez-vous ajouter un item?
-                </option>
-                {genres.map((ge)=>(
-                  <option key={ge.idGenre}>{ge.genreName}</option>
-                ))}
-              </Form.Select>
-  
+              <Button className="Button" onClick={handleShowGenre}>
+                Ajouter à l'inventaire
+              </Button>
+              <Modal centered
+              show={showGenre} 
+              onHide={handleCloseGenre}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Dans quel genre voulez-vous ajouter un item?</Modal.Title>
+                </Modal.Header>
+                <Form.Select 
+                  onChange={handleGenreChange}>
+                  <option value="" >
+                    Choisissez le genre
+                  </option >
+                  {genres.map((ge) => (
+                    <option key={ge.idGenre} value={ge.idGenre}>
+                      {ge.genreName}
+                    </option>
+                  ))}
+                </Form.Select>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleCloseGenre}>
+                    Close
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
               <div className="flipCard">
                 {getWeapons.map((w) => (
                   <WeaponCard

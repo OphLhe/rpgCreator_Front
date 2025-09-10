@@ -1,5 +1,5 @@
-import "../Styles/propsCard.css";
 import { useEffect, useState } from "react";
+import '../Styles/propsCard.css'
 import genreButtonsColors from "../Utils/genreButtonsColors";
 import { Button } from "react-bootstrap";
 import { props } from "../Services/propsServices";
@@ -46,11 +46,13 @@ const PropsCard = ({ genre, propsName, propsDesc, propsEffect }) => {
         </div>
         <div className="propsVerso">
           <div className={`descSpan ${showText ? "expanded" : "collapsed"} `}>
-            <span>{showText ? propsDesc : truncate(propsDesc)}</span>
+            <span>Descritpion : {showText ? propsDesc : truncate(propsDesc)}</span>
           </div>
 
           {propsEffect ? (
-            <span>Effets : {propsEffect}</span>
+            <div className={`descSpan ${showText ? "expanded" : "collapsed"} `}>
+            <span>Effets : {showText ? propsEffect : truncate(propsEffect)}</span>
+          </div>
           ) : (
             <span>Effets : Sans effets particulier</span>
           )}
