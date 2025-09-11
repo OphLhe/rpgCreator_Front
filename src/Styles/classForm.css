@@ -63,6 +63,14 @@
     padding-bottom: 2%;
 }
 
+.insertSkills{
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+    margin-top: 5%;
+}
+
+
 @media screen and (max-width: 768px) {
 
     .abilities{

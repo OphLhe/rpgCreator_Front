@@ -114,6 +114,7 @@ const SkillsForm = () => {
             required
           />
           <Form.Select
+            className="selectAbility"
             name="abilityId"
             onChange={handleChange}
             value={skillsDatas.abilityId}

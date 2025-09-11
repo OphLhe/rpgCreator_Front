@@ -25,6 +25,10 @@
     padding: 0.3rem;
 }
 
+.selectAbility{
+    margin-top: 5%;
+}
+
 @media screen and (max-width: 768px) {
 
     .nameSkills input{

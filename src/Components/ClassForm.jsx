@@ -7,6 +7,8 @@ import { createClass } from "../Services/classServices";
 import genreInputsColors from "../Utils/genreInputsColors";
 import genreButtonsColors from "../Utils/genreButtonsColors";
 import genreTextColors from "../Utils/genreTextColors";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
 const ClassForm = () => {
   const [genres, setGenre] = useState([]);
@@ -328,6 +330,24 @@ const ClassForm = () => {
               />
             </div>
           </div>
+        </div>
+
+        <div className="insertSkills">
+        <Form.Select
+          className="selectSkills"
+          name="abilityId"
+          required
+        >
+          <option value="">
+            Choisissez l'abilité correspondante à la compétence
+          </option>
+        </Form.Select>
+        <Button 
+          style={{backgroundColor: buttonColor,
+            border:'none'}}
+          className="addSkills"> 
+          <FontAwesomeIcon icon={faCirclePlus} size="lg"/>
+        </Button>
         </div>
 
         <div className="buttonForm">

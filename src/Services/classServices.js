@@ -23,6 +23,7 @@ export const updateClass = (id, data) => API.put(`/class/update/${id}`, data,{
         Authorization: `${localStorage.getItem('token')}` 
     }
 })
+
 export const deleteClass = (idUser) => API.delete(`/class/delete/${idUser}`, {
      headers: {  
         Authorization: `${localStorage.getItem('token')}` 
