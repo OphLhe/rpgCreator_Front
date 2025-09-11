@@ -10,7 +10,7 @@ export const spells = () => API.get('/spells', {
         Authorization: `${localStorage.getItem('token')}` 
     }
 })
-export const updateSpells = (data) => API.put('/spells/update', data,{
+export const updateSpells = (id, data) => API.put(`/spells/update/${id}`, data,{
      headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }

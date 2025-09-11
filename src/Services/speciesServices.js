@@ -10,7 +10,7 @@ export const species = () => API.get('/species', {
         Authorization: `${localStorage.getItem('token')}` 
     }
 })
-export const updateSpecies = (data) => API.put('/species/update', data,{
+export const updateSpecies = (id, data) => API.put(`/species/update/${id}`, data,{
      headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }

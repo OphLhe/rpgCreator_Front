@@ -10,7 +10,7 @@ export const weapon = () => API.get('/weapon', {
         Authorization: `${localStorage.getItem('token')}` 
     }
 })
-export const updateWeapon = (data) => API.put('/weapon/update', data,{
+export const updateWeapon = (id, data) => API.put(`/weapon/update/${id}`, data,{
      headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }

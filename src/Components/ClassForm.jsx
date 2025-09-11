@@ -336,7 +336,7 @@ const ClassForm = () => {
             type="submit"
             className="creationButton"
           >
-            Créer Espèces
+            Créer Classe
           </Button>
         </div>
       </form>

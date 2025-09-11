@@ -10,7 +10,7 @@ export const props = () => API.get('/props', {
         Authorization: `${localStorage.getItem('token')}` 
     }
 })
-export const updateProps = (data) => API.put('/props/update', data,{
+export const updateProps = (id, data) => API.put(`/props/update/${id}`, data,{
      headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }

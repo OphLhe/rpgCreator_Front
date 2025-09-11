@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import "../Styles/creationPage.css";
 import { genreById } from "../Services/genreServices";
 import { useNavigate, useParams } from "react-router-dom";
-import GenreCard from "../Components/genreCard";
 import { Button, Tab, Tabs } from "react-bootstrap";
+import GenreCard from "../Components/genreCard";
 import SpeciesForm from "../Components/SpeciesForm";
 import ArmourForm from "../Components/ArmourForm";
 import WeaponForm from "../Components/WeaponForm";
 import SpellsForm from "../Components/SpellsForm";
 import PropsForm from "../Components/PropsForm";
-import genreButtonsColors from "../Utils/genreButtonsColors";
 import ClassForm from "../Components/ClassForm";
+import SkillsForm from "../Components/SkillsForm";
+import genreButtonsColors from "../Utils/genreButtonsColors";
 
 const CreationPage = () => {
+
   const navigate = useNavigate();
   const [genres, setGenre] = useState([]);
   const { idGenre } = useParams();
@@ -52,7 +54,7 @@ const CreationPage = () => {
       <main className="mainCreation">
         <div className="tabsCreation">
           <Tabs
-            defaultActiveKey="espèces"
+            defaultActiveKey="classes"
             id="fill-tab-example"
             className="tabs"
             fill
@@ -62,36 +64,36 @@ const CreationPage = () => {
             </Tab>
 
             <Tab eventKey="compétences" title="Compétences" className="tab">
+              <SkillsForm/>
             </Tab>
 
             <Tab eventKey="espèces" title="Espèces" className="tab">
               <SpeciesForm />
             </Tab>
 
-
-            <Tab eventKey="Armes" title="Armes" className="tab">
+            <Tab eventKey="armes" title="Armes" className="tab">
               <WeaponForm />
             </Tab>
 
-            <Tab eventKey="Armures" title="Armures" className="tab">
+            <Tab eventKey="armures" title="Armures" className="tab">
               <ArmourForm />
             </Tab>
 
-            <Tab eventKey="Sorts" title="Sorts" className="tab">
+            <Tab eventKey="sorts" title="Sorts" className="tab">
               <SpellsForm />
             </Tab>
 
-            <Tab eventKey="Accessoires" title="Accessoires" className="tab">
+            <Tab eventKey="artefacts" title="Artefacts" className="tab">
               <PropsForm />
             </Tab>
 
             <Tab eventKey="PNJ" title="PNJ" className="tab">
               Tab content for Contact
             </Tab>
-            <Tab eventKey="Personnages" title="Personnages" className="tab">
+            <Tab eventKey="personnages" title="Personnages" className="tab">
               Tab content for Contact
             </Tab>
-            <Tab eventKey="Quêtes" title="Quêtes" className="tab">
+            <Tab eventKey="quêtes" title="Quêtes" className="tab">
               Tab content for Contact
             </Tab>
           </Tabs>

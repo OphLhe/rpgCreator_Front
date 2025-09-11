@@ -1,0 +1,34 @@
+.formSkills{
+    display: flex;
+    flex-direction: column;
+}
+
+.infoSkills{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid;
+    padding-bottom: 2%;
+}
+
+.infoSkills label{
+    margin-top: 5%;
+}
+
+.nameSkills{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.nameSkills input{
+    width: 50%;
+    padding: 0.3rem;
+}
+
+@media screen and (max-width: 768px) {
+
+    .nameSkills input{
+        width: 100%;
+    }
+
+}

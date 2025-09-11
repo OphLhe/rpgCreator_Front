@@ -5,12 +5,20 @@ export const createClass = (data) => API.post('/addClass', data,{
         Authorization: `${localStorage.getItem('token')}` 
     }
 })
+
 export const allClass = () => API.get('/class', {
      headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }
 })
-export const updateClass = (data) => API.put('/class/update', data,{
+
+export const classById = (id) => API.get(`/class/${id}`, {
+     headers: {  
+        Authorization: `${localStorage.getItem('token')}` 
+    }
+})
+
+export const updateClass = (id, data) => API.put(`/class/update/${id}`, data,{
      headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }
