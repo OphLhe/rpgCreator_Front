@@ -49,9 +49,9 @@ const CreationPage = () => {
             />
           ))}
         </div>
-        <h2>Page de création </h2>
       </div>
       <main className="mainCreation">
+        <h2>Page de création </h2>
         <div className="tabsCreation">
           <Tabs
             defaultActiveKey="classes"

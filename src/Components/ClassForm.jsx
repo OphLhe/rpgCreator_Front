@@ -8,10 +8,25 @@ import genreInputsColors from "../Utils/genreInputsColors";
 import genreButtonsColors from "../Utils/genreButtonsColors";
 import genreTextColors from "../Utils/genreTextColors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import { faCirclePlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { getSkills } from "../Services/skillsServices";
+import { insertSkillsToClass } from "../Services/classSkillsServices";
+import { classById } from "../Services/classServices";
 
 const ClassForm = () => {
+  const { idGenre } = useParams();
+
+  // Pour bannière header
   const [genres, setGenre] = useState([]);
+  const fetchGenreById = async () => {
+    try {
+      const response = await genreById(idGenre);
+      setGenre(response.data);
+    } catch (error) {
+      console.error("error fetching genre by id", error);
+    }
+  };
+
   const [classDatas, setClassData] = useState({
     className: "",
     classDesc: "",
@@ -29,12 +44,55 @@ const ClassForm = () => {
     wisModifier: "",
     chaModifier: "",
   });
-  const { idGenre } = useParams();
 
+  // pour skills.map dans le form.select
+  const [skills, setSkills] = useState([]);
+  const fetchSkills = async () => {
+    try {
+      const res = await getSkills();
+      setSkills(res.data);
+    } catch (error) {
+      console.error("error fetching skill", error);
+    }
+  };
+
+  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [selectedSkillId, setSelectedSkillId] = useState("");
+
+  // crée un tableau avec les skills à ajouter
+  const tabSkills = () => {
+    // récupère l'id de skills et le transforme en texte
+    const skill = skills.find((s) => s.idSkills === parseInt(selectedSkillId));
+    //  s'il y a Id de skill et qu'il n'est pas déjà contenu dans le tableau selectedSkills
+    if (skill && !selectedSkills.includes(skill)) {
+      // on ajoute le skill en gardant en mémoire les précédents ajoutés
+      setSelectedSkills([...selectedSkills, skill]);
+      // remise à 0 du select
+      setSelectedSkillId("");
+    } else {
+      alert("Cette compétences a déjà été ajoutée");
+    }
+  };
+
+  // crée une class puis crée classSkills avec les skills associé à la class créée
   const handleAddClass = async (e) => {
     e.preventDefault();
     try {
-      await createClass(classDatas);
+      //création de la class avec infos dans form
+      const response1 = await createClass(classDatas);
+      // on récupère l'id généré à la création de la class
+      const insertedId = response1.data.insertId;
+      // on recherche la class par son id
+      const res = await classById(insertedId);
+
+      // on map les skills du tableau seledctedSkills afin de récupérer chaque id
+      const skillsIds = selectedSkills.map((skill) => skill.idSkills);
+      // ajout des skills sous forme de tableau à la class défini par son id
+      const res2 = await insertSkillsToClass({
+        skillsIds,
+        classId: insertedId,
+      });
+      console.log(res2.data);
       alert("class created successfully");
     } catch (error) {
       console.error(error);
@@ -42,23 +100,20 @@ const ClassForm = () => {
     }
   };
 
-  const fetchGenreById = async () => {
-    try {
-      const response = await genreById(idGenre);
-      setGenre(response.data);
-    } catch (error) {
-      console.error("error fetching genre by id", error);
-    }
-  };
-
   useEffect(() => {
     fetchGenreById();
-  }, []);
+    fetchSkills();
+  }, [selectedSkills]);
 
   const genreName = genres[0]?.genreName;
   const inputColor = genreInputsColors[genreName] || "#D9D9D9";
   const buttonColor = genreButtonsColors[genreName] || "#D9D9D9";
   const textColor = genreTextColors[genreName] || "#D9D9D9";
+
+  const removeSkill = (id) => {
+    setSelectedSkills(selectedSkills.filter((skill) => skill.idSkills !== id));
+  };
+
   return (
     <>
       <form action="/addClass" onSubmit={handleAddClass} className="formClass">
@@ -158,7 +213,7 @@ const ClassForm = () => {
               <input
                 style={{ backgroundColor: inputColor, color: textColor }}
                 type="number"
-                 min={0}
+                min={0}
                 max={20}
                 value={classDatas.constitutionStat}
                 onChange={(e) =>
@@ -175,7 +230,7 @@ const ClassForm = () => {
               <input
                 style={{ backgroundColor: inputColor, color: textColor }}
                 type="number"
-                 min={0}
+                min={0}
                 max={20}
                 value={classDatas.intelligenceStat}
                 onChange={(e) =>
@@ -249,7 +304,7 @@ const ClassForm = () => {
               <input
                 style={{ backgroundColor: inputColor, color: textColor }}
                 type="number"
-               min={-4}
+                min={-4}
                 max={5}
                 value={classDatas.dexModifier}
                 onChange={(e) =>
@@ -317,7 +372,7 @@ const ClassForm = () => {
               <input
                 style={{ backgroundColor: inputColor, color: textColor }}
                 type="number"
-               min={-4}
+                min={-4}
                 max={5}
                 value={classDatas.chaModifier}
                 onChange={(e) =>
@@ -333,21 +388,62 @@ const ClassForm = () => {
         </div>
 
         <div className="insertSkills">
-        <Form.Select
-          className="selectSkills"
-          name="abilityId"
-          required
-        >
-          <option value="">
-            Choisissez l'abilité correspondante à la compétence
-          </option>
-        </Form.Select>
-        <Button 
-          style={{backgroundColor: buttonColor,
-            border:'none'}}
-          className="addSkills"> 
-          <FontAwesomeIcon icon={faCirclePlus} size="lg"/>
-        </Button>
+          <Form.Select
+            className="selectSkills"
+            name="skillsId"
+            value={selectedSkillId}
+            onChange={(e) => setSelectedSkillId(e.target.value)}
+          >
+            <option value="">
+              Choisissez les compétences dont dispose la classe
+            </option>
+            {skills.map((skill) => (
+              <option key={skill.idSkills} value={skill.idSkills}>
+                {skill.skillsName}
+              </option>
+            ))}
+          </Form.Select>
+          <Button
+            onClick={tabSkills}
+            style={{ backgroundColor: buttonColor, border: "none" }}
+            className="addSkills"
+          >
+            <FontAwesomeIcon icon={faCirclePlus} size="lg" />
+          </Button>
+        </div>
+
+        <div className="tabSkills">
+          {selectedSkills.length > 0 && (
+            <table className="tableSkills table-bordered mt-3">
+              <thead>
+                <tr>
+                  <th>Id de la compétence</th>
+                  <th>Nom de la compétence</th>
+                  <th>Descritpion de la compétence</th>
+                  <th>Caractéristique associée</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {selectedSkills.map((skill) => (
+                  <tr key={skill.idSkills}>
+                    <td>{skill.idSkills}</td>
+                    <td>{skill.skillsName}</td>
+                    <td>{skill.skillsDesc}</td>
+                    <td>{skill.abilityName}</td>
+                    <td>
+                      <div
+                        className="eraseIcon"
+                        onClick={() => removeSkill(skill.idSkills)}
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
 
         <div className="buttonForm">

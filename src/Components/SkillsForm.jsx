@@ -17,14 +17,16 @@ const SkillsForm = () => {
     skillsDesc: "",
     abilityId: "",
   });
+
   const handleAddSkills = async (e) => {
     e.preventDefault();
     try {
       await createSkills(skillsDatas);
       alert("Skills created successfully");
+      setSkillsData({skillsName: "", skillsDesc: "", abilityId: ""});
     } catch (error) {
       console.error(error);
-      alert("CPT");
+      alert("Skills already exists");
     }
   };
 

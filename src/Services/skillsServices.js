@@ -6,7 +6,7 @@ export const createSkills = (data) => API.post(`/addSkills`, data,{
     }
 })
 
-export const skills = () => API.get('/skills', {
+export const getSkills = () => API.get('/skills', {
      headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }

@@ -38,7 +38,6 @@ const ResetPassword = () => {
     .then(response => console.log("Réponse du serveur:", response))
     .catch(error => console.error("Erreur:", error));
 
-    
     alert('password reset successfull')
     navigate('/login')
   };

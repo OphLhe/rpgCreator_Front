@@ -12,7 +12,7 @@ export const allClass = () => API.get('/class', {
     }
 })
 
-export const classById = (id) => API.get(`/class/${id}`, {
+export const classById = (idClass) => API.get(`/classById/${idClass}`, {
      headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }

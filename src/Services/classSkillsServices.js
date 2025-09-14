@@ -1,6 +1,6 @@
 import API from './api';
 
-export const insertSkillsToClass = (idClass, data) => API.post(`/addSkillsToClass/${idClass}`, data,{
+export const insertSkillsToClass = (data) => API.post(`/addSkillsToClass`, data,{
      headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }

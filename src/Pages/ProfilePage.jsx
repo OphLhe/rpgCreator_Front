@@ -20,6 +20,7 @@ import { useNavigate } from "react-router";
 import PasswordModal from "../Components/PasswordModal";
 
 const ProfilePage = () => {
+
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   let userName = "";
@@ -121,7 +122,6 @@ const ProfilePage = () => {
   const handleGenreChange = (e) => {
     const selectedId = e.target.value;
     if (selectedId) {
-      console.log(selectedId);
       navigate(`/genreById/${selectedId}`);
     }
   };
