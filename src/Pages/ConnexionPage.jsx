@@ -86,7 +86,7 @@ const ConnexionPage = () => {
 
   return (
     <>
-      <div className="formGroup">
+      <main className="mainFormGroup">
         <div className="formConnexion">
           <h2>Connectez-vous</h2>
           <form action="/login" onSubmit={handleLogin} className="formLogin">
@@ -125,8 +125,7 @@ const ConnexionPage = () => {
 
         <div className="formConnexion">
           <h2>Pas encore de compte? Inscrivez-vous</h2>
-          <form
-            action="/register"
+          <form action="/register"
             onSubmit={handleRegister}
             className="formRegister"
           >
@@ -225,7 +224,7 @@ const ConnexionPage = () => {
             </Button>
           </form>
         </div>
-      </div>
+      </main>
     </>
   );
 };

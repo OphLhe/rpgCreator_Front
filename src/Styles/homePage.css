@@ -1,17 +1,8 @@
-header, .genreChoice{
+header{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-
-header span{
-    margin: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;   
-    text-align: center; 
-    font-size: 1.5rem;
 }
 
 .heroHeader{
@@ -32,8 +23,9 @@ header span{
     justify-content: center;
     align-items: center;
     text-align: center;
-    margin: 0 5%;
-    font-size: 2rem;
+    width: 80%;
+    margin: 0 auto;
+    font-size: 1.5rem;
 }
 
 .textSection{
@@ -60,22 +52,43 @@ header span{
     margin-bottom: 0;
 }
 
-.headerText {
+.headerText, .textSection {
+    width: 100%;
     margin-top: 3%;
     padding: 3%;
     display: flex;
     flex-direction: column;
 }
 
-.genreChoice{
-    margin-top: 5%;
+.headerText p{
+    color: black;
 }
 
+.genreChoice{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    width: 100%;
+}
 
 .arrowDown{
   animation-name: bounce; 
   animation-duration: 3s;
   animation-iteration-count:infinite; 
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 @keyframes bounce { 
@@ -86,6 +99,11 @@ header span{
 
 @media screen and (max-width: 768px) {
 
+     .heroHeader{
+        height: 200px;
+        background-position-y: 60%;
+    }
+
     .textHome, .mainHome{
         font-size: 1rem;
     }
@@ -93,14 +111,30 @@ header span{
     .genreChoice{
         width: 80%;
     }
+
+    .mainHome{
+        width: 80%;
+    }
+}
+
+@media screen  and (max-width: 1400px) {
+
+    .heroHeader{
+        height: 250px;
+        background-position-y: 50%;
+    }
+
 }
 
 @media screen  and (min-width: 1400px) {
 
     .heroHeader{
         height: 400px;
-        background-position-y: 60%;
+        background-position-y: 45%;
     }
 
+    .mainHome{
+        width: 60%;
+    }
 
 }

@@ -40,16 +40,15 @@ const HomePage = () => {
 
             <main className='mainHome'>
                 <section className='headerText'>
-                    <span>
-                        Devenez "Lore Crafters": créez vos propres histoires, vos propres lore à destination du jeu de rôle. Avec Lore Crafters, vous ne faites pas que suivre les règles d'un jeu, vous vous les approppriez pour créer un univers qui vous ressemble.
-                    </span>
-                        
+                    <h2 id="section1-title" className="sr-only">Présentation de Lore Crafters</h2>
+                    <p>Devenez "Lore Crafters": créez vos propres histoires, vos propres lore à destination du jeu de rôle. Avec Lore Crafters, vous ne faites pas que suivre les règles d'un jeu, vous vous les approppriez pour créer un univers qui vous ressemble.</p>   
                 </section>
                 <section className='textSection'>
-                    <span>Explorez, créez, partagez et jouez dans des univers uniques. Que vous soyez un maître du jeu chevronné ou un novice enthousiaste, Lore Crafters est votre plateforme pour donner vie à vos idées les plus folles.</span>
+                    <h2 id="section1-title" className="sr-only">Rôle de Lore Crafters</h2>
+                    <p>Explorez, créez, partagez et jouez dans des univers uniques. Que vous soyez un maître du jeu chevronné ou un novice enthousiaste, Lore Crafters est votre plateforme pour donner vie à vos idées les plus folles.</p>
                 </section>
             
-                <article className='genreChoice'>
+                <section className='genreChoice'>
                     <h2>Choisissez votre Univers</h2>
                     <FontAwesomeIcon icon={faAnglesDown} size="2xl" className='arrowDown' /> 
                     <div className='genreBanner'>
@@ -64,9 +63,8 @@ const HomePage = () => {
                             ))}
                         </Nav.Link>
                     </div>
-                </article>
+                </section>
             </main>
-
         </>
 
     );

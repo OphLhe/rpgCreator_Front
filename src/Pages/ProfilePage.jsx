@@ -129,16 +129,16 @@ const ProfilePage = () => {
   return (
     <>
       <main className="mainProfile">
+
         <h2>Bienvenue sur votre profil {userName}</h2>
+        
         <div className="tabsProfile">
-          <Tabs
-            defaultActiveKey="Inventaire"
+          <Tabs defaultActiveKey="Inventaire"
             id="fill-tab-example"
             className="tabs"
             fill
           >
-            <Tab
-              eventKey="Informations Personnelles"
+            <Tab eventKey="Informations Personnelles"
               title="Informations Personnelles"
               className="tab"
             >
@@ -158,7 +158,7 @@ const ProfilePage = () => {
                     Date de naissance :<span>{userProfile.dateOfBirth}</span>
                   </li>
                   <li className="infoUser">
-                    Nom :<span>{userProfile.email}</span>
+                    Email :<span>{userProfile.email}</span>
                   </li>
                   <li className="infoUser">
                     Mot de passe:
@@ -169,6 +169,37 @@ const ProfilePage = () => {
                     <span>{userProfile.registerDate}</span>
                   </li>
                 </ul>
+                {/* <dl>
+                  <div className="infoUser">
+                    <dt>Prénom :</dt>
+                    <dd>{userProfile.firstName}</dd>
+                  </div>
+                  <div className="infoUser">
+                    <dt>Nom :</dt>
+                    <dd>{userProfile.lastName}</dd>
+                  </div>
+                  <div className="infoUser">
+                    <dt>Surnom :</dt>
+                    <dd>{userProfile.nickname}</dd>
+                  </div>
+                  <div className="infoUser">
+                    <dt>Date de naissance :</dt>
+                    <dd>{userProfile.dateOfBirth}</dd>
+                  </div>
+                  <div className="infoUser">
+                    <dt>Email :</dt>
+                    <dd>{userProfile.email}</dd>
+                  </div>
+                  <div className="infoUser">
+                    <dt>Mot de passe :</dt>
+                    <dd><PasswordModal show={show} onHide={handleClose} /></dd>
+                  </div>
+                  <div className="infoUser">
+                    <dt>Date d'inscription :</dt>
+                    <dd>{userProfile.registerDate}</dd>
+                  </div>
+                </dl>
+              </div> */}
               </div>
             </Tab>
 
@@ -178,9 +209,10 @@ const ProfilePage = () => {
               </Button>
               <Modal centered
               show={showGenre} 
-              onHide={handleCloseGenre}>
+              onHide={handleCloseGenre}
+              aria-labelledby="modal-genre-title">
                 <Modal.Header closeButton>
-                  <Modal.Title>Dans quel genre voulez-vous ajouter un item?</Modal.Title>
+                  <Modal.Title id="modal-genre-title">Dans quel genre voulez-vous ajouter un item?</Modal.Title>
                 </Modal.Header>
                 <Form.Select 
                   onChange={handleGenreChange}>
@@ -264,13 +296,14 @@ const ProfilePage = () => {
               </div>
             </Tab>
 
-            <Tab
-              eventKey="Quêtes en cours"
+            <Tab eventKey="Quêtes en cours"
               title="Quêtes en cours"
               className="tab"
             ></Tab>
+
           </Tabs>
         </div>
+
       </main>
     </>
   );
