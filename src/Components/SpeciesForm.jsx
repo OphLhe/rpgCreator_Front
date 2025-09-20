@@ -89,6 +89,7 @@ const SpeciesForm = () => {
                 <input
                   style={{ backgroundColor: inputColor, color: textColor  }}
                   type="number"
+                  min={0}
                   value={speciesDatas.speciesSpeed}
                   onChange={(e) =>
                     setSpeciesData({

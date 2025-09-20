@@ -11,3 +11,9 @@ export const skillsByClassId = (idClass) => API.get(`/skillsByClassId/${idClass}
         Authorization: `${localStorage.getItem('token')}` 
     }
 })
+
+export const classWithSkills = () => API.get(`/allClassesWithSkills`, {
+    headers: {  
+        Authorization: `${localStorage.getItem('token')}` 
+    }
+})

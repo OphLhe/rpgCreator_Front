@@ -4,6 +4,7 @@ import "../Styles/profilePage.css";
 import { jwtDecode } from "jwt-decode";
 import { verifyToken } from "../Services/tokenServices";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { genre } from "../Services/genreServices";
 import { getUserProfile } from "../Services/userServices";
 import { weapon } from "../Services/weaponServices";
@@ -11,12 +12,13 @@ import { armour } from "../Services/armourServices";
 import { spells } from "../Services/spellsServices";
 import { props } from "../Services/propsServices";
 import { species } from "../Services/speciesServices";
+import { classWithSkills } from "../Services/classSkillsServices";
 import WeaponCard from "../Components/WeaponCard";
 import ArmourCard from "../Components/ArmourCard";
 import SpellsCard from "../Components/SpellsCard";
 import PropsCard from "../Components/PropsCard";
 import SpeciesCard from "../Components/SpeciesCard";
-import { useNavigate } from "react-router";
+import ClassCard from "../Components/ClassCard";
 import PasswordModal from "../Components/PasswordModal";
 
 const ProfilePage = () => {
@@ -103,6 +105,16 @@ const ProfilePage = () => {
     }
   };
 
+  const [getClass, setGetClass] = useState([]);
+  const fetchGetClass = async () => {
+    try {
+      const response = await classWithSkills();
+      setGetClass(response.data);
+    } catch (error) {
+      console.error("error fetching class datas", error);
+    }
+  }
+
   useEffect(() => {
     fetchGenre();
     fetchUserDatas();
@@ -111,6 +123,7 @@ const ProfilePage = () => {
     fetchGetSpells();
     fetchGetProps();
     fetchGetSpecies();
+    fetchGetClass();
   }, []);
 
   if (goodToken) {
@@ -274,12 +287,6 @@ const ProfilePage = () => {
                     speciesName={sp.speciesName}
                     speciesDesc={sp.speciesDesc}
                     speciesSpeed={sp.speciesSpeed}
-                    strModifier={sp.strModifier}
-                    dexModifier={sp.dexModifier}
-                    conModifier={sp.conModifier}
-                    intModifier={sp.intModifier}
-                    wisModifier={sp.wisModifier}
-                    chaModifier={sp.chaModifier}
                   />
                 ))}
 
@@ -291,6 +298,15 @@ const ProfilePage = () => {
                     spellsEffects={s.spellsEffects}
                     spellsRange={s.spellsRange}
                     spellsDesc={s.spellsDesc}
+                  />
+                ))}
+
+                {getClass.map((c) => (
+                  <ClassCard
+                    key={c.idClass}
+                    className={c.className}
+                    classDesc={c.classDesc}
+                    classPv={c.classPv}
                   />
                 ))}
               </div>

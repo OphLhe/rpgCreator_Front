@@ -83,7 +83,7 @@ const ClassForm = () => {
       // on récupère l'id généré à la création de la class
       const insertedId = response1.data.insertId;
       // on recherche la class par son id
-      const res = await classById(insertedId);
+      await classById(insertedId);
 
       // on map les skills du tableau seledctedSkills afin de récupérer chaque id
       const skillsIds = selectedSkills.map((skill) => skill.idSkills);
@@ -388,8 +388,7 @@ const ClassForm = () => {
         </div>
 
         <div className="insertSkills">
-          <Form.Select
-            className="selectSkills"
+          <Form.Select className="selectSkills"
             name="skillsId"
             value={selectedSkillId}
             onChange={(e) => setSelectedSkillId(e.target.value)}
