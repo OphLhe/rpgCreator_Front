@@ -8,7 +8,6 @@ header{
 .heroHeader{
     background-image: url('../Assets/Gemini_Generated_Image_oaqnn5oaqnn5oaqn.png');
     width: 100%;
-    height: 400px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -129,7 +128,7 @@ header{
 @media screen  and (min-width: 1400px) {
 
     .heroHeader{
-        height: 400px;
+        height: 500px;
         background-position-y: 45%;
     }
 

@@ -53,7 +53,8 @@ const SpeciesForm = () => {
 
               <div className="infoSpecies">
                 <label htmlFor="nom de l'espèce">Nom de l'espèces :</label>
-                <input className="nameSpeciesInput"
+                <input id="nom de l'espèce"
+                  className="nameSpeciesInput"
                   style={{ backgroundColor: inputColor, color: textColor }}
                   type="text"
                   value={speciesDatas.speciesName}
@@ -68,7 +69,7 @@ const SpeciesForm = () => {
                 <label htmlFor="descritpion de l'espèce">
                   Descritpion de l'espèces :
                 </label>
-                <Form.Control
+                <Form.Control id="descritpion de l'espèce"
                   style={{ backgroundColor: inputColor, border: "none", color: textColor  }}
                   className="inputTextarea"
                   as="textarea"
@@ -86,7 +87,7 @@ const SpeciesForm = () => {
 
               <div className="speed">
                 <label htmlFor="distance">Allure de voyage (par minute) :</label>
-                <input
+                <input id="distance"
                   style={{ backgroundColor: inputColor, color: textColor  }}
                   type="number"
                   min={0}
@@ -98,8 +99,8 @@ const SpeciesForm = () => {
                     })
                   }
                   required
-                />{" "}
-                mètres
+                /> 
+                <p>mètres</p>
               </div>
               
               <div className="buttonForm">

@@ -306,6 +306,7 @@ const ProfilePage = () => {
                     key={c.idClass}
                     className={c.className}
                     classDesc={c.classDesc}
+                    skills={c.skills}
                     classPv={c.classPv}
                   />
                 ))}

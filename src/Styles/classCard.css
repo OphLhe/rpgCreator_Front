@@ -7,7 +7,12 @@
     position: relative;
     transform-style: preserve-3d;
     transition:
-        transform .6s cubic-bezier(.4, 0, .2, 1);  
+    transform .6s cubic-bezier(.4, 0, .2, 1);  
+}
+
+.classCard h3{
+    text-decoration: underline;
+    text-underline-offset: 6px;
 }
 
 .classCard:hover{
@@ -52,7 +57,7 @@
 }
 
 .descSpan.expanded{
-    max-height: 400px; /* Ajuste selon la taille que tu veux */
+    max-height: 400px;
     overflow-y: auto;
     padding-right: 5px;
 }
@@ -65,4 +70,17 @@
     cursor: pointer;
     color: #fff;
     transition: background 0.3s ease;
+}
+
+.skillsTable table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+.skillsTable th,
+.skillsTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
 }

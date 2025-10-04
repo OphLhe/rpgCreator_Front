@@ -7,6 +7,7 @@ const SpeciesCard = ({  speciesName,  speciesDesc,  speciesSpeed }) => {
   const [showText, setShowText] = useState(false);
 
   const truncate = (text, maxLength = 200) => {
+    if (typeof text !== 'string') return 'not a string';
     if (text.length <= maxLength) return text;
     return text.slice(0, maxLength) + "...";
   };

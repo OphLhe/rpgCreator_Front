@@ -48,13 +48,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin: 5% 0;
-}
-
-.Button {
-  font-size: 1.5rem;
-  width: 100%;
-  margin: 0;
+  
 }
 
 #fill-tab-example-tabpane-Inventaire .Button{
@@ -67,17 +61,29 @@
   color: white;
 }
 
+@media only screen and (max-width: 768px) {
+    
+  #fill-tab-example-tabpane-Inventaire .Button{
+    width: 95%;
+  }
+
+  .mainProfile{
+    font-size: 1rem;
+  }
+}
+
 @media only screen and (max-width: 1200px) {
     
   .mainProfile, .Button {
     font-size: 1rem;
   }
+}
 
-  .flipCard {
-    perspective: 1000px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+
+@media only screen and (max-width: 1400px){
+  
+  .mainProfile{
+    font-size: 1rem
   }
 }
 
@@ -86,12 +92,4 @@
   .mainProfile{
     font-size: 1.2rem;
   }
-
-}
-@media only screen and (max-width: 1400px){
-
-  .mainProfile{
-    font-size: 1rem
-  }
-
 }

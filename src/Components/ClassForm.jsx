@@ -16,7 +16,7 @@ import { classById } from "../Services/classServices";
 const ClassForm = () => {
   const { idGenre } = useParams();
 
-  // Pour bannière header
+  // for header banner
   const [genres, setGenre] = useState([]);
   const fetchGenreById = async () => {
     try {
@@ -31,21 +31,9 @@ const ClassForm = () => {
     className: "",
     classDesc: "",
     classPv: "",
-    strengthStat: "",
-    dexterityStat: "",
-    constitutionStat: "",
-    intelligenceStat: "",
-    wisdomStat: "",
-    charismaStat: "",
-    strModifier: "",
-    dexModifier: "",
-    conModifier: "",
-    intModifier: "",
-    wisModifier: "",
-    chaModifier: "",
   });
 
-  // pour skills.map dans le form.select
+  // for skills.map in the select menu
   const [skills, setSkills] = useState([]);
   const fetchSkills = async () => {
     try {
@@ -59,35 +47,35 @@ const ClassForm = () => {
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [selectedSkillId, setSelectedSkillId] = useState("");
 
-  // crée un tableau avec les skills à ajouter
+  // to create an array with skills to add
   const tabSkills = () => {
-    // récupère l'id de skills et le transforme en texte
+    //to fetch idSkill and turns it into a string
     const skill = skills.find((s) => s.idSkills === parseInt(selectedSkillId));
-    //  s'il y a Id de skill et qu'il n'est pas déjà contenu dans le tableau selectedSkills
+    //if there's an idSkills and it is not already contained in the selectedSkills array
     if (skill && !selectedSkills.includes(skill)) {
-      // on ajoute le skill en gardant en mémoire les précédents ajoutés
+      //we add the skill while keeping in memory the previously added ones
       setSelectedSkills([...selectedSkills, skill]);
-      // remise à 0 du select
+      //reset of the select menu
       setSelectedSkillId("");
     } else {
       alert("Cette compétences a déjà été ajoutée");
     }
   };
 
-  // crée une class puis crée classSkills avec les skills associé à la class créée
+  //create a class then create classSkills with the skills associated to the created class
   const handleAddClass = async (e) => {
     e.preventDefault();
     try {
-      //création de la class avec infos dans form
+      //create class with classDatas
       const response1 = await createClass(classDatas);
-      // on récupère l'id généré à la création de la class
+      //we fecth the id created when creating the class
       const insertedId = response1.data.insertId;
-      // on recherche la class par son id
+      //we look for the class by its id
       await classById(insertedId);
 
-      // on map les skills du tableau seledctedSkills afin de récupérer chaque id
+      //we make a .map with the selectedSkills array to get each id
       const skillsIds = selectedSkills.map((skill) => skill.idSkills);
-      // ajout des skills sous forme de tableau à la class défini par son id
+      //adding the skills in the form of an array to the class defined by its id
       const res2 = await insertSkillsToClass({
         skillsIds,
         classId: insertedId,
@@ -171,7 +159,7 @@ const ClassForm = () => {
           />
         </div>
 
-        <div className="ability">
+        {/* <div className="ability">
           <span>Caractéristiques :</span>
           <div className="abilities">
             <div className="labelInput">
@@ -277,9 +265,9 @@ const ClassForm = () => {
               />
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="modifAbility">
+        {/* <div className="modifAbility">
           <span>Modificateur de caractéristiques :</span>
           <div className="abilities">
             <div className="labelInput">
@@ -385,7 +373,7 @@ const ClassForm = () => {
               />
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="insertSkills">
           <Form.Select className="selectSkills"
@@ -416,7 +404,6 @@ const ClassForm = () => {
             <table className="tableSkills table-bordered mt-3">
               <thead>
                 <tr>
-                  <th>Id de la compétence</th>
                   <th>Nom de la compétence</th>
                   <th>Descritpion de la compétence</th>
                   <th>Caractéristique associée</th>
@@ -426,7 +413,6 @@ const ClassForm = () => {
               <tbody>
                 {selectedSkills.map((skill) => (
                   <tr key={skill.idSkills}>
-                    <td>{skill.idSkills}</td>
                     <td>{skill.skillsName}</td>
                     <td>{skill.skillsDesc}</td>
                     <td>{skill.abilityName}</td>
