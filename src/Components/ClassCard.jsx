@@ -3,7 +3,6 @@ import "../Styles/ClassCard.css";
 import { Button } from "react-bootstrap";
 
 const ClassCard = ({className, classDesc, classPv, skills}) => {
-  console.log(skills);
   
   const [showText, setShowText] = useState(false);
 
@@ -37,7 +36,7 @@ const ClassCard = ({className, classDesc, classPv, skills}) => {
                     </tr>
                   ))
               ) : (
-                <span>Aucune compétence disponible</span>
+                <td>Aucune compétence disponible</td>
               )}
               </tbody>
             </table>

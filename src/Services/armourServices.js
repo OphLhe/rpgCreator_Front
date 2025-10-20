@@ -20,4 +20,3 @@ export const deleteArmour = (idUser) => API.delete(`/armour/delete/${idUser}`, {
         Authorization: `${localStorage.getItem('token')}` 
     }
 })
-

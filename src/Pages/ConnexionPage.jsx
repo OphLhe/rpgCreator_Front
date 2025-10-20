@@ -39,8 +39,8 @@ const ConnexionPage = () => {
     try {
       const response = await login(userLogin);
       localStorage.setItem("token", response.data.token);
-      navigate("/profile");
       alert("user logged in");
+      navigate("/profile");
     } catch (error) {
       console.error(error);
       alert("CPT");

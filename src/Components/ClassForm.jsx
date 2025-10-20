@@ -16,7 +16,7 @@ import { classById } from "../Services/classServices";
 const ClassForm = () => {
   const { idGenre } = useParams();
 
-  // for header banner
+  // for genreColors
   const [genres, setGenre] = useState([]);
   const fetchGenreById = async () => {
     try {
@@ -75,16 +75,15 @@ const ClassForm = () => {
 
       //we make a .map with the selectedSkills array to get each id
       const skillsIds = selectedSkills.map((skill) => skill.idSkills);
-      //adding the skills in the form of an array to the class defined by its id
+      //adding the skills like an array to the class defined by its id
       const res2 = await insertSkillsToClass({
         skillsIds,
         classId: insertedId,
       });
-      console.log(res2.data);
       alert("class created successfully");
     } catch (error) {
       console.error(error);
-      alert("CPT");
+      alert("Error while creating Class");
     }
   };
 
@@ -104,7 +103,7 @@ const ClassForm = () => {
 
   return (
     <>
-      <form action="/addClass" onSubmit={handleAddClass} className="formClass">
+      <form onSubmit={handleAddClass} className="formClass">
         <div className="infoClass">
           <label htmlFor="nom de la classe">Nom de la classe :</label>
           <input
@@ -158,222 +157,6 @@ const ClassForm = () => {
             required
           />
         </div>
-
-        {/* <div className="ability">
-          <span>Caractéristiques :</span>
-          <div className="abilities">
-            <div className="labelInput">
-              <label htmlFor="force">Force :</label>
-              <input
-                style={{ backgroundColor: inputColor, color: textColor }}
-                type="number"
-                min={0}
-                max={20}
-                value={classDatas.strengthStat}
-                onChange={(e) =>
-                  setClassData({
-                    ...classDatas,
-                    strengthStat: e.target.value,
-                  })
-                }
-                required
-              />
-            </div>
-            <div className="labelInput">
-              <label htmlFor="dextérité">Dextérité :</label>
-              <input
-                style={{ backgroundColor: inputColor, color: textColor }}
-                type="number"
-                min={0}
-                max={20}
-                value={classDatas.dexterityStat}
-                onChange={(e) =>
-                  setClassData({
-                    ...classDatas,
-                    dexterityStat: e.target.value,
-                  })
-                }
-                required
-              />
-            </div>
-            <div className="labelInput">
-              <label htmlFor="constitution">Constitution :</label>
-              <input
-                style={{ backgroundColor: inputColor, color: textColor }}
-                type="number"
-                min={0}
-                max={20}
-                value={classDatas.constitutionStat}
-                onChange={(e) =>
-                  setClassData({
-                    ...classDatas,
-                    constitutionStat: e.target.value,
-                  })
-                }
-                required
-              />
-            </div>
-            <div className="labelInput">
-              <label htmlFor="intelligence">Intelligence :</label>
-              <input
-                style={{ backgroundColor: inputColor, color: textColor }}
-                type="number"
-                min={0}
-                max={20}
-                value={classDatas.intelligenceStat}
-                onChange={(e) =>
-                  setClassData({
-                    ...classDatas,
-                    intelligenceStat: e.target.value,
-                  })
-                }
-                required
-              />
-            </div>
-            <div className="labelInput">
-              <label htmlFor="sagesse">Sagesse :</label>
-              <input
-                style={{ backgroundColor: inputColor, color: textColor }}
-                type="number"
-                min={0}
-                max={20}
-                value={classDatas.wisdomStat}
-                onChange={(e) =>
-                  setClassData({
-                    ...classDatas,
-                    wisdomStat: e.target.value,
-                  })
-                }
-                required
-              />
-            </div>
-            <div className="labelInput">
-              <label htmlFor="charisme">Charisme :</label>
-              <input
-                style={{ backgroundColor: inputColor, color: textColor }}
-                type="number"
-                min={0}
-                max={20}
-                value={classDatas.charismaStat}
-                onChange={(e) =>
-                  setClassData({
-                    ...classDatas,
-                    charismaStat: e.target.value,
-                  })
-                }
-                required
-              />
-            </div>
-          </div>
-        </div> */}
-
-        {/* <div className="modifAbility">
-          <span>Modificateur de caractéristiques :</span>
-          <div className="abilities">
-            <div className="labelInput">
-              <label htmlFor="force">Force :</label>
-              <input
-                style={{ backgroundColor: inputColor, color: textColor }}
-                type="number"
-                min={-4}
-                max={5}
-                value={classDatas.strModifier}
-                onChange={(e) =>
-                  setClassData({
-                    ...classDatas,
-                    strModifier: e.target.value,
-                  })
-                }
-                required
-              />
-            </div>
-            <div className="labelInput">
-              <label htmlFor="dextérité">Dextérité :</label>
-              <input
-                style={{ backgroundColor: inputColor, color: textColor }}
-                type="number"
-                min={-4}
-                max={5}
-                value={classDatas.dexModifier}
-                onChange={(e) =>
-                  setClassData({
-                    ...classDatas,
-                    dexModifier: e.target.value,
-                  })
-                }
-                required
-              />
-            </div>
-            <div className="labelInput">
-              <label htmlFor="constitution">Constitution :</label>
-              <input
-                style={{ backgroundColor: inputColor, color: textColor }}
-                type="number"
-                min={-4}
-                max={5}
-                value={classDatas.conModifier}
-                onChange={(e) =>
-                  setClassData({
-                    ...classDatas,
-                    conModifier: e.target.value,
-                  })
-                }
-                required
-              />
-            </div>
-            <div className="labelInput">
-              <label htmlFor="intelligence">Intelligence :</label>
-              <input
-                style={{ backgroundColor: inputColor, color: textColor }}
-                type="number"
-                min={-4}
-                max={5}
-                value={classDatas.intModifier}
-                onChange={(e) =>
-                  setClassData({
-                    ...classDatas,
-                    intModifier: e.target.value,
-                  })
-                }
-                required
-              />
-            </div>
-            <div className="labelInput">
-              <label htmlFor="sagesse">Sagesse :</label>
-              <input
-                style={{ backgroundColor: inputColor, color: textColor }}
-                type="number"
-                min={-4}
-                max={5}
-                value={classDatas.wisModifier}
-                onChange={(e) =>
-                  setClassData({
-                    ...classDatas,
-                    wisModifier: e.target.value,
-                  })
-                }
-                required
-              />
-            </div>
-            <div className="labelInput">
-              <label htmlFor="charisme">Charisme :</label>
-              <input
-                style={{ backgroundColor: inputColor, color: textColor }}
-                type="number"
-                min={-4}
-                max={5}
-                value={classDatas.chaModifier}
-                onChange={(e) =>
-                  setClassData({
-                    ...classDatas,
-                    chaModifier: e.target.value,
-                  })
-                }
-                required
-              />
-            </div>
-          </div>
-        </div> */}
 
         <div className="insertSkills">
           <Form.Select className="selectSkills"

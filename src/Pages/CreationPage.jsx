@@ -12,6 +12,7 @@ import PropsForm from "../Components/PropsForm";
 import ClassForm from "../Components/ClassForm";
 import SkillsForm from "../Components/SkillsForm";
 import genreButtonsColors from "../Utils/genreButtonsColors";
+import NPCForm from "../Components/NPCForm";
 
 const CreationPage = () => {
 
@@ -88,8 +89,9 @@ const CreationPage = () => {
             </Tab>
 
             <Tab eventKey="PNJ" title="PNJ" className="tab">
-              Tab content for Contact
+              <NPCForm />  
             </Tab>
+            
             <Tab eventKey="personnages" title="Personnages" className="tab">
               Tab content for Contact
             </Tab>

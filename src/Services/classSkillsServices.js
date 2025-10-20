@@ -17,3 +17,9 @@ export const classWithSkills = () => API.get(`/allClassesWithSkills`, {
         Authorization: `${localStorage.getItem('token')}` 
     }
 })
+
+export const updateSkillsToClass = (idClass, data) => API.put(`/updateSkillsToClass/${idClass}`, data,{
+        headers: {
+        Authorization: `${localStorage.getItem('token')}`
+    }
+})
