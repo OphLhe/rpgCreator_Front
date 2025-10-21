@@ -9,15 +9,24 @@ import genreButtonsColors from "../Utils/genreButtonsColors";
 import genreTextColors from "../Utils/genreTextColors";
 
 const ArmourForm = () => {
-    
+  
+    const { idGenre } = useParams();
     const [genres, setGenre] = useState([]);
+    const fetchGenreById = async () => {
+      try {
+        const response = await genreById(idGenre);
+        setGenre(response.data);
+      } catch (error) {
+        console.error("error fetching genre by id", error);
+      }
+    };
+
     const [armourDatas, setArmourData] = useState({
         armourName: "",
         armourDesc: "",
         armourClass: "",
         armourEffect: ""
     });
-    const { idGenre } = useParams();
 
     const handleAddArmour = async (e) => {
         e.preventDefault();
@@ -27,15 +36,6 @@ const ArmourForm = () => {
         } catch (error) {
         console.error(error);
         alert("CPT");
-        }
-    };
-
-    const fetchGenreById = async () => {
-        try {
-        const response = await genreById(idGenre);
-        setGenre(response.data);
-        } catch (error) {
-        console.error("error fetching genre by id", error);
         }
     };
 

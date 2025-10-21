@@ -13,6 +13,8 @@ import ClassForm from "../Components/ClassForm";
 import SkillsForm from "../Components/SkillsForm";
 import genreButtonsColors from "../Utils/genreButtonsColors";
 import NPCForm from "../Components/NPCForm";
+import StoryForm from "../Components/StoryForm";
+import PlayerscharForm from "../Components/PlayersCharForm";
 
 const CreationPage = () => {
 
@@ -93,10 +95,11 @@ const CreationPage = () => {
             </Tab>
             
             <Tab eventKey="personnages" title="Personnages" className="tab">
-              Tab content for Contact
+              <PlayerscharForm />
             </Tab>
+
             <Tab eventKey="quêtes" title="Quêtes" className="tab">
-              Tab content for Contact
+              <StoryForm />
             </Tab>
           </Tabs>
         </div>

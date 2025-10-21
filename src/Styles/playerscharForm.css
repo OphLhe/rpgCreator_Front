@@ -1,0 +1,72 @@
+.formPlayerschar{
+    display: flex;
+    flex-direction: column;
+}
+
+.classDetails {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+h5{
+    margin-bottom:0;
+}
+
+.skillCheckbox label{
+   margin: 0.5rem;
+}
+
+.skillCheckbox input{
+    margin-right: 10px;
+}
+
+.selectSpecies, .selectClass{
+    border-bottom: 1px solid;
+    padding-bottom: 2rem;
+}
+
+.speciesDetails{
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+.formInfosPlayerschar{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 1px solid;
+    padding-bottom: 2rem
+}
+
+.formInfosPlayerschar input{
+    padding: 0.3rem;
+}
+
+.identityPlayerschar, .infosPlayerschar{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+}
+
+.agePlayerschar{
+    display: flex;
+    gap: 0.5rem;
+    align-items: first baseline;
+    margin-top: 2.1rem;
+}
+
+.agePlayerschar input{
+    width: 20%;
+    text-align: center;  
+}
+
+.descriptionPlayerschar{
+    width: 100%;
+}
+
+.inputTextarea{
+    font-size: 1.2rem;
+}

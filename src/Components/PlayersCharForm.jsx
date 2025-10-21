@@ -4,14 +4,14 @@ import genreInputsColors from "../Utils/genreInputsColors";
 import genreButtonsColors from "../Utils/genreButtonsColors";
 import genreTextColors from "../Utils/genreTextColors";
 import { genreById } from "../Services/genreServices";
-import "../Styles/NPCForm.css";
+import "../Styles/playerscharForm.css";
 import { Button, Form } from "react-bootstrap";
 import { species } from "../Services/speciesServices";
 import { classWithSkills} from "../Services/classSkillsServices";
-import { createNpc, npcById } from "../Services/npcServices";
-import { addClassToNpc } from "../Services/npcClassServices";
+import { createPlayerscharacter, playerscharacterById } from "../Services/playerscharacterServices";
+import { addClassToPlayersChar } from "../Services/playerscharClassServices";
 
-const NPCForm = () => {
+const playerscharForm = () => {
   const { idGenre } = useParams();
 
   // for genreColors
@@ -25,19 +25,19 @@ const NPCForm = () => {
     }
   };
 
-  const [npcDatas, setNpcData] = useState({
-    npcFirstname: "",
-    npcLastname: "",
-    npcNickname: "",
-    npcGender: "",
-    npcAge: 0,
-    npcBiography: "",
-    npcPhysic: "",
-    npcLevel: 0,
+  const [playerscharDatas, setPlayerscharData] = useState({
+    firstname: "",
+    lastname: "",
+    nickname: "",
+    gender: "",
+    age: 0,
+    biography: "",
+    physic: "",
+    level: 0,
     speciesId: "",
   });
 
-  const [npcClassDatas, setNpcClassDatas] = useState({
+  const [playerscharClassDatas, setPlayerscharClassDatas] = useState({
     strengthStat:0,
     dexterityStat:0,
     constitutionStat:0,
@@ -61,6 +61,7 @@ const NPCForm = () => {
         console.error('error fetching species ', error);
     }
   }
+
 //   Pour afficher les infos de species une fois sélectionné
   const [selectedSpecies, setSelectedSpecies] = useState(null);
 
@@ -101,7 +102,7 @@ const NPCForm = () => {
   alert(`Compétences validées pour ${selectedClass.className}`)
 };
 
-const handleAddNpc = async (e) => {
+const handleAddplayerschar = async (e) => {
     e.preventDefault()
 
     if (!selectedClass || !selectedSpecies) {
@@ -110,52 +111,52 @@ const handleAddNpc = async (e) => {
     }
 
     try {
-        // création pnj et récupération de son id
-        const response = await createNpc(npcDatas)
+        // création du perso de joueur et récupération de son id
+        const response = await createPlayerscharacter(playerscharDatas)
         const insertedId = response.data.insertId
-        await npcById(insertedId)
+        await playerscharacterById(insertedId)
         
         // ajout de la classe au pnj avec nouvelles skills choisies
-        const creation = await addClassToNpc({
-            npcId: insertedId,
+        const creation = await addClassToPlayersChar({
+            playersCharacterId: insertedId,
             speciesId:selectedSpecies.idSpecies,
             classId: selectedClass.idClass,
             skills: validatedSkills,
-            strengthStat: npcClassDatas.strengthStat,
-            dexterityStat: npcClassDatas.dexterityStat,
-            constitutionStat: npcClassDatas.constitutionStat,
-            intelligenceStat: npcClassDatas.intelligenceStat,
-            wisdomStat: npcClassDatas.wisdomStat,
-            charismaStat: npcClassDatas.charismaStat,
-            strModifier: npcClassDatas.strModifier,
-            dexModifier: npcClassDatas.dexModifier,
-            conModifier: npcClassDatas.conModifier,
-            intModifier: npcClassDatas.intModifier,
-            wisModifier: npcClassDatas.wisModifier,
-            chaModifier: npcClassDatas.chaModifier,
+            strengthStat: playerscharClassDatas.strengthStat,
+            dexterityStat: playerscharClassDatas.dexterityStat,
+            constitutionStat: playerscharClassDatas.constitutionStat,
+            intelligenceStat: playerscharClassDatas.intelligenceStat,
+            wisdomStat: playerscharClassDatas.wisdomStat,
+            charismaStat: playerscharClassDatas.charismaStat,
+            strModifier: playerscharClassDatas.strModifier,
+            dexModifier: playerscharClassDatas.dexModifier,
+            conModifier: playerscharClassDatas.conModifier,
+            intModifier: playerscharClassDatas.intModifier,
+            wisModifier: playerscharClassDatas.wisModifier,
+            chaModifier: playerscharClassDatas.chaModifier,
         })
         // remise à 0 du formulaire
-        setNpcData({
-            npcFirstname: "",
-            npcLastname: "",
-            npcNickname: "",
-            npcGender: "",
-            npcAge: 0,
-            npcBiography: "",
-            npcPhysic: "",
-            npcLevel: 0,
+        setPlayerscharData({
+            firstname: "",
+            lastname: "",
+            nickname: "",
+            gender: "",
+            age: 0,
+            biography: "",
+            physic: "",
+            level: 0,
             speciesId: "",
         })
-        setNpcClassDatas("")
+        setPlayerscharClassDatas("")
         setSelectedClass(null)
         setSpecies([])
         setSelectedSpecies(null)
         setSelectedSkills([])
         console.log(creation);
-        alert('Npc créée avec succés')
+        alert('playerscharacter créée avec succés')
     } catch (error) {
         console.error(error);
-        alert("Error while creating Npc")
+        alert("Error while creating playerschar")
     }
 }
 
@@ -172,17 +173,17 @@ const handleAddNpc = async (e) => {
 
   return (
     <>
-      <form className="formNpc"
-      onSubmit={handleAddNpc}>
+      <form className="formPlayerschar"
+      onSubmit={handleAddplayerschar}>
         <div className="selectClass">
-            <label htmlFor="Classe du Pnj">Classe du Pnj</label>
+            <label htmlFor="Classe du Personnage">Classe du Personnage</label>
             <Form.Select
-                id="Classe du Pnj"
+                id="Classe du Personnage"
                 onChange={handleClassChange}
                 value={selectedClass ? selectedClass.idClass: ""}
             >
                 <option value="">
-                Choisissez la classe du PNJ
+                Choisissez la classe du Personnage
                 </option>
                 {classes.map((cls) => (
                 <option key={cls.idClass} value={cls.idClass}>
@@ -223,20 +224,20 @@ const handleAddNpc = async (e) => {
         </div>
 
         <div className="selectSpecies">
-            <label htmlFor="Espèces du Pnj">Espèces du Pnj</label>
+            <label htmlFor="Espèces du Pnj">Espèces du Personnage</label>
             <Form.Select name="speciesId"
                 onChange={(e) => {
                     const selectedSpeciesId = e.target.value;
                     const selected = getSpecies.find((spe) => spe.idSpecies.toString() === selectedSpeciesId);
                     setSelectedSpecies(selected);
-                    setNpcData({
-                        ...npcDatas,
+                    setPlayerscharData({
+                        ...playerscharDatas,
                         speciesId: selectedSpeciesId,
                     })
                 }}
             >
                 <option value="">
-                Choisissez l'espèces du PNJ
+                Choisissez l'espèces du Personnage
                 </option>
                 {getSpecies.map((spe) => (
                 <option key={spe.idSpecies} value={spe.idSpecies}>
@@ -267,10 +268,10 @@ const handleAddNpc = async (e) => {
                             type="number"
                             min={0}
                             max={20}
-                            value={npcClassDatas.strengthStat}
+                            value={playerscharClassDatas.strengthStat}
                             onChange={(e) =>
-                            setNpcClassDatas({
-                                ...npcClassDatas,
+                            setPlayerscharClassDatas({
+                                ...playerscharClassDatas,
                                 strengthStat: e.target.value,
                             })
                             }
@@ -284,10 +285,10 @@ const handleAddNpc = async (e) => {
                             type="number"
                             min={0}
                             max={20}
-                            value={npcClassDatas.dexterityStat}
+                            value={playerscharClassDatas.dexterityStat}
                             onChange={(e) =>
-                            setNpcClassDatas({
-                                ...npcClassDatas,
+                            setPlayerscharClassDatas({
+                                ...playerscharClassDatas,
                                 dexterityStat: e.target.value,
                             })
                             }
@@ -301,10 +302,10 @@ const handleAddNpc = async (e) => {
                             type="number"
                             min={0}
                             max={20}
-                            value={npcClassDatas.constitutionStat}
+                            value={playerscharClassDatas.constitutionStat}
                             onChange={(e) =>
-                            setNpcClassDatas({
-                                ...npcClassDatas,
+                            setPlayerscharClassDatas({
+                                ...playerscharClassDatas,
                                 constitutionStat: e.target.value,
                             })
                             }
@@ -318,10 +319,10 @@ const handleAddNpc = async (e) => {
                             type="number"
                             min={0}
                             max={20}
-                            value={npcClassDatas.intelligenceStat}
+                            value={playerscharClassDatas.intelligenceStat}
                             onChange={(e) =>
-                            setNpcClassDatas({
-                                ...npcClassDatas,
+                            setPlayerscharClassDatas({
+                                ...playerscharClassDatas,
                                 intelligenceStat: e.target.value,
                             })
                             }
@@ -335,10 +336,10 @@ const handleAddNpc = async (e) => {
                             type="number"
                             min={0}
                             max={20}
-                            value={npcClassDatas.wisdomStat}
+                            value={playerscharClassDatas.wisdomStat}
                             onChange={(e) =>
-                            setNpcClassDatas({
-                                ...npcClassDatas,
+                            setPlayerscharClassDatas({
+                                ...playerscharClassDatas,
                                 wisdomStat: e.target.value,
                             })
                             }
@@ -352,10 +353,10 @@ const handleAddNpc = async (e) => {
                             type="number"
                             min={0}
                             max={20}
-                            value={npcClassDatas.charismaStat}
+                            value={playerscharClassDatas.charismaStat}
                             onChange={(e) =>
-                            setNpcClassDatas({
-                                ...npcClassDatas,
+                            setPlayerscharClassDatas({
+                                ...playerscharClassDatas,
                                 charismaStat: e.target.value,
                             })
                             }
@@ -373,10 +374,10 @@ const handleAddNpc = async (e) => {
                                 type="number"
                                 min={-4}
                                 max={5}
-                                value={npcClassDatas.strModifier}
+                                value={playerscharClassDatas.strModifier}
                                 onChange={(e) =>
-                                setNpcClassDatas({
-                                    ...npcClassDatas,
+                                setPlayerscharClassDatas({
+                                    ...playerscharClassDatas,
                                     strModifier: e.target.value,
                                 })
                                 }
@@ -390,10 +391,10 @@ const handleAddNpc = async (e) => {
                                 type="number"
                                 min={-4}
                                 max={5}
-                                value={npcClassDatas.dexModifier}
+                                value={playerscharClassDatas.dexModifier}
                                 onChange={(e) =>
-                                setNpcClassDatas({
-                                    ...npcClassDatas,
+                                setPlayerscharClassDatas({
+                                    ...playerscharClassDatas,
                                     dexModifier: e.target.value,
                                 })
                                 }
@@ -407,10 +408,10 @@ const handleAddNpc = async (e) => {
                                 type="number"
                                 min={-4}
                                 max={5}
-                                value={npcClassDatas.conModifier}
+                                value={playerscharClassDatas.conModifier}
                                 onChange={(e) =>
-                                setNpcClassDatas({
-                                    ...npcClassDatas,
+                                setPlayerscharClassDatas({
+                                    ...playerscharClassDatas,
                                     conModifier: e.target.value,
                                 })
                                 }
@@ -424,10 +425,10 @@ const handleAddNpc = async (e) => {
                                 type="number"
                                 min={-4}
                                 max={5}
-                                value={npcClassDatas.intModifier}
+                                value={playerscharClassDatas.intModifier}
                                 onChange={(e) =>
-                                setNpcClassDatas({
-                                    ...npcClassDatas,
+                                setPlayerscharClassDatas({
+                                    ...playerscharClassDatas,
                                     intModifier: e.target.value,
                                 })
                                 }
@@ -441,10 +442,10 @@ const handleAddNpc = async (e) => {
                                 type="number"
                                 min={-4}
                                 max={5}
-                                value={npcClassDatas.wisModifier}
+                                value={playerscharClassDatas.wisModifier}
                                 onChange={(e) =>
-                                setNpcClassDatas({
-                                    ...npcClassDatas,
+                                setPlayerscharClassDatas({
+                                    ...playerscharClassDatas,
                                     wisModifier: e.target.value,
                                 })
                                 }
@@ -458,10 +459,10 @@ const handleAddNpc = async (e) => {
                                 type="number"
                                 min={-4}
                                 max={5}
-                                value={npcClassDatas.chaModifier}
+                                value={playerscharClassDatas.chaModifier}
                                 onChange={(e) =>
-                                setNpcClassDatas({
-                                    ...npcClassDatas,
+                                setPlayerscharClassDatas({
+                                    ...playerscharClassDatas,
                                     chaModifier: e.target.value,
                                 })
                                 }
@@ -474,89 +475,90 @@ const handleAddNpc = async (e) => {
             )}
         </div>  
 
-        <div className="formInfosNpc">
-            <div className="identityNpc">
+        <div className="formInfosPlayerschar">
+            <div className="identityPlayerschar">
             <label htmlFor="Prénom du Pnj">Prénom du Pnj :</label>
             <input
-                className="nameNpcInput"
+                className="namePlayerscharInput"
                 style={{ backgroundColor: inputColor, color: textColor }}
                 type="text"
-                value={npcDatas.npcFirstname}
+                value={playerscharDatas.playerscharFirstname}
                 onChange={(e) =>
-                setNpcData({
-                    ...npcDatas,
-                    npcFirstname: e.target.value,
+                setPlayerscharData({
+                    ...playerscharDatas,
+                    firstname: e.target.value,
                 })
                 }
                 required
             />
             <label htmlFor="Nom du Pnj">Nom du Pnj :</label>
             <input
-                className="nameNpcInput"
+                className="namePlayerscharInput"
                 style={{ backgroundColor: inputColor, color: textColor }}
                 type="text"
-                value={npcDatas.npcLastname}
+                value={playerscharDatas.playerscharLastname}
                 onChange={(e) =>
-                setNpcData({
-                    ...npcDatas,
-                    npcLastname: e.target.value,
+                setPlayerscharData({
+                    ...playerscharDatas,
+                    lastname: e.target.value,
                 })
                 }
             />
             <label htmlFor="Surnom du Pnj">Surnom du Pnj :</label>
             <input
-                className="nameNpcInput"
+                className="namePlayerscharInput"
                 style={{ backgroundColor: inputColor, color: textColor }}
                 type="text"
-                value={npcDatas.npcNickname}
+                value={playerscharDatas.playerscharNickname}
                 onChange={(e) =>
-                setNpcData({
-                    ...npcDatas,
-                    npcNickname: e.target.value,
+                setPlayerscharData({
+                    ...playerscharDatas,
+                    nickname: e.target.value,
                 })
                 }
             />
             </div>
-            <div className="infosNpc">
+            <div className="infosPlayerschar">
                 <label htmlFor="Genre du Pnj">Genre du Pnj :</label>
                 <input
-                    className="infoNpcInput"
+                    className="infoPlayerscharInput"
                     style={{ backgroundColor: inputColor, color: textColor }}
                     type="text"
-                    value={npcDatas.npcGender}
+                    value={playerscharDatas.playerscharGender}
                     onChange={(e) =>
-                    setNpcData({
-                        ...npcDatas,
-                        npcGender: e.target.value,
+                    setPlayerscharData({
+                        ...playerscharDatas,
+                        gender: e.target.value,
                     })
                     }
                 />
-                <div className="ageNpc">
+                <div className="agePlayerschar">
                     <label htmlFor="Age du Pnj">Age du Pnj :</label>
                     <input
                         style={{ backgroundColor: inputColor, color: textColor }}
                         type="number"
                         min={0}
-                        value={npcDatas.npcAge}
+                        value={playerscharDatas.playerscharAge}
                         onChange={(e) =>
-                        setNpcData({
-                            ...npcDatas,
-                            npcAge: e.target.value,
+                        setPlayerscharData({
+                            ...playerscharDatas,
+                            age: e.target.value,
                         })
                         } 
+                        required
                     /> ans
                 </div>
-                <div className="ageNpc">
+                <div className="agePlayerschar">
                     <label htmlFor="Level du Pnj">Level du Pnj :</label>
                     <input
                         style={{ backgroundColor: inputColor, color: textColor }}
                         type="number"
                         min={0}
-                        value={npcDatas.npcLevel}
+                        value={playerscharDatas.playerscharLevel}
                         onChange={(e) =>
-                        setNpcData({
-                            ...npcDatas,
-                            npcLevel: e.target.value,
+                        setPlayerscharData({
+                            ...playerscharDatas,
+                            level: e.target.value,
                         })
                         }
                         required
@@ -565,7 +567,7 @@ const handleAddNpc = async (e) => {
             </div>
         </div>
 
-        <div className="descriptionNpc">
+        <div className="descriptionPlayerschar">
             <label htmlFor="Biographie du PNJ">Biographie du PNJ :</label>
             <Form.Control
                 style={{
@@ -576,11 +578,11 @@ const handleAddNpc = async (e) => {
                 className="inputTextarea"
                 as="textarea"
                 aria-label="With textarea"
-                value={npcDatas.npcBiography}
+                value={playerscharDatas.playerscharBiography}
                 onChange={(e) =>
-                setNpcData({
-                    ...npcDatas,
-                    npcBiography: e.target.value,
+                setPlayerscharData({
+                    ...playerscharDatas,
+                    biography: e.target.value,
                 })
                 }
             />
@@ -594,11 +596,11 @@ const handleAddNpc = async (e) => {
                 className="inputTextarea"
                 as="textarea"
                 aria-label="With textarea"
-                value={npcDatas.npcPhysic}
+                value={playerscharDatas.playerscharPhysic}
                 onChange={(e) =>
-                setNpcData({
-                    ...npcDatas,
-                    npcPhysic: e.target.value,
+                setPlayerscharData({
+                    ...playerscharDatas,
+                    physic: e.target.value,
                 })
                 }
             />
@@ -619,4 +621,4 @@ const handleAddNpc = async (e) => {
     );
 };
 
-export default NPCForm;
+export default playerscharForm;

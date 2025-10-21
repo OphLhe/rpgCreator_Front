@@ -1,10 +1,10 @@
 import API from './api';
 
-export const checkPlayersCharClassAssociation = (playersCharacterId, classId) => API.get(`checkPlayersCharClassAssociation/${playersCharacterId}/${classId}`, {
-    headers: {
-        Authorization: `${localStorage.getItem('token')}`
-    }
-})
+// export const checkPlayersCharClassAssociation = (playersCharacterId, classId) => API.get(`checkPlayersCharClassAssociation/${playersCharacterId}/${classId}`, {
+//     headers: {
+//         Authorization: `${localStorage.getItem('token')}`
+//     }
+// })
 
 export const addClassToPlayersChar = (data) => API.post('/addClassToPlayersChar', data, {
     headers: {  
