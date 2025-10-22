@@ -1,11 +1,5 @@
 import API from './api';
 
-// export const CheckNpcClassAssociation = (npcId, classId) => API.get (`checkNpcClassAssociation/${npcId}/${classId}`, {
-//     headers: {
-//         Authorization: `${localStorage.getItem('token')}`
-//     }
-// })
-
 export const addClassToNpc = (data) => API.post('/addClassToNPC', data, {
     headers: {  
         Authorization: `${localStorage.getItem('token')}` 

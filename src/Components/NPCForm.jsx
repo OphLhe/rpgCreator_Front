@@ -26,8 +26,8 @@ const NPCForm = () => {
   };
 
   const [npcDatas, setNpcData] = useState({
-    npcFirstname: "",
-    npcLastname: "",
+    npcFirstName: "",
+    npcLastName: "",
     npcNickname: "",
     npcGender: "",
     npcAge: 0,
@@ -481,11 +481,11 @@ const handleAddNpc = async (e) => {
                 className="nameNpcInput"
                 style={{ backgroundColor: inputColor, color: textColor }}
                 type="text"
-                value={npcDatas.npcFirstname}
+                value={npcDatas.npcFirstName}
                 onChange={(e) =>
                 setNpcData({
                     ...npcDatas,
-                    npcFirstname: e.target.value,
+                    npcFirstName: e.target.value,
                 })
                 }
                 required
@@ -495,11 +495,11 @@ const handleAddNpc = async (e) => {
                 className="nameNpcInput"
                 style={{ backgroundColor: inputColor, color: textColor }}
                 type="text"
-                value={npcDatas.npcLastname}
+                value={npcDatas.npcLastName}
                 onChange={(e) =>
                 setNpcData({
                     ...npcDatas,
-                    npcLastname: e.target.value,
+                    npcLastName: e.target.value,
                 })
                 }
             />

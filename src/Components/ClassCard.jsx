@@ -7,7 +7,7 @@ const ClassCard = ({className, classDesc, classPv, skills}) => {
   const [showText, setShowText] = useState(false);
 
   const truncate = (text, maxLength = 100) => {
-    if (text.length <= maxLength) return text;
+    if (text && text.length <= maxLength) return text;
     return text.slice(0, maxLength) + "...";
   };
 
@@ -29,14 +29,16 @@ const ClassCard = ({className, classDesc, classPv, skills}) => {
               </thead>
               <tbody>
               {skills.filter((skill) => skill.skillsName).length > 0 ? (
-                skills.map((skill) => (
-                    <tr key={skill.idSkills}> 
+                skills.map((skill, index) => (
+                    <tr key={index}> 
                     <td>{skill.skillsName}</td>
                     <td>{skill.abilityName}</td>
                     </tr>
                   ))
               ) : (
-                <td>Aucune compétence disponible</td>
+                <tr>
+                  <td>Aucune compétence disponible</td>
+                </tr>  
               )}
               </tbody>
             </table>

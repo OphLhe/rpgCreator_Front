@@ -6,7 +6,7 @@ import { armour } from "../Services/armourServices";
 import genreTextColors from "../Utils/genreTextColors";
 import genreInputsColors from "../Utils/genreInputsColors";
 
-const ArrmourCard = ({ genre, armourName, armourDesc, armourClass, armourEffect }) => {
+const ArmourCard = ({ genre, armourName, armourDesc, armourClass, armourEffect }) => {
   const [showText, setShowText] = useState(false);
   const [genres, setGenre] = useState([]);
 
@@ -45,9 +45,10 @@ const ArrmourCard = ({ genre, armourName, armourDesc, armourClass, armourEffect 
           <span>Classe d'armure : {armourClass}</span>
         </div>
         <div className="armourVerso">
-           <div className={`descSpan ${showText? "expanded":"collapsed"} `}>
+          <div className={`descSpan ${showText? "expanded":"collapsed"} `}>
             <span>{showText ? armourDesc : truncate(armourDesc)}</span>
           </div>
+          
           
           {armourEffect ? (
             <span>Effets : {armourEffect}</span>
@@ -55,7 +56,7 @@ const ArrmourCard = ({ genre, armourName, armourDesc, armourClass, armourEffect 
             <span>Effets : Sans effets particulier</span>
           )}
 
-          {armourDesc.length > 50 && (
+          {armourDesc && armourDesc.length > 50 && (
             <Button
               onClick={() => setShowText(!showText)}
               className="detailsButton"
@@ -70,4 +71,4 @@ const ArrmourCard = ({ genre, armourName, armourDesc, armourClass, armourEffect 
   );
 };
 
-export default ArrmourCard;
+export default ArmourCard;

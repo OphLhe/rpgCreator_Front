@@ -15,6 +15,6 @@ const Page404 = () => {
     </header>
     </> 
     );
-}
+}   
  
 export default Page404;

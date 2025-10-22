@@ -9,7 +9,7 @@ import { Button, Form } from "react-bootstrap";
 import { species } from "../Services/speciesServices";
 import { classWithSkills} from "../Services/classSkillsServices";
 import { createPlayerscharacter, playerscharacterById } from "../Services/playerscharacterServices";
-import { addClassToPlayersChar } from "../Services/playerscharClassServices";
+import { addClassToPlayersChar } from "../Services/playersCharClassServices";
 
 const playerscharForm = () => {
   const { idGenre } = useParams();
@@ -26,8 +26,8 @@ const playerscharForm = () => {
   };
 
   const [playerscharDatas, setPlayerscharData] = useState({
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     nickname: "",
     gender: "",
     age: 0,
@@ -97,7 +97,6 @@ const playerscharForm = () => {
   const handleValidateSkills = (e) => {
   e.preventDefault();
   console.log(selectedSkills);
-  
   setValidatedSkills(selectedSkills)
   alert(`Compétences validées pour ${selectedClass.className}`)
 };
@@ -482,11 +481,11 @@ const handleAddplayerschar = async (e) => {
                 className="namePlayerscharInput"
                 style={{ backgroundColor: inputColor, color: textColor }}
                 type="text"
-                value={playerscharDatas.playerscharFirstname}
+                value={playerscharDatas.playerscharFirstName}
                 onChange={(e) =>
                 setPlayerscharData({
                     ...playerscharDatas,
-                    firstname: e.target.value,
+                    firstName: e.target.value,
                 })
                 }
                 required
@@ -496,11 +495,11 @@ const handleAddplayerschar = async (e) => {
                 className="namePlayerscharInput"
                 style={{ backgroundColor: inputColor, color: textColor }}
                 type="text"
-                value={playerscharDatas.playerscharLastname}
+                value={playerscharDatas.playerscharLastName}
                 onChange={(e) =>
                 setPlayerscharData({
                     ...playerscharDatas,
-                    lastname: e.target.value,
+                    lastName: e.target.value,
                 })
                 }
             />

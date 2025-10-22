@@ -19,8 +19,8 @@ const WeaponCard = ({
   const [genres, setGenre] = useState([]);
 
   const truncate = (text, maxLength = 50) => {
-    if (text.length <= maxLength) return text;
-    return text.slice(0, maxLength) + "...";
+    if (!text) return "Aucune description";
+    return text.length <= maxLength ? text : text.slice(0, maxLength) + "...";
   };
 
   const fetchGenreById = async () => {
@@ -57,16 +57,17 @@ const WeaponCard = ({
         </div>
         <div className="weaponVerso">
           <div className={`descSpan ${showText ? "expanded" : "collapsed"} `}>
-            <span>{showText ? weaponDesc : truncate(weaponDesc)}</span>
+            <span>
+              {showText ? weaponDesc : weaponDesc ? truncate(weaponDesc): "Aucune description"}
+            </span>
+          </div>
+          <div className={`descSpan ${showText ? "expanded" : "collapsed"} `}>
+            <span>
+              {showText ? weaponEffects : weaponEffects ? truncate(weaponEffects): "Aucune Effets"}
+            </span>
           </div>
 
-          {weaponEffects ? (
-            <span>Effets : {weaponEffects}</span>
-          ) : (
-            <span>Effets : Sans effets particulier</span>
-          )}
-
-          {weaponDesc.length > 50 && (
+          {((weaponDesc && weaponDesc.length > 50) || (weaponEffects && weaponEffects.length > 50)) && (
             <Button
               onClick={() => setShowText(!showText)}
               className="detailsButton"

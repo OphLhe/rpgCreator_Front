@@ -13,6 +13,8 @@ import { spells } from "../Services/spellsServices";
 import { props } from "../Services/propsServices";
 import { species } from "../Services/speciesServices";
 import { classWithSkills } from "../Services/classSkillsServices";
+import { allNpcWithClasses } from "../Services/npcClassServices";
+import { allPlayersCharWithClasses } from "../Services/playersCharClassServices";
 import WeaponCard from "../Components/WeaponCard";
 import ArmourCard from "../Components/ArmourCard";
 import SpellsCard from "../Components/SpellsCard";
@@ -20,6 +22,8 @@ import PropsCard from "../Components/PropsCard";
 import SpeciesCard from "../Components/SpeciesCard";
 import ClassCard from "../Components/ClassCard";
 import PasswordModal from "../Components/PasswordModal";
+import NPCCard from "../Components/NPCCard";
+import PlayerscharCard from "../Components/PlayerscharCard";
 
 const ProfilePage = () => {
 
@@ -115,6 +119,28 @@ const ProfilePage = () => {
     }
   }
 
+  const [getNpc, setGetNpc] = useState([]);
+  const fetchGetNpc = async () => {
+    try {
+      const response = await allNpcWithClasses(); 
+       console.log(response.data.result)
+      setGetNpc(response.data.result);
+    } catch (error) {
+      console.error("error fetching npc datas", error);  
+    }
+  }
+
+  const [getPlayerschar, setGetPlayerschar] = useState([]);
+  const fetchGetPlayerschar = async () => {
+    try {
+      const response = await allPlayersCharWithClasses(); 
+      console.log(response.data.result);
+      setGetPlayerschar(response.data.result);
+    } catch (error) {
+      console.error("error fetching  player's character datas", error);  
+    }
+  }
+
   useEffect(() => {
     fetchGenre();
     fetchUserDatas();
@@ -124,6 +150,8 @@ const ProfilePage = () => {
     fetchGetProps();
     fetchGetSpecies();
     fetchGetClass();
+    fetchGetNpc();
+    fetchGetPlayerschar();
   }, []);
 
   if (goodToken) {
@@ -310,6 +338,41 @@ const ProfilePage = () => {
                     classPv={c.classPv}
                   />
                 ))}
+
+                {getNpc.map((n) => (
+                  <NPCCard
+                    key={n.idNpcClass}
+                    npcFirstName={n.npcFirstName}
+                    npcLastName={n.npcLastName}
+                    npcNickname={n.npcNickname}
+                    npcGender={n.npcGender}
+                    npcAge={n.npcAge}
+                    npcBiography={n.npcBiography}
+                    npcPhysic={n.npcPhysic}
+                    npcLevel={n.npcLevel}
+                    speciesName={n.speciesName}
+                    className={n.className}
+                    validatedSkills={n.validatedSkills}
+                  />
+                ))}
+
+                {getPlayerschar.map((pc) => (
+                  <PlayerscharCard
+                    key={pc.idPlayerscharClass}
+                    firstName={pc.firstName}
+                    lastName={pc.lastName}
+                    nickname={pc.nickname}
+                    gender={pc.gender}
+                    age={pc.age}
+                    biography={pc.biography}
+                    physic={pc.physic}
+                    level={pc.level}
+                    speciesName={pc.speciesName}
+                    className={pc.className}
+                    validatedSkills={pc.validatedSkills}
+                  />
+                ))}
+
               </div>
             </Tab>
 
