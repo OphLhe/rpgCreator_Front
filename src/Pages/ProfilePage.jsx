@@ -15,6 +15,7 @@ import { species } from "../Services/speciesServices";
 import { classWithSkills } from "../Services/classSkillsServices";
 import { allNpcWithClasses } from "../Services/npcClassServices";
 import { allPlayersCharWithClasses } from "../Services/playersCharClassServices";
+import { story } from "../Services/storyServices";
 import WeaponCard from "../Components/WeaponCard";
 import ArmourCard from "../Components/ArmourCard";
 import SpellsCard from "../Components/SpellsCard";
@@ -24,6 +25,7 @@ import ClassCard from "../Components/ClassCard";
 import PasswordModal from "../Components/PasswordModal";
 import NPCCard from "../Components/NPCCard";
 import PlayerscharCard from "../Components/PlayerscharCard";
+import StoryCard from "../Components/StoryCard";
 
 const ProfilePage = () => {
 
@@ -123,7 +125,6 @@ const ProfilePage = () => {
   const fetchGetNpc = async () => {
     try {
       const response = await allNpcWithClasses(); 
-       console.log(response.data.result)
       setGetNpc(response.data.result);
     } catch (error) {
       console.error("error fetching npc datas", error);  
@@ -134,10 +135,19 @@ const ProfilePage = () => {
   const fetchGetPlayerschar = async () => {
     try {
       const response = await allPlayersCharWithClasses(); 
-      console.log(response.data.result);
       setGetPlayerschar(response.data.result);
     } catch (error) {
       console.error("error fetching  player's character datas", error);  
+    }
+  }
+
+  const [getStory, setGetStory] = useState([]);
+  const fetchGetStory = async () => {
+    try {
+      const response = await story();
+      setGetStory(response.data.result);  
+    } catch (error) {
+      console.error("error fetching story datas", error);   
     }
   }
 
@@ -152,6 +162,7 @@ const ProfilePage = () => {
     fetchGetClass();
     fetchGetNpc();
     fetchGetPlayerschar();
+    fetchGetStory();
   }, []);
 
   if (goodToken) {
@@ -171,7 +182,7 @@ const ProfilePage = () => {
     <>
       <main className="mainProfile">
 
-        <h2>Bienvenue sur votre profil {userName}</h2>
+        <h1>Bienvenue sur votre profil {userName}</h1>
         
         <div className="tabsProfile">
           <Tabs defaultActiveKey="Inventaire"
@@ -342,6 +353,7 @@ const ProfilePage = () => {
                 {getNpc.map((n) => (
                   <NPCCard
                     key={n.idNpcClass}
+                    idNpc={n.idNpc}
                     npcFirstName={n.npcFirstName}
                     npcLastName={n.npcLastName}
                     npcNickname={n.npcNickname}
@@ -359,6 +371,7 @@ const ProfilePage = () => {
                 {getPlayerschar.map((pc) => (
                   <PlayerscharCard
                     key={pc.idPlayerscharClass}
+                    idPlayersCharacter={pc.idPlayersCharacter}
                     firstName={pc.firstName}
                     lastName={pc.lastName}
                     nickname={pc.nickname}
@@ -373,13 +386,27 @@ const ProfilePage = () => {
                   />
                 ))}
 
+                {getStory.map((st) => (
+                  <StoryCard
+                    key={st.idStory}
+                    genre={st.genreName}
+                    title={st.title}
+                    synopsis={st.synopsis}
+                    creationDate={st.creationDate}
+                    exposition={st.exposition}
+                    risingAction={st.risingAction}
+                  />
+                ))}
+
               </div>
             </Tab>
 
             <Tab eventKey="Quêtes en cours"
               title="Quêtes en cours"
               className="tab"
-            ></Tab>
+            >
+
+            </Tab>
 
           </Tabs>
         </div>

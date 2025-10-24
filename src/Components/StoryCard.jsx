@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react";
 import ReactBoxFlip from "react-box-flip";
 import "../index.css";
+import { deleteStory, story } from "../Services/storyServices";
 import genreButtonsColors from "../Utils/genreButtonsColors";
-import { Button } from "react-bootstrap";
-import { deleteSpells, spells } from "../Services/spellsServices";
-import genreTextColors from "../Utils/genreTextColors";
 import genreInputsColors from "../Utils/genreInputsColors";
+import genreTextColors from "../Utils/genreTextColors";
+import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRotateLeft, faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
-const SpellsCard = ({
-  idSpells,
+const SotyrCard = ({
+  idStory,
   genre,
-  spellsName,
-  spellsRange,
-  spellsDesc,
-  spellsEffects,
+  title,
+  synopsis,
+  creationDate,
+  exposition,
+  risingAction,
 }) => {
   const [showText, setShowText] = useState(false);
-  const truncate = (text, maxLength = 50) => {
-    if (text.length <= maxLength) return text;
+  const truncate = (text, maxLength = 100) => {
+    if (text && text.length <= maxLength) return text;
     return text.slice(0, maxLength) + "...";
   };
 
@@ -32,7 +33,7 @@ const SpellsCard = ({
   const [genres, setGenre] = useState([]);
   const fetchGenreById = async () => {
     try {
-      const response = await spells();
+      const response = await story();
       setGenre(response.data);
     } catch (error) {
       console.error("error fetching genre by id", error);
@@ -48,9 +49,9 @@ const SpellsCard = ({
     fetchGenreById();
   }, []);
 
-  const handleDelete = async (idSpells, userId) => {
+  const handleDelete = async (idStory, userId) => {
     try {
-      await deleteSpells(idSpells, userId);
+      await deleteStory(idStory, userId);
       alert(`Player's character successfully deleted!`);
       location.reload();
     } catch (error) {
@@ -73,13 +74,14 @@ const SpellsCard = ({
             className="cardRecto"
             style={{ backgroundColor: inputColor, color: textColor }}
           >
-            <h2>Sort</h2>
-            <h3>{spellsName}</h3>
-            <span>Portée du sort : {spellsRange}</span>
+            <h2>Quête</h2>
+            <h3>{title}</h3>
+            <span>Résumé : {synopsis}</span>
+            <span>Date de création : {creationDate}</span>
             <Button
               onClick={handleFlip}
               className="flipButton"
-              style={{ backgroundColor: "#fff", color: "black" }}
+              style={{ backgroundColor: buttonColor }}
             >
               <span className="sr-only">Retourner la carte</span>
               <FontAwesomeIcon icon={faArrowRotateLeft} />
@@ -87,20 +89,16 @@ const SpellsCard = ({
 
             <div className="cardFooter">
               <Button className="modifyButton">
-                <span className="sr-only">
-                  Modifier le sort {spellsName}
-                </span>
-                <FontAwesomeIcon icon={faPen} />
+                <span className="sr-only">Modifier la quête {title}</span>
+                <FontAwesomeIcon icon={faPen}/>
               </Button>
               <span>Recto</span>
               <Button
                 className="trashButton"
-                onClick={() => handleDelete(idSpells)}
+                onClick={() => handleDelete(idStory)}
               >
-                <span className="sr-only">
-                  Supprimer le sort {spellsName}
-                </span>
-                <FontAwesomeIcon icon={faTrashCan} />
+                <span className="sr-only">Supprimer la quête {title}</span>
+                <FontAwesomeIcon icon={faTrashCan}/>
               </Button>
             </div>
 
@@ -111,8 +109,8 @@ const SpellsCard = ({
             style={{ backgroundColor: inputColor, color: textColor }}
           >
             <div className={`descSpan ${showText ? "expanded" : "collapsed"} `}>
-              <span>{showText ? spellsDesc : truncate(spellsDesc)}</span>
-              {spellsDesc.length > 50 && (
+              <span>{showText ? exposition : truncate(exposition)}</span>
+              {exposition && exposition.length > 50 && (
                 <Button
                   onClick={() => setShowText(!showText)}
                   className="detailsButton"
@@ -122,29 +120,25 @@ const SpellsCard = ({
                 </Button>
               )}
             </div>
-            {spellsEffects ? (
-              <div
-                className={`descSpan ${
-                  showOtherText ? "expanded" : "collapsed"
-                } `}
-              >
-                <span>
-                  Effets :{" "}
-                  {showOtherText ? spellsEffects : truncateOther(spellsEffects)}
-                </span>
-                {spellsEffects && spellsEffects.length > 50 && (
-                  <Button
-                    onClick={() => setShowOtherText(!showOtherText)}
-                    className="detailsButton"
-                    style={{ backgroundColor: buttonColor }}
-                  >
-                    {showOtherText ? "Réduire" : "Détails"}
-                  </Button>
-                )}
-              </div>
-            ) : (
-              <span>Effets : Sans effets particulier</span>
-            )}
+
+            <div
+              className={`descSpan ${
+                showOtherText ? "expanded" : "collapsed"
+              } `}
+            >
+              <span>
+                {showOtherText ? risingAction : truncateOther(risingAction)}
+              </span>
+              {risingAction && risingAction.length > 50 && (
+                <Button
+                  onClick={() => setShowOtherText(!showOtherText)}
+                  className="detailsButton"
+                  style={{ backgroundColor: buttonColor }}
+                >
+                  {showText ? "Réduire" : "Détails"}
+                </Button>
+              )}
+            </div>
 
             <Button
               onClick={handleFlip}
@@ -161,4 +155,4 @@ const SpellsCard = ({
   );
 };
 
-export default SpellsCard;
+export default SotyrCard;

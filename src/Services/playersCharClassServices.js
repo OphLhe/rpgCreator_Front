@@ -1,24 +1,24 @@
 import API from './api';
 
-export const addClassToPlayersChar = (data) => API.post('/addClassToPlayersChar', data, {
+export const addClassToPlayersChar = (data) => API.post('/addClassToPlayerschar', data, {
     headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }
 })
 
-export const playersCharByClassId = (idClass) => API.get(`/playersCharByClassId/${idClass}`, {
+export const playersCharClassById = (playersCharacterId) => API.get(`/playerscharClassById/${playersCharacterId}`, {
     headers: {
         Authorization: `${localStorage.getItem('token')}`
     }
 })
 
-export const allPlayersCharWithClasses = () => API.get('/allPlayersCharWithClasses', {
+export const allPlayersCharWithClasses = () => API.get('/allPlayerscharWithClasses', {
     headers: {
         Authorization: `${localStorage.getItem('token')}`
     }
 })
 
-export const updatePlayersCharClass = (idPlayersCharacterClass, data) => API.put(`/updateClassOnPlayersChar/${idPlayersCharacterClass}`, data, {
+export const updatePlayersCharClass = (idPlayersCharacterClass, data) => API.put(`/updatePlayerscharClass/${idPlayersCharacterClass}`, data, {
     headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }

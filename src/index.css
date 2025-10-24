@@ -37,5 +37,93 @@ Button:active{
     box-shadow: none;
 }
 
+/* Card sur ProfilPage */
+.card {
+    border:none !important;
+    border-radius: 12px !important;
+}
 
+.itemCard {
+    font-size: 1rem;
+    width: 400px;
+    height: 500px;
+    margin: 2%;
+}
 
+.cardRecto, .cardVerso {
+    width: 400px;
+    height: 500px;
+    padding: 3%;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    text-align:left;
+}
+
+.cardRecto h2{
+    text-decoration: underline;
+    text-underline-offset: 8px;
+}
+
+.flipButton {
+    margin: 2%;
+    border: none !important;
+}
+
+.descSpan {
+    transition: max-height 0.5s ease-in-out;
+}
+
+.descSpan.expanded {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.descSpan .detailsButton {
+    bottom: 0;
+    right: 0;
+    margin: 5px;
+}
+
+.detailsButton{
+    border: none !important;
+}
+
+.skillsTable table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+.skillsTable th,
+.skillsTable td {
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+
+.cardFooter{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: baseline;
+}
+
+.trashButton, .modifyButton{
+    --bs-btn-bg:none !important;
+    --bs-btn-border-color: none !important;
+}
+
+.trashButton{
+    --bs-btn-color: #B42E3D !important;
+}
+
+.modifyButton{
+    --bs-btn-color: lightgreen !important;
+}
+
+.trashButton:hover, .modifyButton:hover{
+    --bs-btn-hover-bg:none !important;
+}

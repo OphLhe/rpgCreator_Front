@@ -1,20 +1,16 @@
 import { useEffect, useState } from "react";
-import '../Styles/propsCard.css'
+import ReactBoxFlip from "react-box-flip";
+import "../index.css";
 import genreButtonsColors from "../Utils/genreButtonsColors";
 import { Button } from "react-bootstrap";
-import { props } from "../Services/propsServices";
+import { deleteProps, props } from "../Services/propsServices";
 import genreTextColors from "../Utils/genreTextColors";
 import genreInputsColors from "../Utils/genreInputsColors";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRotateLeft, faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
-const PropsCard = ({ genre, propsName, propsDesc, propsEffect }) => {
-  const [showText, setShowText] = useState(false);
+const PropsCard = ({ idProps, genre, propsName, propsDesc, propsEffect }) => {
   const [genres, setGenre] = useState([]);
-
-  const truncate = (text, maxLength = 50) => {
-    if (text.length <= maxLength) return text;
-    return text.slice(0, maxLength) + "...";
-  };
-
   const fetchGenreById = async () => {
     try {
       const response = await props();
@@ -24,9 +20,37 @@ const PropsCard = ({ genre, propsName, propsDesc, propsEffect }) => {
     }
   };
 
+  const [showText, setShowText] = useState(false);
+  const truncate = (text, maxLength = 50) => {
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength) + "...";
+  };
+
+  const [showOtherText, setShowOtherText] = useState(false);
+  const truncateOther = (text, maxLength = 100) => {
+    if (text && text.length <= maxLength) return text;
+    return text.slice(0, maxLength) + "...";
+  };
+
   useEffect(() => {
     fetchGenreById();
   }, []);
+
+  const [isFlipped, setIsFlipped] = useState(false);
+  const handleFlip = () => {
+    setIsFlipped(!isFlipped);
+  };
+
+  const handleDelete = async (idProps, userId) => {
+    try {
+      await deleteProps(idProps, userId);
+      alert(`Player's character successfully deleted!`);
+      location.reload();
+    } catch (error) {
+      console.error("Error while deleting players character", error);
+      alert("error while deleting players character.");
+    }
+  };
 
   const genreName = genre;
 
@@ -36,37 +60,93 @@ const PropsCard = ({ genre, propsName, propsDesc, propsEffect }) => {
 
   return (
     <>
-      <div className="propsCard">
-        <div
-          className="propsRecto"
-          style={{ backgroundColor: inputColor, color: textColor }}
-        >
-          <h3>Artefact</h3>
-          <h4>{propsName}</h4>
-        </div>
-        <div className="propsVerso">
-          <div className={`descSpan ${showText ? "expanded" : "collapsed"} `}>
-            <span>Descritpion : {showText ? propsDesc : truncate(propsDesc)}</span>
-          </div>
-
-          {propsEffect ? (
-            <div className={`descSpan ${showText ? "expanded" : "collapsed"} `}>
-            <span>Effets : {showText ? propsEffect : truncate(propsEffect)}</span>
-          </div>
-          ) : (
-            <span>Effets : Sans effets particulier</span>
-          )}
-
-          {propsDesc.length > 50 && (
+      <div className="itemCard">
+        <ReactBoxFlip isFlipped={isFlipped}>
+          <div
+            className="cardRecto"
+            style={{ backgroundColor: inputColor, color: textColor }}
+          >
+            <h2>Artefact</h2>
+            <h3>{propsName}</h3>
             <Button
-              onClick={() => setShowText(!showText)}
-              className="detailsButton"
+              onClick={handleFlip}
+              className="flipButton"
               style={{ backgroundColor: buttonColor }}
             >
-              {showText ? "Réduire" : "Détails"}
+              <span className="sr-only">Retourner la carte</span>
+              <FontAwesomeIcon icon={faArrowRotateLeft} />
             </Button>
-          )}
-        </div>
+
+            <div className="cardFooter">
+              <Button className="modifyButton">
+                <span className="sr-only">Modifier l'artefact {propsName}</span>
+                <FontAwesomeIcon icon={faPen} />
+              </Button>
+              <span>Recto</span>
+              <Button
+                className="trashButton"
+                onClick={() => handleDelete(idProps)}
+              >
+                <span className="sr-only">Supprimer l'artefact {propsName}</span>
+                <FontAwesomeIcon icon={faTrashCan} />
+              </Button>
+            </div>
+            
+          </div>
+
+          <div
+            className="cardVerso"
+            style={{ backgroundColor: inputColor, color: textColor }}
+          >
+            <div className={`descSpan ${showText ? "expanded" : "collapsed"} `}>
+              <span>
+                Descritpion : {showText ? propsDesc : truncate(propsDesc)}
+              </span>
+              {propsDesc && propsDesc.length > 50 && (
+                <Button
+                  onClick={() => setShowText(!showText)}
+                  className="detailsButton"
+                  style={{ backgroundColor: buttonColor }}
+                >
+                  {showText ? "Réduire" : "Détails"}
+                </Button>
+              )}
+            </div>
+
+            {propsEffect ? (
+              <div
+                className={`descSpan ${
+                  showOtherText ? "expanded" : "collapsed"
+                } `}
+              >
+                <span>
+                  Effets :{" "}
+                  {showOtherText ? propsEffect : truncateOther(propsEffect)}
+                </span>
+                {propsEffect && propsEffect.length > 50 && (
+                  <Button
+                    onClick={() => setShowOtherText(!showOtherText)}
+                    className="detailsButton"
+                    style={{ backgroundColor: buttonColor }}
+                  >
+                    {showOtherText ? "Réduire" : "Détails"}
+                  </Button>
+                )}
+              </div>
+            ) : (
+              <span>Effets : Sans effets particulier</span>
+            )}
+
+            <Button
+              onClick={handleFlip}
+              className="flipButton"
+              style={{ backgroundColor: buttonColor }}
+            >
+              <FontAwesomeIcon icon={faArrowRotateLeft} />
+            </Button>
+            <span>Verso</span>
+          </div>
+        </ReactBoxFlip>
       </div>
     </>
   );

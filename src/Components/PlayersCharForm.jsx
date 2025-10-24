@@ -112,7 +112,7 @@ const handleAddplayerschar = async (e) => {
     try {
         // création du perso de joueur et récupération de son id
         const response = await createPlayerscharacter(playerscharDatas)
-        const insertedId = response.data.insertId
+        const insertedId = response.data.insertId 
         await playerscharacterById(insertedId)
         
         // ajout de la classe au pnj avec nouvelles skills choisies
@@ -136,8 +136,8 @@ const handleAddplayerschar = async (e) => {
         })
         // remise à 0 du formulaire
         setPlayerscharData({
-            firstname: "",
-            lastname: "",
+            firstName: "",
+            lastName: "",
             nickname: "",
             gender: "",
             age: 0,

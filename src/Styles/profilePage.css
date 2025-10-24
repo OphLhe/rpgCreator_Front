@@ -4,7 +4,7 @@
   width: 100%;
 }
 
-.mainProfile h2{
+.mainProfile h1{
   margin-left: 5%;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .flipCard {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   perspective: 1000px;
   display: flex;
   flex-wrap: wrap;

@@ -96,7 +96,6 @@ const NPCForm = () => {
   const handleValidateSkills = (e) => {
   e.preventDefault();
   console.log(selectedSkills);
-  
   setValidatedSkills(selectedSkills)
   alert(`Compétences validées pour ${selectedClass.className}`)
 };

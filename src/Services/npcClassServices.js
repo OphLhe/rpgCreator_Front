@@ -6,7 +6,7 @@ export const addClassToNpc = (data) => API.post('/addClassToNPC', data, {
     }
 })
 
-export const NpcByClassId = (idClass) => API.get(`/npcByClassId/${idClass}`, {
+export const npcClassByIdNpc = (npcId) => API.get(`/npcClassByIdNpc/${npcId}`, {
     headers: {
         Authorization: `${localStorage.getItem('token')}`
     }
@@ -18,7 +18,7 @@ export const allNpcWithClasses = () => API.get('/allNpcWithClasses', {
     }
 })
 
-export const updateNpcClass = (npcClassId, data) => API.put(`/updateNpcClass/${npcClassId}`, data, {
+export const updateNpcClass = (idNpcClass, data) => API.put(`/updateNpcClass/${idNpcClass}`, data, {
     headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }
