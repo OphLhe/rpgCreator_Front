@@ -15,7 +15,6 @@ import { classById } from "../Services/classServices";
 
 const ClassForm = () => {
   const { idGenre } = useParams();
-
   // for genreColors
   const [genres, setGenre] = useState([]);
   const fetchGenreById = async () => {
@@ -66,16 +65,11 @@ const ClassForm = () => {
   const handleAddClass = async (e) => {
     e.preventDefault();
     try {
-      //create class with classDatas
       const response1 = await createClass(classDatas);
-      //we fecth the id created when creating the class
       const insertedId = response1.data.insertId;
-      //we look for the class by its id
       await classById(insertedId);
 
-      //we make a .map with the selectedSkills array to get each id
       const skillsIds = selectedSkills.map((skill) => skill.idSkills);
-      //adding the skills like an array to the class defined by its id
       const res2 = await insertSkillsToClass({
         skillsIds,
         classId: insertedId,
@@ -105,9 +99,9 @@ const ClassForm = () => {
     <>
       <form onSubmit={handleAddClass} className="formClass">
         <div className="infoClass">
-          <label htmlFor="nom de la classe">Nom de la classe :</label>
-          <input
-            className="nameClassInput"
+          <label htmlFor="nom de la classe">Nom de la classe* :</label>
+          <input className="nameClassInput"
+            id="nom de la classe"
             style={{ backgroundColor: inputColor, color: textColor }}
             type="text"
             value={classDatas.className}
@@ -120,7 +114,7 @@ const ClassForm = () => {
             required
           />
           <label htmlFor="descritpion de l'espèce">
-            Descritpion de la classe :
+            Descritpion de la classe* :
           </label>
           <Form.Control
             style={{
@@ -128,6 +122,7 @@ const ClassForm = () => {
               border: "none",
               color: textColor,
             }}
+            id="description de l'espèce"
             className="inputTextarea"
             as="textarea"
             aria-label="With textarea"
@@ -143,8 +138,9 @@ const ClassForm = () => {
         </div>
 
         <div className="pv">
-          <label htmlFor="distance">Point de Vie :</label>
+          <label htmlFor="distance">Point de Vie* :</label>
           <input
+            id="distance"
             style={{ backgroundColor: inputColor, color: textColor }}
             type="number"
             value={classDatas.classSpeed}
@@ -165,7 +161,7 @@ const ClassForm = () => {
             onChange={(e) => setSelectedSkillId(e.target.value)}
           >
             <option value="">
-              Choisissez les compétences dont dispose la classe
+              Choisissez les compétences dont dispose la classe*
             </option>
             {skills.map((skill) => (
               <option key={skill.idSkills} value={skill.idSkills}>
