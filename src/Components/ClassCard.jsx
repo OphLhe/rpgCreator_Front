@@ -210,7 +210,7 @@ const ClassCard = ({
                       handleUpdate(idClass, classDatas);
                     }}
                   >
-                    Valider la modification de l'armure {localClass.className}
+                    Valider la modification de la classe {localClass.className}
                   </Button>
                 </Modal.Footer>
               </Modal>
