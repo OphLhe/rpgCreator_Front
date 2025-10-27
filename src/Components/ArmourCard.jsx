@@ -2,20 +2,27 @@ import { useEffect, useState } from "react";
 import ReactBoxFlip from "react-box-flip";
 import "../index.css";
 import genreButtonsColors from "../Utils/genreButtonsColors";
-import { Button } from "react-bootstrap";
-import { armour, deleteArmour } from "../Services/armourServices";
+import { Button, Form, FormLabel } from "react-bootstrap";
+import { armour, deleteArmour, updateArmour } from "../Services/armourServices";
 import genreTextColors from "../Utils/genreTextColors";
 import genreInputsColors from "../Utils/genreInputsColors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRotateLeft, faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRotateLeft,
+  faPen,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
+import ArmourForm from "../Components/ArmourForm";
+import Modal from "react-bootstrap/Modal";
 
 const ArmourCard = ({
   idArmour,
   genre,
-  armourName,
-  armourDesc,
-  armourClass,
-  armourEffect,
+  armourName: initialArmourName,
+  armourDesc: initialArmourDesc,
+  armourClass: initialArmourClass,
+  armourEffect: initialArmourEffect,
+  fetchGetArmour,
 }) => {
   const [genres, setGenre] = useState([]);
   const fetchGenreById = async () => {
@@ -39,10 +46,6 @@ const ArmourCard = ({
     return text.slice(0, maxLength) + "...";
   };
 
-  useEffect(() => {
-    fetchGenreById();
-  }, []);
-
   const [isFlipped, setIsFlipped] = useState(false);
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
@@ -51,13 +54,61 @@ const ArmourCard = ({
   const handleDelete = async (idArmour, userId) => {
     try {
       await deleteArmour(idArmour, userId);
-      alert(`Player's character successfully deleted!`);
+      alert(`Armour successfully deleted!`);
+      handleClose();
       location.reload();
     } catch (error) {
-      console.error("Error while deleting players character", error);
-      alert("error while deleting players character.");
+      if (error.response.status === 403) {
+        alert(error.response.data.message);
+      } else {
+        console.error("Error while deleting armour", error);
+        alert("error while deleting armour.");
+      }
     }
   };
+
+  const [localArmour, setLocalArmour] = useState({
+    armourName: initialArmourName,
+    armourDesc: initialArmourDesc,
+    armourClass: initialArmourClass,
+    armourEffect: initialArmourEffect,
+  });
+  const [armourDatas, setArmourData] = useState({
+    armourName: initialArmourName,
+    armourDesc: initialArmourDesc,
+    armourClass: initialArmourClass,
+    armourEffect: initialArmourEffect,
+  });
+  const handleUpdate = async (idArmour, userId) => {
+    try {
+      const response = await updateArmour(idArmour, userId, armourDatas);
+      const updatedArmour = response.data;
+      setLocalArmour({
+        armourName: updatedArmour.armourName,
+        armourDesc: updatedArmour.armourDesc,
+        armourClass: updatedArmour.armourClass,
+        armourEffect: updatedArmour.armourEffect,
+      });
+      alert("Armour updated successfully");
+      handleCloseModify();
+      fetchGetArmour();
+    } catch (error) {
+      console.error("Error while updating armour");
+      alert("Error while updating armour");
+    }
+  };
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [showModify, setShowModify] = useState(false);
+  const handleCloseModify = () => setShowModify(false);
+  const handleShowModify = () => setShowModify(true);
+
+  useEffect(() => {
+    fetchGenreById();
+  }, []);
 
   const genreName = genre;
 
@@ -74,12 +125,12 @@ const ArmourCard = ({
             style={{ backgroundColor: inputColor, color: textColor }}
           >
             <h2>Armure</h2>
-            <h3>{armourName}</h3>
-            <span>Classe d'armure : {armourClass}</span>
+            <h3>{localArmour.armourName}</h3>
+            <span>Classe d'armure : {localArmour.armourClass}</span>
 
             <Button
-              onClick={handleFlip}
               className="flipButton"
+              onClick={handleFlip}
               style={{ backgroundColor: buttonColor, color: textColor }}
             >
               <span className="sr-only">Retourner la carte</span>
@@ -87,20 +138,131 @@ const ArmourCard = ({
             </Button>
 
             <div className="cardFooter">
-              <Button className="modifyButton">
-                <span className="sr-only">Modifier l'armure' {armourName}</span>
+              <Button className="modifyButton" onClick={handleShowModify}>
+                <span className="sr-only">
+                  Modifier l'armure' {localArmour.armourName}
+                </span>
                 <FontAwesomeIcon icon={faPen} />
               </Button>
-              <span>Recto</span>
-              <Button
-                className="trashButton"
-                onClick={() => handleDelete(idArmour)}
+              <Modal
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                show={showModify}
+                onHide={handleCloseModify}
               >
-                <span className="sr-only">Supprimer l'armure {armourName}</span>
+                <Modal.Header closeButton>
+                  <Modal.Title>Modification de l'armure</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form>
+                    <Form.Group>
+                      <FormLabel>Nom de l'armure</FormLabel>
+                      <Form.Control
+                        type="text"
+                        value={armourDatas.armourName}
+                        onChange={(e) =>
+                          setArmourData({
+                            ...armourDatas,
+                            armourName: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <FormLabel>Classe d'armure</FormLabel>
+                      <Form.Control
+                        type="number"
+                        value={armourDatas.armourClass}
+                        onChange={(e) =>
+                          setArmourData({
+                            ...armourDatas,
+                            armourClass: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <FormLabel>Description de l'armure</FormLabel>
+                      <Form.Control
+                        as="textarea"
+                        value={armourDatas.armourDesc}
+                        onChange={(e) =>
+                          setArmourData({
+                            ...armourDatas,
+                            armourDesc: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <FormLabel>Effets de l'armure</FormLabel>
+                      <Form.Control
+                        as="textarea"
+                        value={armourDatas.armourEffect}
+                        onChange={(e) =>
+                          setArmourData({
+                            ...armourDatas,
+                            armourEffect: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Group>
+                  </Form>
+                </Modal.Body>
+
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleCloseModify}>
+                    Annuler
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      handleUpdate(idArmour, armourDatas);
+                    }}
+                  >
+                    Valider la modification de l'armure {localArmour.armourName}
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
+              <span>Recto</span>
+
+              <Button className="trashButton" onClick={handleShow}>
+                <span className="sr-only">
+                  Supprimer l'armure {localArmour.armourName}
+                </span>
                 <FontAwesomeIcon icon={faTrashCan} />
               </Button>
-            </div>
 
+              <Modal
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                show={show}
+                onHide={handleClose}
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>Suppression de l'armure</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                  <p>
+                    Etes-vous sûr.e de vouloir supprimer "
+                    {localArmour.armourName}"?
+                  </p>
+                </Modal.Body>
+
+                <Modal.Footer>
+                  <Button onClick={handleClose} variant="secondary">
+                    Annuler
+                  </Button>
+                  <Button
+                    onClick={() => handleDelete(idArmour)}
+                    variant="danger"
+                  >
+                    Supprimer l'armure {localArmour.armourName}
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+            </div>
           </div>
 
           <div
@@ -108,19 +270,24 @@ const ArmourCard = ({
             style={{ backgroundColor: inputColor, color: textColor }}
           >
             <div className={`descSpan ${showText ? "expanded" : "collapsed"} `}>
-              <span>{showText ? armourDesc : truncate(armourDesc)}</span>
-              {armourDesc && armourDesc.length > 150 && (
-                <Button
-                  onClick={() => setShowText(!showText)}
-                  className="detailsButton"
-                  style={{ backgroundColor: buttonColor }}
-                >
-                  {showText ? "Réduire" : "Détails"}
-                </Button>
-              )}
+              <span>
+                {showText
+                  ? localArmour.armourDesc
+                  : truncate(localArmour.armourDesc)}
+              </span>
+              {localArmour.armourDesc &&
+                localArmour.armourDesc.length > 150 && (
+                  <Button
+                    onClick={() => setShowText(!showText)}
+                    className="detailsButton"
+                    style={{ backgroundColor: buttonColor }}
+                  >
+                    {showText ? "Réduire" : "Détails"}
+                  </Button>
+                )}
             </div>
 
-            {armourEffect ? (
+            {localArmour.armourEffect ? (
               <div
                 className={`descSpan ${
                   showOtherText ? "expanded" : "collapsed"
@@ -128,25 +295,28 @@ const ArmourCard = ({
               >
                 <span>
                   Effets :{" "}
-                  {showOtherText ? armourEffect : truncateOther(armourEffect)}
+                  {showOtherText
+                    ? localArmour.armourEffect
+                    : truncateOther(localArmour.armourEffect)}
                 </span>
-                {armourEffect && armourEffect.length > 50 && (
-                  <Button
-                    onClick={() => setShowOtherText(!showOtherText)}
-                    className="detailsButton"
-                    style={{ backgroundColor: buttonColor }}
-                  >
-                    {showOtherText ? "Réduire" : "Détails"}
-                  </Button>
-                )}
+                {localArmour.armourEffect &&
+                  localArmour.armourEffect.length > 50 && (
+                    <Button
+                      onClick={() => setShowOtherText(!showOtherText)}
+                      className="detailsButton"
+                      style={{ backgroundColor: buttonColor }}
+                    >
+                      {showOtherText ? "Réduire" : "Détails"}
+                    </Button>
+                  )}
               </div>
             ) : (
               <span>Effets : Sans effets particulier</span>
             )}
 
             <Button
-              onClick={handleFlip}
               className="flipButton"
+              onClick={handleFlip}
               style={{ backgroundColor: buttonColor }}
             >
               <FontAwesomeIcon icon={faArrowRotateLeft} />

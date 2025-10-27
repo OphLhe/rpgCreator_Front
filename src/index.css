@@ -127,3 +127,8 @@ Button:active{
 .trashButton:hover, .modifyButton:hover{
     --bs-btn-hover-bg:none !important;
 }
+
+.modal-content{
+    background-color: #3B4449 !important;
+    color:white !important;
+}

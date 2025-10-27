@@ -6,7 +6,7 @@ export const insertSkillsToClass = (data) => API.post(`/addSkillsToClass`, data,
     }
 })
 
-export const skillsByClassId = (idClass) => API.get(`/skillsByClassId/${idClass}`, {
+export const classSkillsById = (idClass) => API.get(`/classSkillsById/${idClass}`, {
      headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }
@@ -18,7 +18,7 @@ export const classWithSkills = () => API.get(`/allClassesWithSkills`, {
     }
 })
 
-export const updateSkillsToClass = (idClass, data) => API.put(`/updateSkillsToClass/${idClass}`, data,{
+export const updateSkillsToClass = (idClass, skillsIds) => API.put(`/updateSkillsToClass/${idClass}`, {skillsIds},{
         headers: {
         Authorization: `${localStorage.getItem('token')}`
     }

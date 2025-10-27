@@ -1,14 +1,25 @@
 import { useState } from "react";
 import "../index.css";
-import { Button } from "react-bootstrap";
+import { Button, Form, FormLabel, Modal } from "react-bootstrap";
 import ReactBoxFlip from "react-box-flip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRotateLeft, faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
-import { deleteClass } from "../Services/classServices";
+import {
+  faArrowRotateLeft,
+  faPen,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
+import { deleteClass, updateClass } from "../Services/classServices";
+import ClassSkillsUpdateForm from '../Components/ClassSkillsUpdateForm';
 
-const ClassCard = ({ idClass, className, classDesc, classPv, skills }) => {
+const ClassCard = ({
+  idClass,
+  className: initialClassName,
+  classDesc: initialClassDesc,
+  classPv: initialClassPv,
+  skills: initialSkills,
+  fetchGetClass,
+}) => {
   const [showText, setShowText] = useState(false);
-
   const truncate = (text, maxLength = 100) => {
     if (text && text.length <= maxLength) return text;
     return text.slice(0, maxLength) + "...";
@@ -19,16 +30,60 @@ const ClassCard = ({ idClass, className, classDesc, classPv, skills }) => {
     setIsFlipped(!isFlipped);
   };
 
+  const [localClass, setLocalClass] = useState({
+    className: initialClassName,
+    classDesc: initialClassDesc,
+    classPv: initialClassPv,
+    skills: initialSkills,
+  });
+  const [classDatas, setClassData] = useState({
+    className: initialClassName,
+    classDesc: initialClassDesc,
+    classPv: initialClassPv,
+    skills: initialSkills,
+  });
+  const handleUpdate = async (userId, idClass) => {
+    try {
+      const response2 = await updateClass(userId, idClass, classDatas);
+      const updatedClass = response2.data;
+      setLocalClass({
+        className: updatedClass.className,
+        classDesc: updatedClass.classDesc,
+        classPv: updatedClass.classPv,
+        skills: updatedClass.skills
+      });
+      alert("Class updated successfully");
+      handleCloseModify();
+      fetchGetClass();
+    } catch (error) {
+      console.error("Error while updating class");
+      alert("Error while updating class");
+    }
+  };
+
   const handleDelete = async (idClass, userId) => {
     try {
       await deleteClass(idClass, userId);
-      alert(`Player's character successfully deleted!`);
+      alert(`Class successfully deleted!`);
+      handleClose();
       location.reload();
     } catch (error) {
-      console.error("Error while deleting players character", error);
-      alert("error while deleting players character.");
+      if (error.response.status === 403) {
+        alert(error.response.data.message);
+      } else {
+        console.error("Error while deleting armour", error);
+        alert("error while deleting armour.");
+      }
     }
   };
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [showModify, setShowModify] = useState(false);
+  const handleCloseModify = () => setShowModify(false);
+  const handleShowModify = () => setShowModify(true);
 
   return (
     <>
@@ -39,8 +94,8 @@ const ClassCard = ({ idClass, className, classDesc, classPv, skills }) => {
             style={{ backgroundColor: "#212121", color: "#fff" }}
           >
             <h2>Classes</h2>
-            <h3>{className}</h3>
-            <span>Points de vie : {classPv}</span>
+            <h3>{localClass.className}</h3>
+            <span>Points de vie : {localClass.classPv}</span>
             <div className="skillsTable">
               <span>Compétences :</span>
               <table>
@@ -51,8 +106,10 @@ const ClassCard = ({ idClass, className, classDesc, classPv, skills }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {skills.filter((skill) => skill.skillsName).length > 0 ? (
-                    skills.map((skill, index) => (
+                  {localClass.skills &&
+                  localClass.skills.filter((skill) => skill.skillsName).length >
+                    0 ? (
+                    localClass.skills.map((skill, index) => (
                       <tr key={index}>
                         <td>{skill.skillsName}</td>
                         <td>{skill.abilityName}</td>
@@ -66,6 +123,7 @@ const ClassCard = ({ idClass, className, classDesc, classPv, skills }) => {
                 </tbody>
               </table>
             </div>
+
             <Button
               onClick={handleFlip}
               className="flipButton"
@@ -76,18 +134,125 @@ const ClassCard = ({ idClass, className, classDesc, classPv, skills }) => {
             </Button>
 
             <div className="cardFooter">
-              <Button className="modifyButton">
-                <span className="sr-only">Modifier la classe' {className}</span>
+              <Button className="modifyButton" onClick={handleShowModify}>
+                <span className="sr-only">
+                  Modifier la classe' {localClass.className}
+                </span>
                 <FontAwesomeIcon icon={faPen} />
               </Button>
-              <span>Recto</span>
-              <Button
-                className="trashButton"
-                onClick={() => handleDelete(idClass)}
+              <Modal
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                show={showModify}
+                onHide={handleCloseModify}
               >
-                <span className="sr-only">Supprimer la classe {className}</span>
+                <Modal.Header closeButton>
+                  <Modal.Title>Modification de la classe</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form>
+                    <Form.Group>
+                      <FormLabel>Nom de la classe</FormLabel>
+                      <Form.Control
+                        type="text"
+                        value={classDatas.className}
+                        onChange={(e) =>
+                          setClassData({
+                            ...classDatas,
+                            className: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <FormLabel>Points de vie de la classe</FormLabel>
+                      <Form.Control
+                        type="number"
+                        value={classDatas.classPv}
+                        onChange={(e) =>
+                          setClassData({
+                            ...classDatas,
+                            classPv: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <FormLabel>Description de la classe</FormLabel>
+                      <Form.Control
+                        as="textarea"
+                        value={classDatas.classDesc}
+                        onChange={(e) =>
+                          setClassData({
+                            ...classDatas,
+                            classDesc: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <ClassSkillsUpdateForm
+                          initialSkills={classDatas.skills}
+                          onSkillsUpdate={(updatedSkills) => {
+                          setClassData({ ...classDatas, skills: updatedSkills });
+                          }}
+                        />
+                      </Form.Group>
+                  </Form>
+                </Modal.Body>
+
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleCloseModify}>
+                    Annuler
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      handleUpdate(idClass, classDatas);
+                    }}
+                  >
+                    Valider la modification de l'armure {localClass.className}
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
+              <span>Recto</span>
+
+              <Button onClick={handleShow} className="trashButton">
+                <span className="sr-only">
+                  Supprimer la classe {localClass.className}
+                </span>
                 <FontAwesomeIcon icon={faTrashCan} />
               </Button>
+
+              <Modal
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                show={show}
+                onHide={handleClose}
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>Suppression de la classe</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                  <p>
+                    Etes-vous sûr.e de vouloir supprimer "{localClass.className}
+                    "?
+                  </p>
+                </Modal.Body>
+
+                <Modal.Footer>
+                  <Button onClick={handleClose} variant="secondary">
+                    Annuler
+                  </Button>
+                  <Button
+                    onClick={() => handleDelete(idClass)}
+                    variant="danger"
+                  >
+                    Supprimer la Classe {localClass.className}
+                  </Button>
+                </Modal.Footer>
+              </Modal>
             </div>
           </div>
 
@@ -96,8 +261,12 @@ const ClassCard = ({ idClass, className, classDesc, classPv, skills }) => {
             style={{ backgroundColor: "#212121", color: "#fff" }}
           >
             <div className={`descSpan ${showText ? "expanded" : "collapsed"} `}>
-              <span>{showText ? classDesc : truncate(classDesc)}</span>
-              {classDesc.length > 100 && (
+              <span>
+                {showText
+                  ? localClass.classDesc
+                  : truncate(localClass.classDesc)}
+              </span>
+              {localClass.classDesc.length > 100 && (
                 <Button
                   onClick={() => setShowText(!showText)}
                   className="detailsButton"

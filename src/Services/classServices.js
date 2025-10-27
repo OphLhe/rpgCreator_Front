@@ -18,7 +18,7 @@ export const classById = (idClass) => API.get(`/classById/${idClass}`, {
     }
 })
 
-export const updateClass = (id, data) => API.put(`/class/update/${id}`, data,{
+export const updateClass = (idClass, classDatas) => API.put(`/class/update/${idClass}`, classDatas,{
      headers: {  
         Authorization: `${localStorage.getItem('token')}` 
     }

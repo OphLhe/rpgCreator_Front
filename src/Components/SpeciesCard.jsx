@@ -21,11 +21,15 @@ const SpeciesCard = ({ idSpecies, speciesName, speciesDesc, speciesSpeed }) => {
   const handleDelete = async (idSpecies, userId) => {
     try {
       await deleteSpecies(idSpecies, userId);
-      alert(`Player's character successfully deleted!`);
+      alert(`Species successfully deleted!`);
       location.reload();
     } catch (error) {
-      console.error("Error while deleting players character", error);
-      alert("error while deleting players character.");
+      if(error.response.status === 403){
+        alert(error.response.data.message); 
+      }else{
+        console.error("Error while deleting species", error);
+        alert("error while deleting species.");
+      }
     }
   };
 

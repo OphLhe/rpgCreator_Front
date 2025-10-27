@@ -2,14 +2,25 @@ import { useEffect, useState } from "react";
 import ReactBoxFlip from "react-box-flip";
 import "../index.css";
 import genreButtonsColors from "../Utils/genreButtonsColors";
-import { Button } from "react-bootstrap";
-import { deleteProps, props } from "../Services/propsServices";
+import { Button, Form, FormLabel, Modal } from "react-bootstrap";
+import { deleteProps, props, updateProps } from "../Services/propsServices";
 import genreTextColors from "../Utils/genreTextColors";
 import genreInputsColors from "../Utils/genreInputsColors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRotateLeft, faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowRotateLeft,
+  faPen,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 
-const PropsCard = ({ idProps, genre, propsName, propsDesc, propsEffect }) => {
+const PropsCard = ({
+  idProps,
+  genre,
+  propsName: initialPropsName,
+  propsDesc: initialPropsDesc,
+  propsEffect: initialPropsEffect,
+  fetchGetProps,
+}) => {
   const [genres, setGenre] = useState([]);
   const fetchGenreById = async () => {
     try {
@@ -18,18 +29,6 @@ const PropsCard = ({ idProps, genre, propsName, propsDesc, propsEffect }) => {
     } catch (error) {
       console.error("error fetching genre by id", error);
     }
-  };
-
-  const [showText, setShowText] = useState(false);
-  const truncate = (text, maxLength = 50) => {
-    if (text.length <= maxLength) return text;
-    return text.slice(0, maxLength) + "...";
-  };
-
-  const [showOtherText, setShowOtherText] = useState(false);
-  const truncateOther = (text, maxLength = 100) => {
-    if (text && text.length <= maxLength) return text;
-    return text.slice(0, maxLength) + "...";
   };
 
   useEffect(() => {
@@ -41,16 +40,68 @@ const PropsCard = ({ idProps, genre, propsName, propsDesc, propsEffect }) => {
     setIsFlipped(!isFlipped);
   };
 
+  const [localProps, setLocalProps] = useState({
+    propsName: initialPropsName,
+    propsDesc: initialPropsDesc,
+    propsEffect: initialPropsEffect,
+  });
+  const [propsDatas, setPropsData] = useState({
+    propsName: initialPropsName,
+    propsDesc: initialPropsDesc,
+    propsEffect: initialPropsEffect,
+  });
+  const handleUpdate = async (idProps, userId) => {
+    try {
+      const response = await updateProps(idProps, userId, propsDatas);
+      const updatedProps = response.data;
+      setLocalProps({
+        propsName: updatedProps.propsName,
+        propsDesc: updatedProps.propsDesc,
+        propsEffect: updatedProps.propsEffect,
+      });
+      alert("Class updated successfully");
+      handleCloseModify();
+      fetchGetProps();
+    } catch (error) {
+      console.error("Error while updating class");
+      alert("Error while updating class");
+    }
+  };
+
   const handleDelete = async (idProps, userId) => {
     try {
       await deleteProps(idProps, userId);
       alert(`Player's character successfully deleted!`);
       location.reload();
     } catch (error) {
-      console.error("Error while deleting players character", error);
-      alert("error while deleting players character.");
+      if (error.response.status === 403) {
+        alert(error.response.data.message);
+      } else {
+        console.error("Error while deleting armour", error);
+        alert("error while deleting armour.");
+      }
     }
   };
+
+  const [showText, setShowText] = useState(false);
+  const truncate = (text, maxLength = 100) => {
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength) + "...";
+  };
+
+  const [showOtherText, setShowOtherText] = useState(false);
+  const truncateOther = (text, maxLength = 100) => {
+    if (text && text.length <= maxLength) return text;
+    return text.slice(0, maxLength) + "...";
+  };
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [showModify, setShowModify] = useState(false);
+  const handleCloseModify = () => setShowModify(false);
+  const handleShowModify = () => setShowModify(true);
 
   const genreName = genre;
 
@@ -67,7 +118,7 @@ const PropsCard = ({ idProps, genre, propsName, propsDesc, propsEffect }) => {
             style={{ backgroundColor: inputColor, color: textColor }}
           >
             <h2>Artefact</h2>
-            <h3>{propsName}</h3>
+            <h3>{localProps.propsName}</h3>
             <Button
               onClick={handleFlip}
               className="flipButton"
@@ -78,20 +129,119 @@ const PropsCard = ({ idProps, genre, propsName, propsDesc, propsEffect }) => {
             </Button>
 
             <div className="cardFooter">
-              <Button className="modifyButton">
-                <span className="sr-only">Modifier l'artefact {propsName}</span>
+              <Button className="modifyButton" onClick={handleShowModify}>
+                <span className="sr-only">
+                  Modifier l'artefact {localProps.propsName}
+                </span>
                 <FontAwesomeIcon icon={faPen} />
               </Button>
-              <span>Recto</span>
-              <Button
-                className="trashButton"
-                onClick={() => handleDelete(idProps)}
+              <Modal
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                show={showModify}
+                onHide={handleCloseModify}
               >
-                <span className="sr-only">Supprimer l'artefact {propsName}</span>
+                <Modal.Header closeButton>
+                  <Modal.Title>Modification de l'artefact</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form>
+                    <Form.Group>
+                      <FormLabel>Nom de l'artefact</FormLabel>
+                      <Form.Control
+                        type="text"
+                        value={propsDatas.propsName}
+                        onChange={(e) =>
+                          setPropsData({
+                            ...propsDatas,
+                            propsName: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <FormLabel>Description de l'artefact</FormLabel>
+                      <Form.Control
+                        as="textarea"
+                        value={propsDatas.propsDesc}
+                        onChange={(e) =>
+                          setPropsData({
+                            ...propsDatas,
+                            propsDesc: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <FormLabel>Effets de l'artefact</FormLabel>
+                      <Form.Control
+                        as="textarea"
+                        value={propsDatas.propsEffect}
+                        onChange={(e) =>
+                          setPropsData({
+                            ...propsDatas,
+                            propsEffect: e.target.value,
+                          })
+                        }
+                      />
+                    </Form.Group>
+                  </Form>
+                </Modal.Body>
+
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleCloseModify}>
+                    Annuler
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      handleUpdate(idProps, propsDatas);
+                    }}
+                  >
+                    Valider la modification de l'armure {localProps.propsName}
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
+              <span>Recto</span>
+
+              <Button className="trashButton" onClick={handleShow}>
+                <span className="sr-only">
+                  Supprimer l'artefact {localProps.propsName}
+                </span>
                 <FontAwesomeIcon icon={faTrashCan} />
               </Button>
+
+              <Modal
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                show={show}
+                onHide={handleClose}
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>Suppression de l'artefact</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                  <p>
+                    Etes-vous sûr.e de vouloir supprimer "{localProps.propsName}
+                    "?
+                  </p>
+                </Modal.Body>
+
+                <Modal.Footer>
+                  <Button onClick={handleClose} variant="secondary">
+                    Annuler
+                  </Button>
+                  <Button
+                    onClick={() => handleDelete(idProps)}
+                    variant="danger"
+                  >
+                    Supprimer l'artefact {localProps.propsName}
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+              
             </div>
-            
           </div>
 
           <div
@@ -100,9 +250,10 @@ const PropsCard = ({ idProps, genre, propsName, propsDesc, propsEffect }) => {
           >
             <div className={`descSpan ${showText ? "expanded" : "collapsed"} `}>
               <span>
-                Descritpion : {showText ? propsDesc : truncate(propsDesc)}
+                Descritpion :{" "}
+                {showText ? localProps.propsDesc : truncate(localProps.propsDesc)}
               </span>
-              {propsDesc && propsDesc.length > 50 && (
+              {localProps.propsDesc && localProps.propsDesc.length > 100 && (
                 <Button
                   onClick={() => setShowText(!showText)}
                   className="detailsButton"
@@ -113,7 +264,7 @@ const PropsCard = ({ idProps, genre, propsName, propsDesc, propsEffect }) => {
               )}
             </div>
 
-            {propsEffect ? (
+            {localProps.propsEffect ? (
               <div
                 className={`descSpan ${
                   showOtherText ? "expanded" : "collapsed"
@@ -121,17 +272,20 @@ const PropsCard = ({ idProps, genre, propsName, propsDesc, propsEffect }) => {
               >
                 <span>
                   Effets :{" "}
-                  {showOtherText ? propsEffect : truncateOther(propsEffect)}
+                  {showOtherText
+                    ? localProps.propsEffect
+                    : truncateOther(localProps.propsEffect)}
                 </span>
-                {propsEffect && propsEffect.length > 50 && (
-                  <Button
-                    onClick={() => setShowOtherText(!showOtherText)}
-                    className="detailsButton"
-                    style={{ backgroundColor: buttonColor }}
-                  >
-                    {showOtherText ? "Réduire" : "Détails"}
-                  </Button>
-                )}
+                {localProps.propsEffect &&
+                  localProps.propsEffect.length > 100 && (
+                    <Button
+                      onClick={() => setShowOtherText(!showOtherText)}
+                      className="detailsButton"
+                      style={{ backgroundColor: buttonColor }}
+                    >
+                      {showOtherText ? "Réduire" : "Détails"}
+                    </Button>
+                  )}
               </div>
             ) : (
               <span>Effets : Sans effets particulier</span>

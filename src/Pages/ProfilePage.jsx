@@ -164,6 +164,7 @@ const ProfilePage = () => {
     fetchGetPlayerschar();
     fetchGetStory();
   }, []);
+  
 
   if (goodToken) {
     userName = jwtDecode(token).nickname;
@@ -221,37 +222,6 @@ const ProfilePage = () => {
                     <span>{userProfile.registerDate}</span>
                   </li>
                 </ul>
-                {/* <dl>
-                  <div className="infoUser">
-                    <dt>Prénom :</dt>
-                    <dd>{userProfile.firstName}</dd>
-                  </div>
-                  <div className="infoUser">
-                    <dt>Nom :</dt>
-                    <dd>{userProfile.lastName}</dd>
-                  </div>
-                  <div className="infoUser">
-                    <dt>Surnom :</dt>
-                    <dd>{userProfile.nickname}</dd>
-                  </div>
-                  <div className="infoUser">
-                    <dt>Date de naissance :</dt>
-                    <dd>{userProfile.dateOfBirth}</dd>
-                  </div>
-                  <div className="infoUser">
-                    <dt>Email :</dt>
-                    <dd>{userProfile.email}</dd>
-                  </div>
-                  <div className="infoUser">
-                    <dt>Mot de passe :</dt>
-                    <dd><PasswordModal show={show} onHide={handleClose} /></dd>
-                  </div>
-                  <div className="infoUser">
-                    <dt>Date d'inscription :</dt>
-                    <dd>{userProfile.registerDate}</dd>
-                  </div>
-                </dl>
-              </div> */}
               </div>
             </Tab>
 
@@ -287,41 +257,48 @@ const ProfilePage = () => {
               <div className="flipCard">
                 {getWeapons.map((w) => (
                   <WeaponCard
-                    key={w.weaponName}
+                    key={w.idWeapon}
+                    idWeapon={w.idWeapon}
                     genre={w.genreName}
                     weaponName={w.weaponName}
                     weaponType={w.weaponType}
                     weaponEffects={w.weaponEffects}
                     weaponRange={w.weaponRange}
                     weaponDesc={w.weaponDesc}
+                    fetchGetWeapon={fetchGetWeapon}
                   />
                 ))}
 
                 {getArmours.map((a) => (
                   <ArmourCard
-                    key={a.armourName}
+                    key={a.idArmour}
+                    idArmour={a.idArmour}
                     genre={a.genreName}
                     armourName={a.armourName}
                     armourClass={a.armourClass}
                     armourEffects={a.armourEffects}
                     armourRange={a.armourRange}
                     armourDesc={a.armourDesc}
+                    fetchGetArmour={fetchGetArmour}
                   />
                 ))}
 
                 {getProps.map((p) => (
                   <PropsCard
-                    key={p.propsName}
+                    key={p.idProps}
+                    idProps={p.idProps}
                     genre={p.genreName}
                     propsName={p.propsName}
                     propsEffect={p.propsEffect}
                     propsDesc={p.propsDesc}
+                    fetchGetProps={fetchGetProps}
                   />
                 ))}
 
                 {getSpecies.map((sp) => (
                   <SpeciesCard
-                    key={sp.speciesName}
+                    key={sp.idSpecies}
+                    idSpecies={sp.idSpecies}
                     genre={sp.genreName}
                     speciesName={sp.speciesName}
                     speciesDesc={sp.speciesDesc}
@@ -331,22 +308,26 @@ const ProfilePage = () => {
 
                 {getSpells.map((s) => (
                   <SpellsCard
-                    key={s.spellsName}
+                    key={s.idSpells}
+                    idSpells={s.idSpells}
                     genre={s.genreName}
                     spellsName={s.spellsName}
                     spellsEffects={s.spellsEffects}
                     spellsRange={s.spellsRange}
                     spellsDesc={s.spellsDesc}
+                    fetchGetSpells={fetchGetSpells}
                   />
                 ))}
 
                 {getClass.map((c) => (
                   <ClassCard
                     key={c.idClass}
+                    idClass={c.idClass}
                     className={c.className}
                     classDesc={c.classDesc}
                     skills={c.skills}
                     classPv={c.classPv}
+                    fetchGetClass={fetchGetClass}
                   />
                 ))}
 
@@ -389,6 +370,7 @@ const ProfilePage = () => {
                 {getStory.map((st) => (
                   <StoryCard
                     key={st.idStory}
+                    idStory={st.idStory}
                     genre={st.genreName}
                     title={st.title}
                     synopsis={st.synopsis}

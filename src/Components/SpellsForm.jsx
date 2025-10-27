@@ -23,6 +23,12 @@ const SpellsForm = () => {
     try {
       await createSpells(idGenre, spellsDatas);
       alert("Spells created successfully");
+      setSpellsData({
+        spellsName: "",
+        spellsDesc: "",
+        spellsEffects: "",
+        spellsRange: "",
+      })
     } catch (error) {
       console.error(error);
       alert("CPT");
