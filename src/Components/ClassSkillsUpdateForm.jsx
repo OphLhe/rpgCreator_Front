@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Form, FormLabel } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import {getSkills} from '../Services/skillsServices'
 
 const ClassSkillsUpdateForm = ({ initialSkills = [], onSkillsUpdate }) => {
@@ -19,14 +19,14 @@ const ClassSkillsUpdateForm = ({ initialSkills = [], onSkillsUpdate }) => {
       };
 
     const addSkill = () => {
-    const skill = skills.find((s) => s.idSkills === parseInt(selectedSkillId));
-        if (skill && !selectedSkills.some((s) => s.idSkills === skill.idSkills)) {
-            setSelectedSkills([...selectedSkills, skill]);
-            onSkillsUpdate([...selectedSkills, skill]); // Met à jour les compétences dans ClassCard
-            setSelectedSkillId("");
-        } else {
-        alert("Cette compétence a déjà été ajoutée.");
-        }
+        const skill = skills.find((s) => s.idSkills === parseInt(selectedSkillId));
+            if (skill && !selectedSkills.some((s) => s.idSkills === skill.idSkills)) {
+                setSelectedSkills([...selectedSkills, skill]);
+                onSkillsUpdate([...selectedSkills, skill]); // Met à jour les compétences dans ClassCard
+                setSelectedSkillId("");
+            } else {
+            alert("Cette compétence a déjà été ajoutée.");
+            }
     };
 
     const removeSkill = (id) => {

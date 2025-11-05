@@ -9,7 +9,7 @@ import { Button, Form } from "react-bootstrap";
 import { species } from "../Services/speciesServices";
 import { classWithSkills} from "../Services/classSkillsServices";
 import { createPlayerscharacter, playerscharacterById } from "../Services/playerscharacterServices";
-import { addClassToPlayersChar } from "../Services/playersCharClassServices";
+import { addClassToPlayersChar } from "../Services/playersCharClassServices"; 
 
 const playerscharForm = () => {
   const { idGenre } = useParams();
@@ -174,6 +174,7 @@ const handleAddplayerschar = async (e) => {
     <>
       <form className="formPlayerschar"
       onSubmit={handleAddplayerschar}>
+      
         <div className="selectClass">
             <label htmlFor="Classe du Personnage">Classe du Personnage</label>
             <Form.Select

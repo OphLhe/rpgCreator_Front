@@ -48,13 +48,10 @@ const ClassForm = () => {
 
   // to create an array with skills to add
   const tabSkills = () => {
-    //to fetch idSkill and turns it into a string
+    
     const skill = skills.find((s) => s.idSkills === parseInt(selectedSkillId));
-    //if there's an idSkills and it is not already contained in the selectedSkills array
     if (skill && !selectedSkills.includes(skill)) {
-      //we add the skill while keeping in memory the previously added ones
       setSelectedSkills([...selectedSkills, skill]);
-      //reset of the select menu
       setSelectedSkillId("");
     } else {
       alert("Cette compétences a déjà été ajoutée");

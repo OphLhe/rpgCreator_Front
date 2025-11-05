@@ -19,8 +19,9 @@ const ClassCard = ({
   skills: initialSkills,
   fetchGetClass,
 }) => {
+
   const [showText, setShowText] = useState(false);
-  const truncate = (text, maxLength = 100) => {
+  const truncate = (text, maxLength = 150) => {
     if (text && text.length <= maxLength) return text;
     return text.slice(0, maxLength) + "...";
   };
@@ -36,16 +37,19 @@ const ClassCard = ({
     classPv: initialClassPv,
     skills: initialSkills,
   });
+  
   const [classDatas, setClassData] = useState({
     className: initialClassName,
     classDesc: initialClassDesc,
     classPv: initialClassPv,
     skills: initialSkills,
   });
+
   const handleUpdate = async (userId, idClass) => {
     try {
       const response2 = await updateClass(userId, idClass, classDatas);
       const updatedClass = response2.data;
+
       setLocalClass({
         className: updatedClass.className,
         classDesc: updatedClass.classDesc,
@@ -107,8 +111,7 @@ const ClassCard = ({
                 </thead>
                 <tbody>
                   {localClass.skills &&
-                  localClass.skills.filter((skill) => skill.skillsName).length >
-                    0 ? (
+                  localClass.skills.filter((skill) => skill.skillsName).length > 0 ? (
                     localClass.skills.map((skill, index) => (
                       <tr key={index}>
                         <td>{skill.skillsName}</td>
@@ -140,6 +143,7 @@ const ClassCard = ({
                 </span>
                 <FontAwesomeIcon icon={faPen} />
               </Button>
+              
               <Modal
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
@@ -266,7 +270,7 @@ const ClassCard = ({
                   ? localClass.classDesc
                   : truncate(localClass.classDesc)}
               </span>
-              {localClass.classDesc.length > 100 && (
+              {localClass.classDesc.length > 150 && (
                 <Button
                   onClick={() => setShowText(!showText)}
                   className="detailsButton"

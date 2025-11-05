@@ -361,9 +361,11 @@ const ProfilePage = () => {
                     biography={pc.biography}
                     physic={pc.physic}
                     level={pc.level}
+                    idSpecies={pc.speciesId}
                     speciesName={pc.speciesName}
                     className={pc.className}
                     validatedSkills={pc.validatedSkills}
+                    fetchGetPlayerschar={fetchGetPlayerschar}
                   />
                 ))}
 
