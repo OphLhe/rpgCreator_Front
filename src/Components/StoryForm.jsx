@@ -7,6 +7,7 @@ import genreButtonsColors from "../Utils/genreButtonsColors";
 import genreTextColors from "../Utils/genreTextColors";
 import { Button, Form } from "react-bootstrap";
 import { addStory } from "../Services/storyServices";
+import { showPromiseToast, showErrorToast } from "../Utils/toastConfig";
 
 const StoryForm = () => {
     const { idGenre } = useParams();
@@ -36,11 +37,27 @@ const StoryForm = () => {
     const handleAddStory = async (e) => {
         e.preventDefault();
         try {
-            await addStory(idGenre,storyDatas); 
-            alert("story created successfully");
+            await showPromiseToast(
+                async () => {
+                    await addStory(idGenre,storyDatas); 
+                },
+                "item.createPending",
+                "item.createSuccess",
+                "item.createError"
+            );
+            setStoryDatas({
+                title: "",
+                synopsis: "",
+                exposition: "",
+                risingAction: "",
+                climax: "",
+                fallingAction: "",
+                resolution: "",
+                creationDate: new Date().toISOString().split('T')[0]    
+            });
         } catch (error) {
             console.error(error);
-            alert("error creating story");
+            showErrorToast("item.createError"); 
         }
     };
 
@@ -53,8 +70,8 @@ const StoryForm = () => {
     const inputColor = genreInputsColors[genreName] || "#D9D9D9";
     const buttonColor = genreButtonsColors[genreName] || "#D9D9D9";
     const textColor = genreTextColors[genreName] || "#D9D9D9";
+    
     return ( 
-
         <>
 
         <form

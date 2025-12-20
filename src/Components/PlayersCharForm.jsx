@@ -10,6 +10,7 @@ import { species } from "../Services/speciesServices";
 import { classWithSkills} from "../Services/classSkillsServices";
 import { createPlayerscharacter, playerscharacterById } from "../Services/playerscharacterServices";
 import { addClassToPlayersChar } from "../Services/playersCharClassServices"; 
+import { showPromiseToast, showErrorToast, showSuccessToast, showCustomError } from "../Utils/toastConfig";
 
 const playerscharForm = () => {
   const { idGenre } = useParams();
@@ -98,42 +99,48 @@ const playerscharForm = () => {
   e.preventDefault();
   console.log(selectedSkills);
   setValidatedSkills(selectedSkills)
-  alert(`Compétences validées pour ${selectedClass.className}`)
+  showSuccessToast(`Compétences validées pour ${selectedClass.className}`)
 };
 
 const handleAddplayerschar = async (e) => {
     e.preventDefault()
 
     if (!selectedClass || !selectedSpecies) {
-        alert("Veuillez sélectionner une classe et une espèce pour le PNJ.");
+        showCustomError("Veuillez sélectionner une classe et une espèce pour le PNJ.");
         return;
     }
 
     try {
-        // création du perso de joueur et récupération de son id
-        const response = await createPlayerscharacter(playerscharDatas)
-        const insertedId = response.data.insertId 
-        await playerscharacterById(insertedId)
-        
-        // ajout de la classe au pnj avec nouvelles skills choisies
-        const creation = await addClassToPlayersChar({
-            playersCharacterId: insertedId,
-            speciesId:selectedSpecies.idSpecies,
-            classId: selectedClass.idClass,
-            skills: validatedSkills,
-            strengthStat: playerscharClassDatas.strengthStat,
-            dexterityStat: playerscharClassDatas.dexterityStat,
-            constitutionStat: playerscharClassDatas.constitutionStat,
-            intelligenceStat: playerscharClassDatas.intelligenceStat,
-            wisdomStat: playerscharClassDatas.wisdomStat,
-            charismaStat: playerscharClassDatas.charismaStat,
-            strModifier: playerscharClassDatas.strModifier,
-            dexModifier: playerscharClassDatas.dexModifier,
-            conModifier: playerscharClassDatas.conModifier,
-            intModifier: playerscharClassDatas.intModifier,
-            wisModifier: playerscharClassDatas.wisModifier,
-            chaModifier: playerscharClassDatas.chaModifier,
-        })
+        await showPromiseToast(
+            async () => {
+                // création du perso de joueur et récupération de son id
+                const response = await createPlayerscharacter(playerscharDatas)
+                const insertedId = response.data.insertId 
+                await playerscharacterById(insertedId)
+                // ajout de la classe au pnj avec nouvelles skills choisies
+                const creation = await addClassToPlayersChar({
+                    playersCharacterId: insertedId,
+                    speciesId:selectedSpecies.idSpecies,
+                    classId: selectedClass.idClass,
+                    skills: validatedSkills,
+                    strengthStat: playerscharClassDatas.strengthStat,
+                    dexterityStat: playerscharClassDatas.dexterityStat,
+                    constitutionStat: playerscharClassDatas.constitutionStat,
+                    intelligenceStat: playerscharClassDatas.intelligenceStat,
+                    wisdomStat: playerscharClassDatas.wisdomStat,
+                    charismaStat: playerscharClassDatas.charismaStat,
+                    strModifier: playerscharClassDatas.strModifier,
+                    dexModifier: playerscharClassDatas.dexModifier,
+                    conModifier: playerscharClassDatas.conModifier,
+                    intModifier: playerscharClassDatas.intModifier,
+                    wisModifier: playerscharClassDatas.wisModifier,
+                    chaModifier: playerscharClassDatas.chaModifier,
+                })
+            },
+            "item.createPending",
+            "item.createSuccess",
+            "item.createError"
+        );
         // remise à 0 du formulaire
         setPlayerscharData({
             firstName: "",
@@ -145,17 +152,15 @@ const handleAddplayerschar = async (e) => {
             physic: "",
             level: 0,
             speciesId: "",
-        })
+        });
         setPlayerscharClassDatas("")
         setSelectedClass(null)
         setSpecies([])
         setSelectedSpecies(null)
-        setSelectedSkills([])
-        console.log(creation);
-        alert('playerscharacter créée avec succés')
+        setSelectedSkills([]);
     } catch (error) {
         console.error(error);
-        alert("Error while creating playerschar")
+        showErrorToast("item.createError")
     }
 }
 

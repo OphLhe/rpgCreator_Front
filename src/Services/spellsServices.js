@@ -1,3 +1,10 @@
+// import API from './api';
+
+// export const createSpells = (idGenre, data) => API.post(`/addSpells/${idGenre}`, data)
+// export const spells = () => API.get('/spells')
+// export const updateSpells = (idSpells, spellsData) => API.put(`/spells/update/${idSpells}`, spellsData)
+// export const deleteSpells = (idUser) => API.delete(`/spells/delete/${idUser}`)
+
 import API from './api';
 
 export const createSpells = (idGenre, data) => API.post(`/addSpells/${idGenre}`, data,{

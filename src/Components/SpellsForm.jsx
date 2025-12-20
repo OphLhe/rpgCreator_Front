@@ -7,6 +7,7 @@ import { createSpells } from "../Services/spellsServices";
 import genreInputsColors from "../Utils/genreInputsColors";
 import genreButtonsColors from "../Utils/genreButtonsColors";
 import genreTextColors from "../Utils/genreTextColors";
+import { showPromiseToast, showErrorToast } from "../Utils/toastConfig";
 
 const SpellsForm = () => {
   const [genres, setGenre] = useState([]);
@@ -21,8 +22,14 @@ const SpellsForm = () => {
   const handleAddSpells = async (e) => {
     e.preventDefault();
     try {
-      await createSpells(idGenre, spellsDatas);
-      alert("Spells created successfully");
+      await showPromiseToast(
+        async () => {
+          await createSpells(idGenre, spellsDatas);
+        },
+        "item.createPending",
+        "item.createSuccess",
+        "item.createError"
+      );
       setSpellsData({
         spellsName: "",
         spellsDesc: "",
@@ -31,7 +38,7 @@ const SpellsForm = () => {
       })
     } catch (error) {
       console.error(error);
-      alert("CPT");
+      showErrorToast("item.createError");
     }
   };
 

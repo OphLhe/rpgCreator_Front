@@ -7,6 +7,7 @@ import { createSpecies } from "../Services/speciesServices";
 import genreInputsColors from "../Utils/genreInputsColors";
 import genreButtonsColors from "../Utils/genreButtonsColors";
 import genreTextColors from "../Utils/genreTextColors";
+import { showPromiseToast, showErrorToast } from "../Utils/toastConfig";
 
 const SpeciesForm = () => {
     
@@ -17,11 +18,17 @@ const SpeciesForm = () => {
     const handleAddSpecies = async (e) => {
         e.preventDefault();
         try {
-        await createSpecies(speciesDatas);
-        alert("species created successfully");
+          await showPromiseToast(
+            async () => {
+              await createSpecies(speciesDatas);
+            },
+            "item.createPending",
+            "item.createSuccess",
+            "item.createError"
+          );
         } catch (error) {
-        console.error(error);
-        alert("CPT");
+          console.error(error);
+          showErrorToast("item.createError");
         }
     };
 

@@ -1,4 +1,4 @@
-import { Button, NavLink } from "react-bootstrap";
+import { Button, NavLink, Toast } from "react-bootstrap";
 import { login, register } from "../Services/userServices";
 import "../Styles/connexionPage.css";
 import "../index.css";
@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router-dom";
 import ResetPasswordModal from "../Components/ResetPasswordModal";
+import { showSuccessToast, showErrorToast, showPromiseToast } from "../Utils/toastConfig";
 
 const ConnexionPage = () => {
   const navigate = useNavigate();
@@ -22,14 +23,20 @@ const ConnexionPage = () => {
     dateOfBirth: "",
     password: "",
   });
+
   const handleRegister = async (e) => {
     e.preventDefault();
+     
     try {
-      await register(userData);
-      alert("user registered successfully");
+      showPromiseToast(
+        register(userData),
+        "user.registerPending",
+        "user.registerSuccess",
+        "user.registerError"
+      )
     } catch (error) {
       console.error(error);
-      alert("CPT");
+      showErrorToast("user.registerError");
     }
   };
 
@@ -39,11 +46,11 @@ const ConnexionPage = () => {
     try {
       const response = await login(userLogin);
       localStorage.setItem("token", response.data.token);
-      alert("user logged in");
+      showSuccessToast("user.loginSuccess");
       navigate("/profile");
     } catch (error) {
       console.error(error);
-      alert("CPT");
+      showErrorToast("user.loginError");
     }
   };
 

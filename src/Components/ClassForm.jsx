@@ -12,6 +12,7 @@ import { faCirclePlus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { getSkills } from "../Services/skillsServices";
 import { insertSkillsToClass } from "../Services/classSkillsServices";
 import { classById } from "../Services/classServices";
+import { showPromiseToast, showErrorToast } from "../Utils/toastConfig";
 
 const ClassForm = () => {
   const { idGenre } = useParams();
@@ -62,19 +63,24 @@ const ClassForm = () => {
   const handleAddClass = async (e) => {
     e.preventDefault();
     try {
-      const response1 = await createClass(classDatas);
-      const insertedId = response1.data.insertId;
-      await classById(insertedId);
-
-      const skillsIds = selectedSkills.map((skill) => skill.idSkills);
-      const res2 = await insertSkillsToClass({
-        skillsIds,
-        classId: insertedId,
-      });
-      alert("class created successfully");
+      await showPromiseToast(
+        async () => {
+          const response1 = await createClass(classDatas);
+          const insertedId = response1.data.insertId;
+          await classById(insertedId);
+          const skillsIds = selectedSkills.map((skill) => skill.idSkills);
+          await insertSkillsToClass({
+            skillsIds,
+            classId: insertedId,
+          });
+        },
+        "item.createPending",
+        "item.createSuccess",
+        "item.createError"
+      );
     } catch (error) {
       console.error(error);
-      alert("Error while creating Class");
+      showErrorToast("item.createError");
     }
   };
 
@@ -99,7 +105,7 @@ const ClassForm = () => {
           <label htmlFor="nom de la classe">Nom de la classe* :</label>
           <input className="nameClassInput"
             id="nom de la classe"
-            style={{ backgroundColor: inputColor, color: textColor }}
+            style={{ border: `0.3rem solid ${buttonColor}`,  color: textColor }}
             type="text"
             value={classDatas.className}
             onChange={(e) =>

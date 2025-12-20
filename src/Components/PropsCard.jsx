@@ -7,11 +7,8 @@ import { deleteProps, props, updateProps } from "../Services/propsServices";
 import genreTextColors from "../Utils/genreTextColors";
 import genreInputsColors from "../Utils/genreInputsColors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowRotateLeft,
-  faPen,
-  faTrashCan,
-} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRotateLeft, faPen, faTrashCan} from "@fortawesome/free-solid-svg-icons";
+import { showSuccessToast, showErrorToast } from "../Utils/toastConfig";
 
 const PropsCard = ({
   idProps,
@@ -50,36 +47,32 @@ const PropsCard = ({
     propsDesc: initialPropsDesc,
     propsEffect: initialPropsEffect,
   });
-  const handleUpdate = async (idProps, userId) => {
+  const handleUpdate = async (userId, idProps) => {
     try {
-      const response = await updateProps(idProps, userId, propsDatas);
+      const response = await updateProps( userId, idProps, propsDatas);
       const updatedProps = response.data;
       setLocalProps({
         propsName: updatedProps.propsName,
         propsDesc: updatedProps.propsDesc,
         propsEffect: updatedProps.propsEffect,
       });
-      alert("Class updated successfully");
+      showErrorToast("item.updateSuccess");
       handleCloseModify();
       fetchGetProps();
     } catch (error) {
       console.error("Error while updating class");
-      alert("Error while updating class");
+      showErrorToast("item.updateError");
     }
   };
 
   const handleDelete = async (idProps, userId) => {
     try {
       await deleteProps(idProps, userId);
-      alert(`Player's character successfully deleted!`);
+      showSuccessToast("item.deleteSuccess");
       location.reload();
     } catch (error) {
-      if (error.response.status === 403) {
-        alert(error.response.data.message);
-      } else {
         console.error("Error while deleting armour", error);
-        alert("error while deleting armour.");
-      }
+        showErrorToast("item.deleteError");
     }
   };
 
@@ -122,7 +115,7 @@ const PropsCard = ({
             <Button
               onClick={handleFlip}
               className="flipButton"
-              style={{ backgroundColor: buttonColor }}
+              style={{ backgroundColor: buttonColor, color: textColor }}
             >
               <span className="sr-only">Retourner la carte</span>
               <FontAwesomeIcon icon={faArrowRotateLeft} />

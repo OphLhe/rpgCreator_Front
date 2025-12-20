@@ -5,6 +5,7 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRotateLeft, faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { deleteSpecies } from "../Services/speciesServices";
+import { showErrorToast, showSuccessToast, showCustomError } from "../Utils/toastConfig";
 
 const SpeciesCard = ({ idSpecies, speciesName, speciesDesc, speciesSpeed }) => {
   const [showText, setShowText] = useState(false);
@@ -21,14 +22,14 @@ const SpeciesCard = ({ idSpecies, speciesName, speciesDesc, speciesSpeed }) => {
   const handleDelete = async (idSpecies, userId) => {
     try {
       await deleteSpecies(idSpecies, userId);
-      alert(`Species successfully deleted!`);
+      showSuccessToast("item.deleteSuccess");
       location.reload();
     } catch (error) {
       if(error.response.status === 403){
-        alert(error.response.data.message); 
+        showCustomError(error.response.data.message); 
       }else{
         console.error("Error while deleting species", error);
-        alert("error while deleting species.");
+        showErrorToast("item.deleteError");
       }
     }
   };

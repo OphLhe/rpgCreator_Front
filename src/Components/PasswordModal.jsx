@@ -6,6 +6,7 @@ import { updateUserPassword } from "../Services/userServices";
 import PasswordChecklist from "react-password-checklist";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+import { showErrorToast, showSuccessToast } from '../Utils/toastConfig';
 
 const PasswordModal = () => {
 
@@ -18,10 +19,10 @@ const PasswordModal = () => {
     try {
       if (formPassword.oldPassword != formPassword.newPassword) {
         const response = await updateUserPassword(formPassword);
-        alert("Password modify successfully")
+        showSuccessToast("password.updateSuccess");
         console.log(response.data);
       } else {
-        alert("password identical to old password!");
+        showErrorToast("password.identicalError");
         location.reload
       }
     } catch (error) {

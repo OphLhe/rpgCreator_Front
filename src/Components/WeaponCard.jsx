@@ -8,6 +8,7 @@ import genreTextColors from "../Utils/genreTextColors";
 import genreInputsColors from "../Utils/genreInputsColors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRotateLeft, faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { showErrorToast, showSuccessToast } from "../Utils/toastConfig";
 
 const WeaponCard = ({
   idWeapon,
@@ -68,15 +69,6 @@ const WeaponCard = ({
     try {
       const response = await updateWeapon(userId, idWeapon, weaponDatas);
       const updatedWeapon = response.data;
-
-          if (!updatedWeapon) {
-      console.error("No weapon data returned from the server");
-      alert("Weapon updated, but no data returned. Refreshing...");
-      fetchGetWeapon(); // Rafraîchit manuellement
-      handleCloseModify();
-      return;
-    }
-      
       setLocalWeapon({
         weaponName: updatedWeapon.weaponName,
         weaponType: updatedWeapon.weaponType,
@@ -84,23 +76,23 @@ const WeaponCard = ({
         weaponEffects: updatedWeapon.weaponEffects,
         weaponRange: updatedWeapon.weaponRange,
       });
-      alert("Weapon updated successfully");
+      showSuccessToast("item.updateSuccess");
       handleCloseModify();
       fetchGetWeapon();
     } catch (error) {
       console.error("Error while updating Weapon", error);
-      alert("Error while updating weapon");
+      showErrorToast("item.updateError");
     }
   };
 
   const handleDelete = async (idWeapon, userId) => {
     try {
       await deleteWeapon(idWeapon, userId);
-      alert(`Weapon successfully deleted!`);
+      showSuccessToast("item.deleteSuccess");
       location.reload();
     } catch (error) {
       console.error("Error while deleting Weapon", error);
-      alert("error while deleting Weapon.");
+      showErrorToast("item.deleteError");
     }
   };
 

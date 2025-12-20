@@ -14,27 +14,27 @@ const Footer = () => {
                 <ul>    
                     <li onClick={()=> {navigate('/')}}>Accueil</li>
                     <li onClick={()=> {navigate('/profile')}}>Profil</li>
-                    <li onClick={()=> {navigate('/')}}>Lancé de dès</li>
+                    <li onClick={()=> {navigate('')}}>Lancé de dès</li>
                 </ul>
                 <ul>
-                    <li onClick={()=> {navigate('/')}}>Comment fonctionne le jeu de rôles</li>
-                    <li onClick={()=> {navigate('/')}}>Créations de la communauté</li>
-                    <li onClick={()=> {navigate('/')}}>Packs découvertes</li>
+                    <li onClick={()=> {navigate('')}}>Comment fonctionne le jeu de rôles</li>
+                    <li onClick={()=> {navigate('')}}>Créations de la communauté</li>
+                    <li onClick={()=> {navigate('')}}>Packs découvertes</li>
                 </ul>
                 <ul>
-                    <li onClick={()=> {navigate('/')}}>A propos</li>
-                    <li onClick={()=> {navigate('/')}}>Contact</li>
-                    <li onClick={()=> {navigate('/')}}>Mentions légales</li>
+                    <li onClick={()=> {navigate('')}}>A propos</li>
+                    <li onClick={()=> {navigate('')}}>Contact</li>
+                    <li onClick={()=> {navigate('')}}>Mentions légales</li>
                 </ul>
             </section>
 
             <section className='rgpd'>
                 <ul>
-                    <li onClick={()=> {navigate('/')}}>Conditions d'utilisations</li>
-                    <li onClick={()=> {navigate('/')}}>CGVU</li>
-                    <li onClick={()=> {navigate('/')}}>Politique de confidentialité</li>
-                    <li onClick={()=> {navigate('/')}}>Cookies</li>
-                    <li onClick={()=> {navigate('/')}}>Code de conduite</li>
+                    <li onClick={()=> {navigate('')}}>Conditions d'utilisations</li>
+                    <li onClick={()=> {navigate('')}}>CGVU</li>
+                    <li onClick={()=> {navigate('')}}>Politique de confidentialité</li>
+                    <li onClick={()=> {navigate('')}}>Cookies</li>
+                    <li onClick={()=> {navigate('')}}>Code de conduite</li>
                 </ul>
             </section>
 
@@ -48,9 +48,4 @@ const Footer = () => {
      
      ;
 }
- 
-
 export default Footer;
-<>
-
-</>

@@ -1,3 +1,10 @@
+// import API from './api';
+
+// export const createProps = (idGenre, data) => API.post(`/addProps/${idGenre}`, data)
+// export const props = () => API.get('/props')
+// export const updateProps = (idProps, propsDatas) => API.put(`/props/update/${idProps}`, propsDatas)
+// export const deleteProps = (idUser) => API.delete(`/props/delete/${idUser}`)
+
 import API from './api';
 
 export const createProps = (idGenre, data) => API.post(`/addProps/${idGenre}`, data,{

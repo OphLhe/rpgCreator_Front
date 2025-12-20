@@ -1,3 +1,15 @@
+// import API from './api';
+
+// export const createClass = (data) => API.post('/addClass', data)
+
+// export const allClass = () => API.get('/class')
+
+// export const classById = (idClass) => API.get(`/classById/${idClass}`)
+
+// export const updateClass = (idClass, classDatas) => API.put(`/class/update/${idClass}`, classDatas)
+
+// export const deleteClass = (idUser) => API.delete(`/class/delete/${idUser}`)
+
 import API from './api';
 
 export const createClass = (data) => API.post('/addClass', data,{

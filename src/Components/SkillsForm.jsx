@@ -8,6 +8,7 @@ import { ability } from "../Services/abilityServices";
 import genreInputsColors from "../Utils/genreInputsColors";
 import genreButtonsColors from "../Utils/genreButtonsColors";
 import genreTextColors from "../Utils/genreTextColors";
+import { showPromiseToast, showErrorToast } from "../Utils/toastConfig";
 
 const SkillsForm = () => {
   const { idGenre } = useParams();
@@ -21,12 +22,18 @@ const SkillsForm = () => {
   const handleAddSkills = async (e) => {
     e.preventDefault();
     try {
-      await createSkills(skillsDatas);
-      alert("Skills created successfully");
+      await showPromiseToast(
+        async () => {
+          await createSkills(skillsDatas);
+        },
+        "item.createPending",
+        "item.createSuccess",
+        "item.createError"
+      );
       setSkillsData({skillsName: "", skillsDesc: "", abilityId: ""});
     } catch (error) {
       console.error(error);
-      alert("Skills already exists");
+      showErrorToast("item.createError");
     }
   };
 

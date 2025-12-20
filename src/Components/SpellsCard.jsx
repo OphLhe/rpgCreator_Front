@@ -12,6 +12,7 @@ import {
   faPen,
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
+import { showErrorToast, showSuccessToast } from "../Utils/toastConfig";
 
 const SpellsCard = ({
   idSpells,
@@ -71,12 +72,12 @@ const SpellsCard = ({
         spellsDesc: updatedSpells.spellsDesc,
         spellsEffects: updatedSpells.spellsEffects,
       });
-      alert("Spell updated successfully");
+      showSuccessToast("item.updateSuccess");
       handleCloseModify();
       fecthGetSpells();
     } catch (error) {
       console.error("Error while updating spell");
-      alert("Error while updating spell");
+      showErrorToast("item.updateError");
     }
   };
 
@@ -87,11 +88,11 @@ const SpellsCard = ({
   const handleDelete = async (idSpells, userId) => {
     try {
       await deleteSpells(idSpells, userId);
-      alert(`Spell successfully deleted!`);
+      showSuccessToast("item.deleteSuccess");
       location.reload();
     } catch (error) {
       console.error("Error while deleting spell", error);
-      alert("error while deleting spell.");
+      showErrorToast("item.deleteError");
     }
   };
 

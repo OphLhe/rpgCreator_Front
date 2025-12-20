@@ -1,3 +1,7 @@
+// import API from './api';
+
+// export const ability = () => API.get('/ability')
+
 import API from './api';
 
 export const ability = () => API.get('/ability', {

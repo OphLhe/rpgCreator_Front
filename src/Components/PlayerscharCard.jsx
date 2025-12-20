@@ -7,6 +7,7 @@ import { faArrowRotateLeft, faPen, faTrashCan } from '@fortawesome/free-solid-sv
 import { deletePlayerscharacter, updatePlayerscharacter } from '../Services/playerscharacterServices';
 import {species} from '../Services/speciesServices'
 import { classWithSkills } from '../Services/classSkillsServices';
+import { showSuccessToast, showErrorToast } from '../Utils/toastConfig';
 
 const PlayerscharCard = ({
     idPlayersCharacter,
@@ -20,6 +21,7 @@ const PlayerscharCard = ({
     level: initialLevel,
     speciesId: initialSpeciesId, 
     speciesName: initialSpeciesName,
+    classId: initialClassId,
     className: initialClassName,
     validatedSkills: initialValidatedSkills,
     fetchGetPlayerschar}) => {
@@ -45,7 +47,6 @@ const PlayerscharCard = ({
         }
       }
       
-    
       const [selectedClass, setSelectedClass] = useState(null);
       const [selectedSkills, setSelectedSkills] = useState([]);
     
@@ -108,6 +109,7 @@ const PlayerscharCard = ({
         level: initialLevel,
         speciesId: initialSpeciesId,
         speciesName:initialSpeciesName, 
+        classId: initialClassId,
         className: initialClassName,
         validatedSkills: initialValidatedSkills,
   });
@@ -123,6 +125,7 @@ const PlayerscharCard = ({
     level: initialLevel,
     speciesId: initialSpeciesId, 
     speciesName:initialSpeciesName,
+    classId: initialClassId,
     className: initialClassName,
     validatedSkills: initialValidatedSkills,
   });
@@ -143,15 +146,16 @@ const PlayerscharCard = ({
             level: updatedPlayer.level,
             speciesId: updatedPlayer.speciesId,
             speciesName: updatedPlayer.speciesName,
+            classId: updatedPlayer.classId,
             className: updatedPlayer.className,
             validatedSkills: updatedPlayer.validatedSkills,
         })
-        alert("Player's character updated successfully");
+        showSuccessToast('item.updateSuccess');
         handleCloseModify();
         fetchGetPlayerschar();
       } catch (error) {
         console.error("Error while updating players");
-        alert("Error while updating players");
+        showErrorToast('item.updateError');
       }
     };
 
@@ -159,11 +163,11 @@ const PlayerscharCard = ({
         try {
             console.log(idPlayersCharacter);         
             await deletePlayerscharacter(idPlayersCharacter, userId)
-            alert(`Player's character successfully deleted!`)
+            showSuccessToast('item.deleteSuccess');
             location.reload();
         } catch (error) {
             console.error('Error while deleting players character', error);
-            alert('error while deleting players character.')
+            showErrorToast('item.deleteError');
         }
     }
 
@@ -234,7 +238,7 @@ const PlayerscharCard = ({
                                 onHide={handleCloseModify}
                             >
                                 <Modal.Header closeButton>
-                                <Modal.Title>Suppression du personnage</Modal.Title>
+                                <Modal.Title>Modification du personnage</Modal.Title>
                                 </Modal.Header>
 
                                 <Modal.Body>
@@ -432,8 +436,7 @@ const PlayerscharCard = ({
                                 onClick={handleShow}>
                                 <span className='sr-only'> Supprimer le Personnage {localPlayers.nickname}</span>
                                 <FontAwesomeIcon icon={faTrashCan} />
-                            </Button>
-                            
+                            </Button>                            
 
                              <Modal
                                 aria-labelledby="contained-modal-title-vcenter"
@@ -514,7 +517,6 @@ const PlayerscharCard = ({
                     </div>  
 
                 </ReactBoxFlip> 
-
             </div>    
         </>
      );

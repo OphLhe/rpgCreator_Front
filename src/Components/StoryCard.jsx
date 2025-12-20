@@ -8,8 +8,9 @@ import genreTextColors from "../Utils/genreTextColors";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRotateLeft, faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { showErrorToast, showSuccessToast } from "../Utils/toastConfig";
 
-const SotyrCard = ({
+const StoryCard = ({
   idStory,
   genre,
   title,
@@ -52,11 +53,11 @@ const SotyrCard = ({
   const handleDelete = async (idStory, userId) => {
     try {
       await deleteStory(idStory, userId);
-      alert(`Player's character successfully deleted!`);
+      showSuccessToast("item.deleteSuccess");
       location.reload();
     } catch (error) {
       console.error("Error while deleting players character", error);
-      alert("error while deleting players character.");
+      showErrorToast("item.deleteError");
     }
   };
 
@@ -81,7 +82,7 @@ const SotyrCard = ({
             <Button
               onClick={handleFlip}
               className="flipButton"
-              style={{ backgroundColor: buttonColor }}
+              style={{ backgroundColor: buttonColor, color: textColor }}
             >
               <span className="sr-only">Retourner la carte</span>
               <FontAwesomeIcon icon={faArrowRotateLeft} />
@@ -155,4 +156,4 @@ const SotyrCard = ({
   );
 };
 
-export default SotyrCard;
+export default StoryCard;

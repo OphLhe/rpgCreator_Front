@@ -1,3 +1,13 @@
+// import API from './api';
+
+// export const insertSkillsToClass = (data) => API.post(`/addSkillsToClass`, data)
+
+// export const classSkillsById = (idClass) => API.get(`/classSkillsById/${idClass}`)
+
+// export const classWithSkills = () => API.get(`/allClassesWithSkills`)
+
+// export const updateSkillsToClass = (idClass, skillsIds) => API.put(`/updateSkillsToClass/${idClass}`, {skillsIds})
+
 import API from './api';
 
 export const insertSkillsToClass = (data) => API.post(`/addSkillsToClass`, data,{

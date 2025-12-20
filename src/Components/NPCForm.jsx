@@ -10,6 +10,7 @@ import { species } from "../Services/speciesServices";
 import { classWithSkills} from "../Services/classSkillsServices";
 import { createNpc, npcById } from "../Services/npcServices";
 import { addClassToNpc } from "../Services/npcClassServices";
+import { showPromiseToast, showErrorToast, showCustomSuccess, showCustomError } from "../Utils/toastConfig";
 
 const NPCForm = () => {
   const { idGenre } = useParams();
@@ -61,6 +62,7 @@ const NPCForm = () => {
         console.error('error fetching species ', error);
     }
   }
+
 //   Pour afficher les infos de species une fois sélectionné
   const [selectedSpecies, setSelectedSpecies] = useState(null);
 
@@ -97,64 +99,66 @@ const NPCForm = () => {
   e.preventDefault();
   console.log(selectedSkills);
   setValidatedSkills(selectedSkills)
-  alert(`Compétences validées pour ${selectedClass.className}`)
+  showCustomSuccess(`Compétences validées pour ${selectedClass.className}`)
 };
 
 const handleAddNpc = async (e) => {
     e.preventDefault()
-
     if (!selectedClass || !selectedSpecies) {
-        alert("Veuillez sélectionner une classe et une espèce pour le PNJ.");
+        showCustomError("Veuillez sélectionner une classe et une espèce pour le PNJ.");
         return;
     }
-
     try {
         // création pnj et récupération de son id
-        const response = await createNpc(npcDatas)
-        const insertedId = response.data.insertId
-        await npcById(insertedId)
-        
-        // ajout de la classe au pnj avec nouvelles skills choisies
-        const creation = await addClassToNpc({
-            npcId: insertedId,
-            speciesId:selectedSpecies.idSpecies,
-            classId: selectedClass.idClass,
-            skills: validatedSkills,
-            strengthStat: npcClassDatas.strengthStat,
-            dexterityStat: npcClassDatas.dexterityStat,
-            constitutionStat: npcClassDatas.constitutionStat,
-            intelligenceStat: npcClassDatas.intelligenceStat,
-            wisdomStat: npcClassDatas.wisdomStat,
-            charismaStat: npcClassDatas.charismaStat,
-            strModifier: npcClassDatas.strModifier,
-            dexModifier: npcClassDatas.dexModifier,
-            conModifier: npcClassDatas.conModifier,
-            intModifier: npcClassDatas.intModifier,
-            wisModifier: npcClassDatas.wisModifier,
-            chaModifier: npcClassDatas.chaModifier,
-        })
-        // remise à 0 du formulaire
-        setNpcData({
-            npcFirstname: "",
-            npcLastname: "",
-            npcNickname: "",
-            npcGender: "",
-            npcAge: 0,
-            npcBiography: "",
-            npcPhysic: "",
-            npcLevel: 0,
-            speciesId: "",
-        })
-        setNpcClassDatas("")
-        setSelectedClass(null)
-        setSpecies([])
-        setSelectedSpecies(null)
-        setSelectedSkills([])
-        console.log(creation);
-        alert('Npc créée avec succés')
+        await showPromiseToast(
+            async () => {
+                const response = await createNpc(npcDatas)
+                const insertedId = response.data.insertId
+                await npcById(insertedId)
+                // ajout de la classe au pnj avec nouvelles skills choisies
+                const creation = await addClassToNpc({
+                    npcId: insertedId,
+                    speciesId:selectedSpecies.idSpecies,
+                    classId: selectedClass.idClass,
+                    skills: validatedSkills,
+                    strengthStat: npcClassDatas.strengthStat,
+                    dexterityStat: npcClassDatas.dexterityStat,
+                    constitutionStat: npcClassDatas.constitutionStat,
+                    intelligenceStat: npcClassDatas.intelligenceStat,
+                    wisdomStat: npcClassDatas.wisdomStat,
+                    charismaStat: npcClassDatas.charismaStat,
+                    strModifier: npcClassDatas.strModifier,
+                    dexModifier: npcClassDatas.dexModifier,
+                    conModifier: npcClassDatas.conModifier,
+                    intModifier: npcClassDatas.intModifier,
+                    wisModifier: npcClassDatas.wisModifier,
+                    chaModifier: npcClassDatas.chaModifier,
+                })
+                // remise à 0 du formulaire
+                setNpcData({
+                    npcFirstname: "",
+                    npcLastname: "",
+                    npcNickname: "",
+                    npcGender: "",
+                    npcAge: 0,
+                    npcBiography: "",
+                    npcPhysic: "",
+                    npcLevel: 0,
+                    speciesId: "",
+                })
+                setNpcClassDatas("")
+                setSelectedClass(null)
+                setSpecies([])
+                setSelectedSpecies(null)
+                setSelectedSkills([])
+            },
+            "item.createPending",
+            "item.createSuccess",
+            "item.createError"
+        );
     } catch (error) {
         console.error(error);
-        alert("Error while creating Npc")
+        showErrorToast("item.createError");
     }
 }
 

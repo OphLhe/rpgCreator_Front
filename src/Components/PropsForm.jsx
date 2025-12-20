@@ -7,6 +7,7 @@ import { createProps } from "../Services/propsServices";
 import genreInputsColors from "../Utils/genreInputsColors";
 import genreButtonsColors from "../Utils/genreButtonsColors";
 import genreTextColors from "../Utils/genreTextColors";
+import { showPromiseToast, showErrorToast } from "../Utils/toastConfig";
 
 const PropsForm = () => {
   const [genres, setGenre] = useState([]);
@@ -20,12 +21,23 @@ const PropsForm = () => {
   const handleAddProps = async (e) => {
     e.preventDefault();
     try {
-      await createProps(idGenre, propsDatas);
-      alert("Props created successfully");
-    } catch (error) {
-      console.error(error);
-      alert("CPT");
-    }
+      await showPromiseToast(
+        async () => {
+          await createProps(idGenre, propsDatas);
+        },
+        "item.createPending",
+        "item.createSuccess",
+        "item.createError"
+      );
+      setPropsData({
+        propsName: "",
+        propsDesc: "",
+        propsEffect: "",
+      });
+        } catch (error) {
+        console.error(error);
+        showErrorToast("item.createError");
+      }
   };
 
   const fetchGenreById = async () => {

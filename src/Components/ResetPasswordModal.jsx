@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Form, Modal, NavLink } from "react-bootstrap";
 import { forgotPassword } from "../Services/userServices";
+import { showSuccessToast } from "../Utils/toastConfig";
 
 const ResetPasswordModal = () => {
 
@@ -13,7 +14,7 @@ const ResetPasswordModal = () => {
         const formData = new FormData(event.target)
         setEmail(formData.get('email'))
         forgotPassword({email})
-        alert("un email a été envoyé à l'adresse e-mail renseignée" )
+        showSuccessToast('passwordReset.emailSent')
         location.reload()
     }
 

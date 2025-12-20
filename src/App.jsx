@@ -11,14 +11,15 @@ import ProfilePage from './Pages/ProfilePage';
 import ResetPassword from './Pages/ResetPassword';
 import QuestPage from './Pages/QuestPage';
 import Page404 from './Components/Page404';
-
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 
   return (
     <>
   
+      <ToastContainer/>        
       <Router>
         <NavBar/>
         <Routes>

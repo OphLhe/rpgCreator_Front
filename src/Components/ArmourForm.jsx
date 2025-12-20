@@ -7,6 +7,7 @@ import { createArmour } from "../Services/armourServices";
 import genreInputsColors from "../Utils/genreInputsColors";
 import genreButtonsColors from "../Utils/genreButtonsColors";
 import genreTextColors from "../Utils/genreTextColors";
+import { showPromiseToast, showErrorToast } from "../Utils/toastConfig";
 
 const ArmourForm = () => {
   
@@ -31,11 +32,15 @@ const ArmourForm = () => {
     const handleAddArmour = async (e) => {
         e.preventDefault();
         try {
-        await createArmour(idGenre,armourDatas);
-        alert("armour created successfully");
+          showPromiseToast(
+            await createArmour(idGenre,armourDatas),
+            "item.createPending",
+            "item.createSuccess",
+            "item.createError"
+        )
         } catch (error) {
-        console.error(error);
-        alert("CPT");
+          console.error(error);
+          showErrorToast("item.createError");
         }
     };
 

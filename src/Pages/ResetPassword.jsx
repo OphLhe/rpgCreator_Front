@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router";
 import { resetPassword } from "../Services/userServices";
 import { Button } from "react-bootstrap";
 import PasswordChecklist from "react-password-checklist";
+import { showErrorToast, showSuccessToast } from "../Utils/toastConfig";
 
 const ResetPassword = () => {
 
@@ -27,19 +28,18 @@ const ResetPassword = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    setPassword(formData.get("password"));
-
-    // Simulate sending a password reset request
-    console.log("Réinitialisation du mot de passe:", password);
-    console.log("Token de réinitialisation:", tokenReset);
-
-    resetPassword({ password }, tokenReset )
-    .then(response => console.log("Réponse du serveur:", response))
-    .catch(error => console.error("Erreur:", error));
-
-    alert('password reset successfull')
-    navigate('/login')
+    try{
+      const formData = new FormData(event.target);
+      setPassword(formData.get("password"));
+      resetPassword({ password }, tokenReset )
+      .then(response => console.log("Réponse du serveur:", response))
+      .catch(error => console.error("Erreur:", error));
+      showSuccessToast('passwordReset.resetSuccess')
+      navigate('/login')
+    } catch (error) {
+      console.error("Erreur lors de la réinitialisation du mot de passe:", error);
+      showErrorToast('passwordReset.resetError')
+    }
   };
 
   const [passwordAgain, setPasswordAgain] = useState("");

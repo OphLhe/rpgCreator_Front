@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import {getSkills} from '../Services/skillsServices'
+import { showCustomError } from "../Utils/toastConfig";
 
 const ClassSkillsUpdateForm = ({ initialSkills = [], onSkillsUpdate }) => {
 
@@ -25,7 +26,7 @@ const ClassSkillsUpdateForm = ({ initialSkills = [], onSkillsUpdate }) => {
                 onSkillsUpdate([...selectedSkills, skill]); // Met à jour les compétences dans ClassCard
                 setSelectedSkillId("");
             } else {
-            alert("Cette compétence a déjà été ajoutée.");
+            showCustomError("Compétence déjà ajoutée.");
             }
     };
 

@@ -3,13 +3,10 @@ import "../index.css";
 import { Button, Form, FormLabel, Modal } from "react-bootstrap";
 import ReactBoxFlip from "react-box-flip";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowRotateLeft,
-  faPen,
-  faTrashCan,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowRotateLeft, faPen, faTrashCan} from "@fortawesome/free-solid-svg-icons";
 import { deleteClass, updateClass } from "../Services/classServices";
 import ClassSkillsUpdateForm from '../Components/ClassSkillsUpdateForm';
+import { showCustomError, showErrorToast, showSuccessToast } from "../Utils/toastConfig";
 
 const ClassCard = ({
   idClass,
@@ -56,27 +53,27 @@ const ClassCard = ({
         classPv: updatedClass.classPv,
         skills: updatedClass.skills
       });
-      alert("Class updated successfully");
+      showSuccessToast('item.updateSuccess');
       handleCloseModify();
       fetchGetClass();
     } catch (error) {
       console.error("Error while updating class");
-      alert("Error while updating class");
+      showErrorToast('item.updateError');
     }
   };
 
   const handleDelete = async (idClass, userId) => {
     try {
       await deleteClass(idClass, userId);
-      alert(`Class successfully deleted!`);
+      showSuccessToast('item.deleteSuccess');
       handleClose();
       location.reload();
     } catch (error) {
       if (error.response.status === 403) {
-        alert(error.response.data.message);
+        showCustomError(error.response.data.message);
       } else {
         console.error("Error while deleting armour", error);
-        alert("error while deleting armour.");
+        showErrorToast('item.deleteError');
       }
     }
   };
@@ -93,8 +90,7 @@ const ClassCard = ({
     <>
       <div className="itemCard">
         <ReactBoxFlip isFlipped={isFlipped}>
-          <div
-            className="cardRecto"
+          <div className="cardRecto"
             style={{ backgroundColor: "#212121", color: "#fff" }}
           >
             <h2>Classes</h2>
@@ -260,8 +256,7 @@ const ClassCard = ({
             </div>
           </div>
 
-          <div
-            className="cardVerso"
+          <div className="cardVerso"
             style={{ backgroundColor: "#212121", color: "#fff" }}
           >
             <div className={`descSpan ${showText ? "expanded" : "collapsed"} `}>

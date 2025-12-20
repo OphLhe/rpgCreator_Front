@@ -1,7 +1,7 @@
 import '../Styles/homePage.css'
 import '../Styles/genreCard.css'
 import '../index.css'
-import { Nav } from 'react-bootstrap';
+import { Button, Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAnglesDown } from '@fortawesome/free-solid-svg-icons/faAnglesDown';
 import { useEffect, useState } from 'react';
@@ -9,8 +9,8 @@ import { genre } from '../Services/genreServices';
 import { useNavigate } from 'react-router-dom';
 import GenreCard from '../Components/genreCard';
 
-
 const HomePage = () => {
+
     const navigate = useNavigate();
     const [genres, setGenre] = useState([])
 

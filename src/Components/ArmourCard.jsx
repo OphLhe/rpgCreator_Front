@@ -7,13 +7,9 @@ import { armour, deleteArmour, updateArmour } from "../Services/armourServices";
 import genreTextColors from "../Utils/genreTextColors";
 import genreInputsColors from "../Utils/genreInputsColors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowRotateLeft,
-  faPen,
-  faTrashCan,
-} from "@fortawesome/free-solid-svg-icons";
-import ArmourForm from "../Components/ArmourForm";
+import {faArrowRotateLeft, faPen, faTrashCan} from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-bootstrap/Modal";
+import { showSuccessToast, showErrorToast } from "../Utils/toastConfig";
 
 const ArmourCard = ({
   idArmour,
@@ -54,18 +50,14 @@ const ArmourCard = ({
   const handleDelete = async (idArmour, userId) => {
     try {
       await deleteArmour(idArmour, userId);
-      alert(`Armour successfully deleted!`);
+      showSuccessToast('item.deleteSuccess');
       handleClose();
       location.reload();
     } catch (error) {
-      if (error.response.status === 403) {
-        alert(error.response.data.message);
-      } else {
         console.error("Error while deleting armour", error);
-        alert("error while deleting armour.");
+        showErrorToast('item.deleteError');
       }
     }
-  };
 
   const [localArmour, setLocalArmour] = useState({
     armourName: initialArmourName,
@@ -73,12 +65,14 @@ const ArmourCard = ({
     armourClass: initialArmourClass,
     armourEffect: initialArmourEffect,
   });
+
   const [armourDatas, setArmourData] = useState({
     armourName: initialArmourName,
     armourDesc: initialArmourDesc,
     armourClass: initialArmourClass,
     armourEffect: initialArmourEffect,
   });
+  
   const handleUpdate = async (idArmour, userId) => {
     try {
       const response = await updateArmour(idArmour, userId, armourDatas);
@@ -89,12 +83,12 @@ const ArmourCard = ({
         armourClass: updatedArmour.armourClass,
         armourEffect: updatedArmour.armourEffect,
       });
-      alert("Armour updated successfully");
+      showSuccessToast('item.updateSuccess');
       handleCloseModify();
       fetchGetArmour();
     } catch (error) {
       console.error("Error while updating armour");
-      alert("Error while updating armour");
+      showErrorToast('item.updateError');
     }
   };
 
@@ -120,8 +114,8 @@ const ArmourCard = ({
     <>
       <div className="itemCard">
         <ReactBoxFlip isFlipped={isFlipped}>
-          <div
-            className="cardRecto"
+
+          <div className="cardRecto"
             style={{ backgroundColor: inputColor, color: textColor }}
           >
             <h2>Armure</h2>
@@ -145,7 +139,7 @@ const ArmourCard = ({
                 <FontAwesomeIcon icon={faPen} />
               </Button>
               <Modal
-                aria-labelledby="contained-modal-title-vcenter"
+                aria-labelledby="contained-modal-title-center"
                 centered
                 show={showModify}
                 onHide={handleCloseModify}
@@ -263,14 +257,15 @@ const ArmourCard = ({
                 </Modal.Footer>
               </Modal>
             </div>
+
           </div>
 
-          <div
-            className="cardVerso"
+          <div className="cardVerso"
             style={{ backgroundColor: inputColor, color: textColor }}
           >
             <div className={`descSpan ${showText ? "expanded" : "collapsed"} `}>
               <span>
+                Description : {" "}
                 {showText
                   ? localArmour.armourDesc
                   : truncate(localArmour.armourDesc)}
@@ -280,7 +275,7 @@ const ArmourCard = ({
                   <Button
                     onClick={() => setShowText(!showText)}
                     className="detailsButton"
-                    style={{ backgroundColor: buttonColor }}
+                    style={{ backgroundColor: buttonColor, color: textColor }}
                   >
                     {showText ? "Réduire" : "Détails"}
                   </Button>
@@ -294,7 +289,7 @@ const ArmourCard = ({
                 } `}
               >
                 <span>
-                  Effets :{" "}
+                  Effets : {" "}
                   {showOtherText
                     ? localArmour.armourEffect
                     : truncateOther(localArmour.armourEffect)}
@@ -304,7 +299,7 @@ const ArmourCard = ({
                     <Button
                       onClick={() => setShowOtherText(!showOtherText)}
                       className="detailsButton"
-                      style={{ backgroundColor: buttonColor }}
+                      style={{ backgroundColor: buttonColor, color: textColor }}
                     >
                       {showOtherText ? "Réduire" : "Détails"}
                     </Button>
@@ -317,17 +312,18 @@ const ArmourCard = ({
             <Button
               className="flipButton"
               onClick={handleFlip}
-              style={{ backgroundColor: buttonColor }}
+              style={{ backgroundColor: buttonColor, color: textColor }}
             >
               <FontAwesomeIcon icon={faArrowRotateLeft} />
             </Button>
 
             <span>Verso</span>
+
           </div>
+
         </ReactBoxFlip>
       </div>
     </>
   );
 };
-
 export default ArmourCard;

@@ -5,6 +5,7 @@ import '../Styles/page404.css'
 const Page404 = () => {
 
     const navigate = useNavigate()
+    
     return ( 
     <>
     <header className="header404">

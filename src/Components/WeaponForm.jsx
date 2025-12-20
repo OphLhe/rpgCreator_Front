@@ -7,6 +7,7 @@ import { createWeapon } from "../Services/weaponServices";
 import genreInputsColors from "../Utils/genreInputsColors";
 import genreButtonsColors from "../Utils/genreButtonsColors";
 import genreTextColors from "../Utils/genreTextColors";
+import { showPromiseToast, showErrorToast } from "../Utils/toastConfig";
 
 const WeaponForm = () => {
   const [genres, setGenre] = useState([]);
@@ -22,11 +23,24 @@ const WeaponForm = () => {
   const handleAddWeapon = async (e) => {
     e.preventDefault();
     try {
-      await createWeapon(idGenre, weaponDatas);
-      alert("weapon created successfully");
+      await showPromiseToast(
+        async () => {
+          await createWeapon(idGenre, weaponDatas);
+        },
+        "item.createPending",
+        "item.createSuccess",
+        "item.createError"
+      );
+      setWeaponData({
+        weaponName: "",
+        weaponType: "",
+        weaponDesc: "",
+        weaponEffect: "",
+        weaponRange: "",
+      });
     } catch (error) {
       console.error(error);
-      alert("CPT");
+      showErrorToast("item.createError");
     }
   };
 
