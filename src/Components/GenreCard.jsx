@@ -18,7 +18,7 @@ const GenreCard = ({genreName, genrePicture, idGenre, genreDef, className=''}) =
         <div className={`genreCardUnique ${className}`}>
 
             <div className={`genreCardContent ${className}`} >
-                <img src={`http://192.168.1.39:3000/pictures/${genrePicture}`}
+                <img src={`http://localhost:3000/pictures/${genrePicture}`}
                 className={`pictureGenreCard ${className}`}
                 alt={genreName} />
                 <div onMouseOver={() => setOpen(true)}
